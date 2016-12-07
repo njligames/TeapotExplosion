@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C15564CA1DF7C3290081C110 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564C91DF7C3290081C110 /* main.m */; };
+		C15564CD1DF7C3290081C110 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564CC1DF7C3290081C110 /* AppDelegate.m */; };
+		C15564CF1DF7C3290081C110 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = C15564CE1DF7C3290081C110 /* Shader.fsh */; };
+		C15564D11DF7C3290081C110 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = C15564D01DF7C3290081C110 /* Shader.vsh */; };
+		C15564D41DF7C3290081C110 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564D31DF7C3290081C110 /* GameViewController.m */; };
+		C15564D71DF7C3290081C110 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C15564D51DF7C3290081C110 /* Main.storyboard */; };
+		C15564D91DF7C3290081C110 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C15564D81DF7C3290081C110 /* Assets.xcassets */; };
+		C15564DC1DF7C3290081C110 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C15564DA1DF7C3290081C110 /* LaunchScreen.storyboard */; };
+		C15564E71DF7C3290081C110 /* TeapotExplosionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564E61DF7C3290081C110 /* TeapotExplosionTests.m */; };
+		C15564F21DF7C3290081C110 /* TeapotExplosionUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564F11DF7C3290081C110 /* TeapotExplosionUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C15564E31DF7C3290081C110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C15564BD1DF7C3290081C110 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C15564C41DF7C3290081C110;
+			remoteInfo = TeapotExplosion;
+		};
+		C15564EE1DF7C3290081C110 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C15564BD1DF7C3290081C110 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C15564C41DF7C3290081C110;
+			remoteInfo = TeapotExplosion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C15564C51DF7C3290081C110 /* TeapotExplosion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeapotExplosion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15564C91DF7C3290081C110 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C15564CB1DF7C3290081C110 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C15564CC1DF7C3290081C110 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C15564CE1DF7C3290081C110 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		C15564D01DF7C3290081C110 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		C15564D21DF7C3290081C110 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		C15564D31DF7C3290081C110 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		C15564D61DF7C3290081C110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C15564D81DF7C3290081C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C15564DB1DF7C3290081C110 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C15564DD1DF7C3290081C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C15564E21DF7C3290081C110 /* TeapotExplosionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeapotExplosionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15564E61DF7C3290081C110 /* TeapotExplosionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeapotExplosionTests.m; sourceTree = "<group>"; };
+		C15564E81DF7C3290081C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C15564ED1DF7C3290081C110 /* TeapotExplosionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeapotExplosionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C15564F11DF7C3290081C110 /* TeapotExplosionUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeapotExplosionUITests.m; sourceTree = "<group>"; };
+		C15564F31DF7C3290081C110 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C15564C21DF7C3290081C110 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564DF1DF7C3290081C110 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564EA1DF7C3290081C110 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C15564BC1DF7C3290081C110 = {
+			isa = PBXGroup;
+			children = (
+				C15564C71DF7C3290081C110 /* TeapotExplosion */,
+				C15564E51DF7C3290081C110 /* TeapotExplosionTests */,
+				C15564F01DF7C3290081C110 /* TeapotExplosionUITests */,
+				C15564C61DF7C3290081C110 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C15564C61DF7C3290081C110 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C15564C51DF7C3290081C110 /* TeapotExplosion.app */,
+				C15564E21DF7C3290081C110 /* TeapotExplosionTests.xctest */,
+				C15564ED1DF7C3290081C110 /* TeapotExplosionUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C15564C71DF7C3290081C110 /* TeapotExplosion */ = {
+			isa = PBXGroup;
+			children = (
+				C15564CB1DF7C3290081C110 /* AppDelegate.h */,
+				C15564CC1DF7C3290081C110 /* AppDelegate.m */,
+				C15564CE1DF7C3290081C110 /* Shader.fsh */,
+				C15564D01DF7C3290081C110 /* Shader.vsh */,
+				C15564D21DF7C3290081C110 /* GameViewController.h */,
+				C15564D31DF7C3290081C110 /* GameViewController.m */,
+				C15564D51DF7C3290081C110 /* Main.storyboard */,
+				C15564D81DF7C3290081C110 /* Assets.xcassets */,
+				C15564DA1DF7C3290081C110 /* LaunchScreen.storyboard */,
+				C15564DD1DF7C3290081C110 /* Info.plist */,
+				C15564C81DF7C3290081C110 /* Supporting Files */,
+			);
+			path = TeapotExplosion;
+			sourceTree = "<group>";
+		};
+		C15564C81DF7C3290081C110 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C15564C91DF7C3290081C110 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C15564E51DF7C3290081C110 /* TeapotExplosionTests */ = {
+			isa = PBXGroup;
+			children = (
+				C15564E61DF7C3290081C110 /* TeapotExplosionTests.m */,
+				C15564E81DF7C3290081C110 /* Info.plist */,
+			);
+			path = TeapotExplosionTests;
+			sourceTree = "<group>";
+		};
+		C15564F01DF7C3290081C110 /* TeapotExplosionUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C15564F11DF7C3290081C110 /* TeapotExplosionUITests.m */,
+				C15564F31DF7C3290081C110 /* Info.plist */,
+			);
+			path = TeapotExplosionUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C15564C41DF7C3290081C110 /* TeapotExplosion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15564F61DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosion" */;
+			buildPhases = (
+				C15564C11DF7C3290081C110 /* Sources */,
+				C15564C21DF7C3290081C110 /* Frameworks */,
+				C15564C31DF7C3290081C110 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TeapotExplosion;
+			productName = TeapotExplosion;
+			productReference = C15564C51DF7C3290081C110 /* TeapotExplosion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C15564E11DF7C3290081C110 /* TeapotExplosionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15564F91DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionTests" */;
+			buildPhases = (
+				C15564DE1DF7C3290081C110 /* Sources */,
+				C15564DF1DF7C3290081C110 /* Frameworks */,
+				C15564E01DF7C3290081C110 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C15564E41DF7C3290081C110 /* PBXTargetDependency */,
+			);
+			name = TeapotExplosionTests;
+			productName = TeapotExplosionTests;
+			productReference = C15564E21DF7C3290081C110 /* TeapotExplosionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C15564EC1DF7C3290081C110 /* TeapotExplosionUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15564FC1DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionUITests" */;
+			buildPhases = (
+				C15564E91DF7C3290081C110 /* Sources */,
+				C15564EA1DF7C3290081C110 /* Frameworks */,
+				C15564EB1DF7C3290081C110 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C15564EF1DF7C3290081C110 /* PBXTargetDependency */,
+			);
+			name = TeapotExplosionUITests;
+			productName = TeapotExplosionUITests;
+			productReference = C15564ED1DF7C3290081C110 /* TeapotExplosionUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C15564BD1DF7C3290081C110 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "NJLIGames Ltd.";
+				TargetAttributes = {
+					C15564C41DF7C3290081C110 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = SRBQ5SCF5X;
+						ProvisioningStyle = Automatic;
+					};
+					C15564E11DF7C3290081C110 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = SRBQ5SCF5X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C15564C41DF7C3290081C110;
+					};
+					C15564EC1DF7C3290081C110 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = SRBQ5SCF5X;
+						ProvisioningStyle = Automatic;
+						TestTargetID = C15564C41DF7C3290081C110;
+					};
+				};
+			};
+			buildConfigurationList = C15564C01DF7C3290081C110 /* Build configuration list for PBXProject "TeapotExplosion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C15564BC1DF7C3290081C110;
+			productRefGroup = C15564C61DF7C3290081C110 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C15564C41DF7C3290081C110 /* TeapotExplosion */,
+				C15564E11DF7C3290081C110 /* TeapotExplosionTests */,
+				C15564EC1DF7C3290081C110 /* TeapotExplosionUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C15564C31DF7C3290081C110 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15564D71DF7C3290081C110 /* Main.storyboard in Resources */,
+				C15564D11DF7C3290081C110 /* Shader.vsh in Resources */,
+				C15564D91DF7C3290081C110 /* Assets.xcassets in Resources */,
+				C15564DC1DF7C3290081C110 /* LaunchScreen.storyboard in Resources */,
+				C15564CF1DF7C3290081C110 /* Shader.fsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564E01DF7C3290081C110 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564EB1DF7C3290081C110 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C15564C11DF7C3290081C110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15564CD1DF7C3290081C110 /* AppDelegate.m in Sources */,
+				C15564D41DF7C3290081C110 /* GameViewController.m in Sources */,
+				C15564CA1DF7C3290081C110 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564DE1DF7C3290081C110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15564E71DF7C3290081C110 /* TeapotExplosionTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15564E91DF7C3290081C110 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C15564F21DF7C3290081C110 /* TeapotExplosionUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C15564E41DF7C3290081C110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C15564C41DF7C3290081C110 /* TeapotExplosion */;
+			targetProxy = C15564E31DF7C3290081C110 /* PBXContainerItemProxy */;
+		};
+		C15564EF1DF7C3290081C110 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C15564C41DF7C3290081C110 /* TeapotExplosion */;
+			targetProxy = C15564EE1DF7C3290081C110 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C15564D51DF7C3290081C110 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C15564D61DF7C3290081C110 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C15564DA1DF7C3290081C110 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C15564DB1DF7C3290081C110 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C15564F41DF7C3290081C110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C15564F51DF7C3290081C110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C15564F71DF7C3290081C110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C15564F81DF7C3290081C110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C15564FA1DF7C3290081C110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeapotExplosion.app/TeapotExplosion";
+			};
+			name = Debug;
+		};
+		C15564FB1DF7C3290081C110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosionTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TeapotExplosion.app/TeapotExplosion";
+			};
+			name = Release;
+		};
+		C15564FD1DF7C3290081C110 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosionUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosionUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TeapotExplosion;
+			};
+			name = Debug;
+		};
+		C15564FE1DF7C3290081C110 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				INFOPLIST_FILE = TeapotExplosionUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosionUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TeapotExplosion;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C15564C01DF7C3290081C110 /* Build configuration list for PBXProject "TeapotExplosion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15564F41DF7C3290081C110 /* Debug */,
+				C15564F51DF7C3290081C110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C15564F61DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15564F71DF7C3290081C110 /* Debug */,
+				C15564F81DF7C3290081C110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C15564F91DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15564FA1DF7C3290081C110 /* Debug */,
+				C15564FB1DF7C3290081C110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C15564FC1DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15564FD1DF7C3290081C110 /* Debug */,
+				C15564FE1DF7C3290081C110 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C15564BD1DF7C3290081C110 /* Project object */;
+}
