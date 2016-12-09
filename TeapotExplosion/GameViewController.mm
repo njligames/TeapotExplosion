@@ -97,7 +97,9 @@
 {
     GLKView *view = (GLKView *)self.view;
     
-    jamesfolk::World::getInstance()->resize(0, 0, view.frame.size.width * view.contentScaleFactor, view.frame.size.height * view.contentScaleFactor);
+    jamesfolk::World::getInstance()->resize(0, 0,
+                                            view.frame.size.width * view.contentScaleFactor,
+                                            view.frame.size.height * view.contentScaleFactor);
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

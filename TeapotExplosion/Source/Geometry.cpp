@@ -1,8 +1,8 @@
 //
 //  Geometry.cpp
-//  VerizonTest
+//  TeapotExplosion
 //
-//  Created by James Folk on 6/27/16.
+//  Created by James Folk on 12/8/16.
 //  Copyright © 2016 NJLIGames Ltd. All rights reserved.
 //
 
@@ -14,114 +14,11 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 #include "Node.hpp"
-//https://en.wikipedia.org/wiki/Wavefront_.obj_file#Material_template_library
 
 namespace jamesfolk
 {
     
-    const unsigned int HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP = 0x38000000;
-    const unsigned int HALF_FLOAT_MAX_BIASED_EXP_AS_SINGLE_FP_EXP = 0x47800000;
-    const unsigned int FLOAT_MAX_BIASED_EXP = (0xFF << 23);
-    const unsigned int HALF_FLOAT_MAX_BIASED_EXP = (0x1F << 10);
-    
-    static hfloat convertFloatToHFloat(float *f)
-    {
-        unsigned int x = *(unsigned int *)f;
-        unsigned int sign = (unsigned short)(x >> 31);
-        unsigned int mantissa;
-        unsigned int exp;
-        hfloat hf;
-        
-        //get mantissa
-        mantissa = x & ((1<<23) - 1);
-        //get exponent bits
-        exp = x & FLOAT_MAX_BIASED_EXP;
-        if(exp >= HALF_FLOAT_MAX_BIASED_EXP_AS_SINGLE_FP_EXP)
-        {
-            //check if the original single precision float number is a NaN
-            if (mantissa && (exp == FLOAT_MAX_BIASED_EXP))
-            {
-                //we have  a single precision NaN
-                mantissa = (1<<23) - 1;
-            }
-            else
-            {
-                // 16-bit half-float representation stores number as Inf;
-                mantissa = 0;
-            }
-            hf = (((hfloat)sign) << 15) | (hfloat)(HALF_FLOAT_MAX_BIASED_EXP) | (hfloat)(mantissa >> 13);
-        }
-        //check if exponent is <= -15
-        else if (exp <= HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP)
-        {
-            //store a denorm half-float value or zero
-            exp = (HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP - exp) >> 23;
-            mantissa >>= (14 + exp);
-            
-            hf = (((hfloat)sign) << 15) | (hfloat)(mantissa);
-        }
-        else
-        {
-            hf = (((hfloat)sign) << 15) |
-            (hfloat)((exp - HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP) >> 13) |
-            (hfloat)(mantissa >> 13);
-        }
-        return hf;
-    }
-    
-    static float convertHFloatToFloat(hfloat hf)
-    {
-        unsigned int sign = (unsigned int)(hf >> 15);
-        unsigned int mantissa = (unsigned int)(hf & ((1 << 10) - 1));
-        unsigned int exp = (unsigned int)(hf & HALF_FLOAT_MAX_BIASED_EXP);
-        unsigned int f;
-        
-        if(exp == HALF_FLOAT_MAX_BIASED_EXP)
-        {
-            /*
-             we have a half-float NaN or Inf
-             half-float NaNas will be converted to a single precision NaN
-             half-float Infs will be converted to a single precision Inf
-             */
-            exp = FLOAT_MAX_BIASED_EXP;
-            if(mantissa)
-                mantissa = (1 << 23) - 1;
-        }
-        else if (exp == 0x0)
-        {
-            //convert half-float zero/denorm to single precision value
-            if(mantissa)
-            {
-                mantissa <<= 1;
-                exp = HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP;
-                //check for leading 1 in denorm mantissa
-                while ((mantissa & (1 << 10)) == 0)
-                {
-                    /*
-                     for every leading 0, decrement single precision exponent by 1
-                     and shift half-float mantissa value to the left
-                     */
-                    mantissa <<= 1;
-                    exp -= (1 << 23);
-                }
-                //clamp the mantissa to 10-bits
-                mantissa &= ((1 << 10) - 1);
-                //shift left to generate single-precision mantissa of 23-bits
-                mantissa <<= 13;
-            }
-        }
-        else
-        {
-            //shift left to generate single-precision mantissa of 23-bits
-            mantissa <<= 13;
-            //generate single precision biased exponent value
-            exp = (exp << 13) + HALF_FLOAT_MIN_BIASED_EXP_AS_SINGLE_FP_EXP;
-        }
-        f = (sign << 31) | exp | mantissa;
-        return *((float*)&f);
-    }
-    
-    static const GLfptype TRANSFORM_IDENTITY_MATRIX[] =
+    static const GLfloat TRANSFORM_IDENTITY_MATRIX[] =
     {
         1, 0, 0, 0,
         0, 1, 0, 0,
@@ -129,24 +26,13 @@ namespace jamesfolk
         0, 0, 0, 1,
     };
     
-    static const GLfptype COLOR_IDENTITY_MATRIX[] =
-    {
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 0,
-    };
-    
-    
     Geometry::Geometry():
-    m_MatrixBuffer(new GLfptype[16]),
+    m_MatrixBuffer(new GLfloat[16]),
     m_MatrixBufferFullSize(new float[16]),
     m_ModelViewTransformData(NULL),
-//    m_ColorTransformData(NULL),
     m_NormalMatrixTransformData(NULL),
     m_VertexArray(0),
     m_ModelViewBuffer(0),
-//    m_ColorTransformBuffer(0),
     m_NormalMatrixTransformBuffer(0),
     m_VerticesBuffer(0),
     m_IndexBuffer(0),
@@ -170,10 +56,6 @@ namespace jamesfolk
         if(m_NormalMatrixTransformData)
             delete [] m_NormalMatrixTransformData;
         m_NormalMatrixTransformData = NULL;
-        
-//        if(m_ColorTransformData)
-//            delete [] m_ColorTransformData;
-//        m_ColorTransformData = NULL;
         
         if(m_ModelViewTransformData)
             delete [] m_ModelViewTransformData;
@@ -211,29 +93,12 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inTransformAttrib + 1);
                 glEnableVertexAttribArray(inTransformAttrib + 2);
                 glEnableVertexAttribArray(inTransformAttrib + 3);
-                glVertexAttribPointer(inTransformAttrib + 0, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)0);
-                glVertexAttribPointer(inTransformAttrib + 1, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)16);
-                glVertexAttribPointer(inTransformAttrib + 2, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)32);
-                glVertexAttribPointer(inTransformAttrib + 3, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)48);
+                glVertexAttribPointer(inTransformAttrib + 0, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)0);
+                glVertexAttribPointer(inTransformAttrib + 1, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)16);
+                glVertexAttribPointer(inTransformAttrib + 2, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)32);
+                glVertexAttribPointer(inTransformAttrib + 3, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)48);
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
             }
-            
-//            {
-//                assert(m_ColorTransformBuffer == 0);
-//                glGenBuffers(1, &m_ColorTransformBuffer);
-//                glBindBuffer(GL_ARRAY_BUFFER, m_ColorTransformBuffer);
-//                glBufferData(GL_ARRAY_BUFFER, getColorTransformArrayBufferSize(), getColorTransformArrayBufferPtr(), GL_STREAM_DRAW);
-//                int inColorTransform = getShader()->getAttributeLocation("inColorTransform");
-//                glEnableVertexAttribArray(inColorTransform + 0);
-//                glEnableVertexAttribArray(inColorTransform + 1);
-//                glEnableVertexAttribArray(inColorTransform + 2);
-//                glEnableVertexAttribArray(inColorTransform + 3);
-//                glVertexAttribPointer(inColorTransform + 0, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)0);
-//                glVertexAttribPointer(inColorTransform + 1, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)16);
-//                glVertexAttribPointer(inColorTransform + 2, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)32);
-//                glVertexAttribPointer(inColorTransform + 3, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)48);
-//                glBindBuffer(GL_ARRAY_BUFFER, 0);
-//            }
             
             {
                 assert(m_NormalMatrixTransformBuffer == 0);
@@ -245,12 +110,13 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inNormalMatrixAttrib + 1);
                 glEnableVertexAttribArray(inNormalMatrixAttrib + 2);
                 glEnableVertexAttribArray(inNormalMatrixAttrib + 3);
-                glVertexAttribPointer(inNormalMatrixAttrib + 0, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)0);
-                glVertexAttribPointer(inNormalMatrixAttrib + 1, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)16);
-                glVertexAttribPointer(inNormalMatrixAttrib + 2, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)32);
-                glVertexAttribPointer(inNormalMatrixAttrib + 3, 4, GL_INDEX_TYPE, 0, sizeof(GLfptype) * 16, (GLvoid*)48);
+                glVertexAttribPointer(inNormalMatrixAttrib + 0, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)0);
+                glVertexAttribPointer(inNormalMatrixAttrib + 1, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)16);
+                glVertexAttribPointer(inNormalMatrixAttrib + 2, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)32);
+                glVertexAttribPointer(inNormalMatrixAttrib + 3, 4, GL_FLOAT, 0, sizeof(GLfloat) * 16, (GLvoid*)48);
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
             }
+            
             {
                 assert(m_VerticesBuffer == 0);
                 glGenBuffers(1, &m_VerticesBuffer);
@@ -259,8 +125,6 @@ namespace jamesfolk
                 int inPositionAttrib = getShader()->getAttributeLocation("inPosition");
                 int inColorAttrib = getShader()->getAttributeLocation("inColor");
                 int inNormalAttrib = getShader()->getAttributeLocation("inNormal");
-//                int inOpacityAttrib = getShader()->getAttributeLocation("inOpacity");
-//                int inHiddenAttrib = getShader()->getAttributeLocation("inHidden");
                 int inTexCoordAttrib = getShader()->getAttributeLocation("inTexCoord");
                 
                 int inTangentAttrib = getShader()->getAttributeLocation("inTangent");
@@ -269,7 +133,7 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inPositionAttrib);
                 glVertexAttribPointer(inPositionAttrib,
                                       3,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, vertex));
@@ -278,7 +142,7 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inTexCoordAttrib);
                 glVertexAttribPointer(inTexCoordAttrib,
                                       2,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, texture));
@@ -286,7 +150,7 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inNormalAttrib);
                 glVertexAttribPointer(inNormalAttrib,
                                       3,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, normal));
@@ -294,7 +158,7 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inColorAttrib);
                 glVertexAttribPointer(inColorAttrib,
                                       4,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, color));
@@ -302,7 +166,7 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inTangentAttrib);
                 glVertexAttribPointer(inTangentAttrib,
                                       3,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, tangent));
@@ -310,26 +174,11 @@ namespace jamesfolk
                 glEnableVertexAttribArray(inBiTangentAttrib);
                 glVertexAttribPointer(inBiTangentAttrib,
                                       3,
-                                      GL_INDEX_TYPE,
+                                      GL_FLOAT,
                                       GL_FALSE,
                                       sizeof(TexturedColoredVertex),
                                       (const GLvoid*) offsetof(TexturedColoredVertex, bitangent));
                 
-//                glEnableVertexAttribArray(inOpacityAttrib);
-//                glVertexAttribPointer(inOpacityAttrib,
-//                                      1,
-//                                      GL_INDEX_TYPE,
-//                                      GL_FALSE,
-//                                      sizeof(TexturedColoredVertex),
-//                                      (const GLvoid*)offsetof(TexturedColoredVertex, opacity));
-                
-//                glEnableVertexAttribArray(inHiddenAttrib);
-//                glVertexAttribPointer(inHiddenAttrib,
-//                                      1,
-//                                      GL_INDEX_TYPE,
-//                                      GL_FALSE,
-//                                      sizeof(TexturedColoredVertex),
-//                                      (const GLvoid*)offsetof(TexturedColoredVertex, hidden));
                 glBindBuffer(GL_ARRAY_BUFFER, 0);
             }
             
@@ -356,10 +205,6 @@ namespace jamesfolk
         if (m_NormalMatrixTransformBuffer)
             glDeleteBuffers(1, &m_NormalMatrixTransformBuffer);
         m_NormalMatrixTransformBuffer = 0;
-        
-//        if (m_ColorTransformBuffer)
-//            glDeleteBuffers(1, &m_ColorTransformBuffer);
-//        m_ColorTransformBuffer = 0;
         
         if (m_ModelViewBuffer)
             glDeleteBuffers(1, &m_ModelViewBuffer);
@@ -420,77 +265,26 @@ namespace jamesfolk
                 float shininess;
             };
             
-            
-//            shader->setUniformValue("RimLightColor", btVector3(0.25008f, 0.250f, 0.8712f));
             shader->setUniformValue("RimLightColor", btVector3(1.0f, 1.0f, 1.0f));
             shader->setUniformValue("RimLightStart", 0.0f);
             shader->setUniformValue("RimLightEnd", 1.0f);
             shader->setUniformValue("RimLightCoefficient", 0.6f);
-            /*
-             uniform float RimLightStart;
-             uniform float RimLightEnd;
-             uniform float RimLightCoefficient;
-             */
             
             shader->setUniformValue("LightSourceAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
             shader->setUniformValue("LightSourceDiffuseColor", btVector3(1.0f, 1.0f, 1.0f));
             shader->setUniformValue("LightSourceSpecularColor", btVector3(1.0f, 1.0f, 1.0f));
             
-            //set LightSourcePosition_worldspace.w == 0 for DirectionalLight
-            //set LightSourcePosition_worldspace.w != 0 for PointlLight
             shader->setUniformValue("LightSourcePosition_worldspace", btVector4(0.0f, 0.0f, -1.0f, 1.0));
             
             shader->setUniformValue("LightSourceSpotDirection", btVector3(0.0f, 0.0f, 1.0f));
             shader->setUniformValue("LightSourceSpotExponent", 100.0f);
-            //set LightSourceSpotCutoff != 180 for SpotLight
+            
             shader->setUniformValue("LightSourceSpotCutoff", 180.0f);
             shader->setUniformValue("LightSourceSpotCosCutoff", 30.0f);
-            //http://www.ogre3d.org/tikiwiki/-Point+Light+Attenuation
             
-//             Range Constant Linear Quadratic
-//             3250, 1.0, 0.0014, 0.000007
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.0014f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.000007f);
-            
-//             600, 1.0, 0.007, 0.0002
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.007f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0002f);
-            
-            
-//             325, 1.0, 0.014, 0.0007
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.014f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0007f);
-            
-//             200, 1.0, 0.022, 0.0019
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.022f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0019f);
-
-            
-//             160, 1.0, 0.027, 0.0028
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.027f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0028f);
-            
-//             100, 1.0, 0.045, 0.0075
             shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
             shader->setUniformValue("LightSourceLinearAttenuation", 0.045f);
             shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0075f);
-            
-//             65, 1.0, 0.07, 0.017
-//             50, 1.0, 0.09, 0.032
-//             32, 1.0, 0.14, 0.07
-//             20, 1.0, 0.22, 0.20
-//             13, 1.0, 0.35, 0.44
-//             7, 1.0, 0.7, 1.8
-//            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-//            shader->setUniformValue("LightSourceLinearAttenuation", 0.7f);
-//            shader->setUniformValue("LightSourceQuadraticAttenuation", 1.8f);
-            
-            
             
             shader->setUniformValue("LightAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
             
@@ -512,10 +306,6 @@ namespace jamesfolk
                 enableModelViewBufferChanged(false);
             }
             
-//            glBindBuffer(GL_ARRAY_BUFFER, m_ColorTransformBuffer);
-//            glBufferSubData(GL_ARRAY_BUFFER, 0, getColorTransformArrayBufferSize(), getColorTransformArrayBufferPtr());
-//            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            
             if(isNormalMatrixBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_NormalMatrixTransformBuffer);
@@ -533,9 +323,6 @@ namespace jamesfolk
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
             
             glDrawElements(GL_TRIANGLES, numberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
-            
-//            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-//            glBindVertexArrayOES(0);
         }
     }
     
@@ -635,7 +422,7 @@ namespace jamesfolk
     
     GLsizeiptr Geometry::getModelViewTransformArrayBufferSize()const
     {
-        GLsizeiptr size = sizeof(GLfptype) * numberOfInstances() * numberOfVertices() * 16;
+        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
         return size;
     }
     
@@ -658,7 +445,7 @@ namespace jamesfolk
 //    
 //    GLsizeiptr Geometry::getColorTransformArrayBufferSize()const
 //    {
-//        GLsizeiptr size = sizeof(GLfptype) * numberOfInstances() * numberOfVertices() * 16;
+//        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
 //        return size;
 //    }
     
@@ -671,7 +458,7 @@ namespace jamesfolk
     
     GLsizeiptr Geometry::getNormalMatrixTransformArrayBufferSize()const
     {
-        GLsizeiptr size = sizeof(GLfptype) * numberOfInstances() * numberOfVertices() * 16;
+        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
         return size;
     }
     
@@ -689,13 +476,11 @@ namespace jamesfolk
     {
         unLoadData();
         
-        m_ModelViewTransformData = new GLfptype[numberOfInstances() * numberOfVertices() * 16];
-//        m_ColorTransformData = new GLfptype[numberOfInstances() * numberOfVertices() * 16];
-        m_NormalMatrixTransformData = new GLfptype[numberOfInstances() * numberOfVertices() * 16];
+        m_ModelViewTransformData = new GLfloat[numberOfInstances() * numberOfVertices() * 16];
+        m_NormalMatrixTransformData = new GLfloat[numberOfInstances() * numberOfVertices() * 16];
         enableNormalMatrixBufferChanged(true);
         
         assert(m_ModelViewTransformData);
-//        assert(m_ColorTransformData);
         assert(m_NormalMatrixTransformData);
         
         unsigned long i;
@@ -704,11 +489,6 @@ namespace jamesfolk
              i < (numberOfInstances() * numberOfVertices() * 16);
              i += 16)
             memcpy(m_ModelViewTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
-        
-//        for (i = 0;
-//             i < (numberOfInstances() * numberOfVertices() * 16);
-//             i += 16)
-//            memcpy(m_ColorTransformData + i, COLOR_IDENTITY_MATRIX, sizeof(COLOR_IDENTITY_MATRIX));
         
         for (i = 0;
              i < (numberOfInstances() * numberOfVertices() * 16);
@@ -724,10 +504,6 @@ namespace jamesfolk
         if(m_NormalMatrixTransformData)
             delete [] m_NormalMatrixTransformData;
         m_NormalMatrixTransformData = NULL;
-        
-//        if(m_ColorTransformData)
-//            delete [] m_ColorTransformData;
-//        m_ColorTransformData = NULL;
         
         if(m_ModelViewTransformData)
             delete [] m_ModelViewTransformData;
@@ -775,24 +551,18 @@ namespace jamesfolk
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
-#ifdef USE_HALF_FLOAT
-            transform.getOpenGLMatrix(m_MatrixBufferFullSize);
-            for (unsigned long i = 0; i < 16; i++)
-                m_MatrixBuffer[i] = convertFloatToHFloat(&m_MatrixBufferFullSize[i]);
-#else
             transform.getOpenGLMatrix(m_MatrixBuffer);
-#endif
             
             for (int currentVertex = 0; currentVertex < numberOfVertices(); currentVertex++)
             {
                 unsigned long p = ((index * STRIDE) + (16 * currentVertex));
                 int cmp = memcmp(m_ModelViewTransformData + p,
                                  m_MatrixBuffer,
-                                 sizeof(GLfptype) * 16);
+                                 sizeof(GLfloat) * 16);
                 
                 if(0 != cmp)
                 {
-                    memcpy(m_ModelViewTransformData + p, m_MatrixBuffer, sizeof(GLfptype) * 16);
+                    memcpy(m_ModelViewTransformData + p, m_MatrixBuffer, sizeof(GLfloat) * 16);
                 }
             }
             enableModelViewBufferChanged(true);
@@ -811,16 +581,10 @@ namespace jamesfolk
                 unsigned long p = ((index * STRIDE) + (16 * currentVertex));
                 memcpy(m_MatrixBuffer,
                        m_ModelViewTransformData + p,
-                       sizeof(GLfptype) * 16);
+                       sizeof(GLfloat) * 16);
             }
             
-#ifdef USE_HALF_FLOAT
-            for (unsigned long i = 0; i < 16; i++)
-                m_MatrixBufferFullSize[i] = convertHFloatToFloat(m_MatrixBuffer[i]);
-            transform.setFromOpenGLMatrix(m_MatrixBufferFullSize);
-#else
             transform.setFromOpenGLMatrix(m_MatrixBuffer);
-#endif
         }
         return transform;
     }
@@ -839,13 +603,13 @@ namespace jamesfolk
 //                
 //                int cmp = memcmp(m_ColorTransformData + p,
 //                                 m_MatrixBuffer,
-//                                 sizeof(GLfptype) * 16);
+//                                 sizeof(GLfloat) * 16);
 //                
 //                if(0 != cmp)
 //                {
 //                    memcpy(m_ColorTransformData + p,
 //                           m_MatrixBuffer,
-//                           sizeof(GLfptype) * 16);
+//                           sizeof(GLfloat) * 16);
 //                }
 //            }
 //        }
@@ -863,7 +627,7 @@ namespace jamesfolk
 //                unsigned long p = ((index * STRIDE) + (16 * currentVertex));
 //                memcpy(m_MatrixBuffer,
 //                       m_ColorTransformData + p,
-//                       sizeof(GLfptype) * 16);
+//                       sizeof(GLfloat) * 16);
 //            }
 //            
 //            transform.setFromOpenGLMatrix(m_MatrixBuffer);
@@ -877,13 +641,7 @@ namespace jamesfolk
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
-#ifdef USE_HALF_FLOAT
-            transform.getOpenGLMatrix(m_MatrixBufferFullSize);
-            for (unsigned long i = 0; i < 16; i++)
-                m_MatrixBuffer[i] = convertFloatToHFloat(&m_MatrixBufferFullSize[i]);
-#else
             transform.getOpenGLMatrix(m_MatrixBuffer);
-#endif
             
             for (int currentVertex = 0; currentVertex < numberOfVertices(); currentVertex++)
             {
@@ -891,13 +649,13 @@ namespace jamesfolk
                 
                 int cmp = memcmp(m_NormalMatrixTransformData + p,
                                  m_MatrixBuffer,
-                                 sizeof(GLfptype) * 16);
+                                 sizeof(GLfloat) * 16);
                 
                 if(0 != cmp)
                 {
                     memcpy(m_NormalMatrixTransformData + p,
                            m_MatrixBuffer,
-                           sizeof(GLfptype) * 16);
+                           sizeof(GLfloat) * 16);
                 }
             }
             enableNormalMatrixBufferChanged(true);
@@ -916,16 +674,10 @@ namespace jamesfolk
                 unsigned long p = ((index * STRIDE) + (16 * currentVertex));
                 memcpy(m_MatrixBuffer,
                        m_NormalMatrixTransformData + p,
-                       sizeof(GLfptype) * 16);
+                       sizeof(GLfloat) * 16);
             }
             
-#ifdef USE_HALF_FLOAT
-            for (unsigned long i = 0; i < 16; i++)
-                m_MatrixBufferFullSize[i] = convertHFloatToFloat(m_MatrixBuffer[i]);
-            transform.setFromOpenGLMatrix(m_MatrixBufferFullSize);
-#else
             transform.setFromOpenGLMatrix(m_MatrixBuffer);
-#endif
             
         }
         return transform;

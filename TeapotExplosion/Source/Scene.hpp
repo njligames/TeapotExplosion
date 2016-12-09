@@ -1,8 +1,8 @@
 //
 //  Scene.hpp
-//  VerizonTest
+//  TeapotExplosion
 //
-//  Created by James Folk on 6/21/16.
+//  Created by James Folk on 12/8/16.
 //  Copyright © 2016 NJLIGames Ltd. All rights reserved.
 //
 

@@ -1,8 +1,8 @@
 //
 //  Geometry.hpp
-//  VerizonTest
+//  TeapotExplosion
 //
-//  Created by James Folk on 6/27/16.
+//  Created by James Folk on 12/8/16.
 //  Copyright © 2016 NJLIGames Ltd. All rights reserved.
 //
 
@@ -19,20 +19,6 @@
 #include "btTransform.h"
 #include "btVector2.h"
 
-//#define USE_HALF_FLOAT
-
-
-typedef unsigned short hfloat;
-
-#ifdef USE_HALF_FLOAT
-typedef hfloat GLfptype;
-#define GL_INDEX_TYPE (GL_HALF_FLOAT_OES)
-
-#else
-typedef GLfloat GLfptype;
-#define GL_INDEX_TYPE (GL_FLOAT)
-#endif
-
 namespace jamesfolk
 {
     ATTRIBUTE_ALIGNED16(struct)
@@ -40,7 +26,6 @@ namespace jamesfolk
     {
         static void computeTangentBasis(TexturedColoredVertex *v, unsigned int numVerts)
         {
-            
             for (unsigned int i=0; i<numVerts; i+=3 )
             {
                 // Shortcuts for vertices
@@ -77,7 +62,6 @@ namespace jamesfolk
                 (v + (i + 0))->bitangent = bitangent;
                 (v + (i + 1))->bitangent = bitangent;
                 (v + (i + 2))->bitangent = bitangent;
-                
             }
             
             // See "Going Further"
@@ -109,8 +93,6 @@ namespace jamesfolk
         , normal(1,1,1)
         , tangent(0, 0, 0)
         , bitangent(0, 0, 0)
-//        , opacity(1.0f)
-//        , hidden(0.0f)
         {
         }
         TexturedColoredVertex(const btVector3 vertex,
@@ -119,8 +101,6 @@ namespace jamesfolk
                               const btVector3 normal,
                               const btVector3 tangent,
                               const btVector3 bitangent
-//                              const GLfptype opacity,
-//                              const GLfptype hidden
                               )
         : vertex(vertex)
         , color(color)
@@ -128,8 +108,6 @@ namespace jamesfolk
         , normal(normal)
         , tangent(tangent)
         , bitangent(bitangent)
-//        , opacity(opacity)
-//        , hidden(hidden)
         {
         }
         btVector3 vertex;
@@ -138,9 +116,6 @@ namespace jamesfolk
         btVector3 normal;
         btVector3 tangent;
         btVector3 bitangent;
-        
-//        GLfptype opacity;
-//        GLfptype hidden;
         
         TexturedColoredVertex& operator=(const TexturedColoredVertex& rhs)
         {
@@ -151,9 +126,6 @@ namespace jamesfolk
                 normal = rhs.normal;
                 tangent = rhs.tangent;
                 bitangent = rhs.bitangent;
-                
-//                opacity = rhs.opacity;
-//                hidden = rhs.hidden;
             }
             return *this;
         }
@@ -161,16 +133,10 @@ namespace jamesfolk
         operator std::string() const
         {
             char buffer[4098];
-            
-//            sprintf(buffer, "{{%f, %f, %f}, {%f, %f}, {%f, %f, %f, %f}, {%f, %f, %f}, %f, %f}",
-//            sprintf(buffer, "{{%f, %f, %f}, {%f, %f}, {%f, %f, %f}, %f, %f}",
             sprintf(buffer, "{{%f, %f, %f}, {%f, %f}, {%f, %f, %f}}",
                     vertex.x(), vertex.y(), vertex.z(),
                     texture.x(), texture.y(),
-//                    color.x(), color.y(), color.z(), color.w(),
-                    normal.x(), normal.y(), normal.z()//,
-//                    opacity,
-//                    hidden
+                    normal.x(), normal.y(), normal.z()
                     );
             
             return std::string(buffer);
@@ -193,7 +159,6 @@ namespace jamesfolk
             MeshType_Obj
         };
         
-        /* members */
         Geometry();
         Geometry(const Geometry &rhs);
         const Geometry &operator=(const Geometry &rhs);
@@ -209,16 +174,11 @@ namespace jamesfolk
         
         void render(Camera *camera);
         
-//        static const GLsizei MAX_CUBES = 10000;
-        
     protected:
         const void *getModelViewTransformArrayBufferPtr()const;
         GLsizeiptr getModelViewTransformArrayBufferSize()const;
         bool isModelViewBufferChanged()const;
         void enableModelViewBufferChanged(bool changed = true);
-        
-//        const void *getColorTransformArrayBufferPtr()const;
-//        GLsizeiptr getColorTransformArrayBufferSize()const;
         
         const void *getNormalMatrixTransformArrayBufferPtr()const;
         GLsizeiptr getNormalMatrixTransformArrayBufferSize()const;
@@ -244,9 +204,6 @@ namespace jamesfolk
         void setTransform(const unsigned long index, const btTransform &transform);
         btTransform getTransform(const unsigned long index);
         
-//        void setColorTransform(const unsigned long index, const btTransform &transform);
-//        btTransform getColorTransform(const unsigned long index);
-        
         void setNormalMatrixTransform(const unsigned long index, const btTransform &transform);
         btTransform getNormalMatrixTransform(const unsigned long index);
         
@@ -260,35 +217,20 @@ namespace jamesfolk
         
         unsigned long getGeometryIndex(Node *const node)const;
         
-//        void computeTangentBasis(
-//                                 // inputs
-//                                 const std::vector<btVector3> & vertices,
-//                                 const std::vector<btVector2> & uvs,
-//                                 const std::vector<btVector3> & normals,
-//                                 // outputs
-//                                 std::vector<btVector3> & tangents,
-//                                 std::vector<btVector3> & bitangents
-//                                 );
-
-        
-        
-        GLfptype *m_MatrixBuffer;
+        GLfloat *m_MatrixBuffer;
         float *m_MatrixBufferFullSize;
         
     private:
         
-        GLfptype *m_ModelViewTransformData;
-//        GLfptype *m_ColorTransformData;
-        GLfptype *m_NormalMatrixTransformData;
+        GLfloat *m_ModelViewTransformData;
+        GLfloat *m_NormalMatrixTransformData;
         
         GLuint m_VertexArray;
         GLuint m_ModelViewBuffer;
-//        GLuint m_ColorTransformBuffer;
         GLuint m_NormalMatrixTransformBuffer;
         GLuint m_VerticesBuffer;
         GLuint m_IndexBuffer;
         
-//        std::bitset<MAX_CUBES> m_References;
         std::vector<bool> m_References;
         unsigned int m_NumberInstances;
         

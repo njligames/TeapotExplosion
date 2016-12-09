@@ -10,9 +10,17 @@
 #define World_hpp
 
 #include <string>
+#include <vector>
+#include <map>
 
 namespace jamesfolk
 {
+    class Shader;
+    class Geometry;
+    class Camera;
+    class Node;
+    class Scene;
+    
     class World
     {
     public:
@@ -25,7 +33,7 @@ namespace jamesfolk
         void create();
         void destroy();
         
-        void resize(int x, int y, int width, int height);
+        void resize(float x, float y, float width, float height);
         void update(float step);
         void render();
         
@@ -38,6 +46,8 @@ namespace jamesfolk
         };
         void touch(TouchState state, float x, float y);
         
+        void setShader(const std::string &shader);
+        
         
     protected:
         
@@ -49,6 +59,20 @@ namespace jamesfolk
         World(const World &world);
         virtual ~World();
         const World &operator=(const World &rhs);
+        
+        std::vector<Node*> m_TeapotNodes;
+        
+        Shader *m_Shader;
+        Geometry *m_Geometry;
+        Camera *m_Camera;
+        Node *m_CameraNode;
+        Scene *m_Scene;
+        
+        typedef std::map<std::string, Shader*> ShaderMap;
+        typedef std::pair<std::string, Shader*> ShaderMapPair;
+        
+        ShaderMap m_ShaderMap;
+        
     };
 }
 

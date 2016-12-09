@@ -1,8 +1,8 @@
 //
 //  Camera.hpp
-//  VerizonTest
+//  TeapotExplosion
 //
-//  Created by James Folk on 6/21/16.
+//  Created by James Folk on 12/8/16.
 //  Copyright © 2016 NJLIGames Ltd. All rights reserved.
 //
 
@@ -24,14 +24,13 @@ namespace jamesfolk
         friend class Geometry;
         
     public:
-        /* static */
+        
         static btTransform makeFrustum(float *buffer, float fov, float aspect, float nearDist, float farDist, bool leftHanded = true );
         static btTransform makeLookAt(float *buffer,
                                       float eyeX, float eyeY, float eyeZ,
                                       float centerX, float centerY, float centerZ,
                                       float upX, float upY, float upZ);
         
-        /* members */
         Camera();
         Camera(const Camera &rhs);
         const Camera &operator=(const Camera &rhs);
@@ -59,12 +58,10 @@ namespace jamesfolk
     protected:
         void render(Shader *const shader, bool shouldRedraw = false);
     private:
-        /* static */
         float *m_MatrixBuffer;
         GLfloat *m_ProjectionMatrixBuffer;
         GLfloat *m_ModelViewMatrixBuffer;
         
-        /* members */
         Node *m_NodeOwner;
         float m_Near;
         float m_Far;

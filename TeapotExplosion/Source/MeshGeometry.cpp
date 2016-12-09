@@ -1,8 +1,8 @@
 //
 //  MeshGeometry.cpp
-//  VerizonTest
+//  TeapotExplosion
 //
-//  Created by James Folk on 6/28/16.
+//  Created by James Folk on 12/8/16.
 //  Copyright © 2016 NJLIGames Ltd. All rights reserved.
 //
 
@@ -203,8 +203,7 @@ namespace jamesfolk
                 }
                 ii++;
             }
-//            t.hidden = 0.0f;
-//            t.opacity = 1.0f;
+            
             t.color = btVector4(1.0f, 1.0f, 1.0f, 1.0f);
             
             vertexData[idx] = t;
@@ -294,9 +293,9 @@ namespace jamesfolk
     
     void MeshGeometry::setOpacity(Node *node)
     {
-        unsigned long index = getGeometryIndex(node);
+        long index = getGeometryIndex(node);
         
-        if(m_VertexData)
+        if(index >=0 && m_VertexData)
         {
             float opacity = node->getOpacity();
             bool hidden = node->isHiddenGeometry();
@@ -318,9 +317,9 @@ namespace jamesfolk
     
     void MeshGeometry::setHidden(Node *node)
     {
-        unsigned long index = getGeometryIndex(node);
+        long index = getGeometryIndex(node);
         
-        if(m_VertexData)
+        if(index >= 0 && m_VertexData)
         {
             bool hidden = node->isHiddenGeometry();
             
@@ -340,9 +339,9 @@ namespace jamesfolk
     
     void MeshGeometry::setColorBase(Node *node)
     {
-        unsigned long index = getGeometryIndex(node);
+        long index = getGeometryIndex(node);
         
-        if(m_VertexData)
+        if(index >= 0 && m_VertexData)
         {
             bool hidden = node->isHiddenGeometry();
             
