@@ -543,7 +543,7 @@ namespace jamesfolk
     
     void Node::setGeometryIndex(unsigned long index)
     {
-        assert(index >= 0 && index < getGeometry()->numberOfInstances());
+        assert(index >= 0 && index < getGeometry()->maxNumberOfInstances());
         
         m_GeometryIndex = index;
         

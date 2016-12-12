@@ -319,20 +319,10 @@ void PointLight(in float materialShininess,
     nDotHV = clamp(max(0.0, dot(normal, halfVector)), 0.0, 1.0);
 #endif
     
-    
-    
-    
     if (nDotVP == 0.0)
         pf = 0.0;
     else
         pf = pow(nDotHV, materialShininess);
-    
-//    if (nDotVP > 0.95)
-//        nDotVP = 0.95;
-//    else if (nDotVP > 0.5)
-//        nDotVP = 0.5;
-//    else if (nDotVP > 0.25)
-//        nDotVP = 0.25;
     
     ambient  += lightSource.ambient * attenuation;
     diffuse  += lightSource.diffuse * nDotVP * attenuation;
@@ -462,11 +452,7 @@ vec4 calc_lighting_color(in MaterialParameters material,
         }
     }
     
-    
-    // NOTE: gl_FrontLightModelProduct.sceneColor = gl_FrontMaterial.emission + gl_FrontMaterial.ambient * gl_LightModel.ambient
     vec4 sceneColor = material.emission * material.ambient * lightAmbient;
-    
-//    vec4 color =  gl_FrontLightModelProduct.sceneColor +
     vec4 color =  sceneColor +
     amb * material.ambient +
     diff * material.diffuse +
@@ -513,7 +499,6 @@ void main()
     vec4 lightAmbientColor  = vec4(LightAmbientColor, 1.0);
     
     //Lights...
-    //http://www.glprogramming.com/red/chapter05.html
     lightSource[0].position = LightSourcePosition_worldspace;
     
     lightSource[0].ambient  = vec4(LightSourceAmbientColor, 1.0);
@@ -562,17 +547,8 @@ void main()
                                      textureNormal_tangentspace);
     
     vec4 baseColor = color * Vertex_color;
-    
-    
-    
-//    vec3 rimColor = computeRim(RimLightColor, 0.0, 1.0, 0.4);
     vec3 rimColor = computeRim(RimLightColor, RimLightStart, RimLightEnd, RimLightCoefficient);
     baseColor += vec4(rimColor, 0.0);
-    
-//    float fresnel = pow(1.0 - abs( dot( EyeDirection_cameraspace, Normal_modelspace) ), 4.0);
-//    
-//    baseColor += (vec4(RimLightColor, 1.0) * fresnel);
-
     
     if(FogDensity > 0.0)
     {
@@ -584,8 +560,4 @@ void main()
     }
     
     gl_FragColor = baseColor;
-    
-//    gl_FragColor = vec4(Normal_modelspace, 1.0);
-    
-//    gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + vec4(rimColor, 1.0);
 }

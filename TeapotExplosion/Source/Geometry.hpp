@@ -21,6 +21,14 @@
 
 namespace jamesfolk
 {
+    static const GLfloat TRANSFORM_IDENTITY_MATRIX[] =
+    {
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1,
+    };
+    
     ATTRIBUTE_ALIGNED16(struct)
     TexturedColoredVertex
     {
@@ -65,25 +73,25 @@ namespace jamesfolk
             }
             
             // See "Going Further"
-            for (unsigned int i=0; i<numVerts; i+=1 )
-            {
-                btVector3 & n = (v + (i))->normal;
-                btVector3 & t = (v + (i))->tangent;
-                btVector3 & b = (v + (i))->bitangent;
-                
-                
-                // Gram-Schmidt orthogonalize
-                t = (t - n * n.dot(t));
-                
-                if(t.length() > 0.0f)
-                    t.normalize();
-                
-                // Calculate handedness
-                if (n.cross(t).dot(b) < 0.0f)
-                {
-                    t = t * -1.0f;
-                }
-            }
+//            for (unsigned int i=0; i<numVerts; i+=1 )
+//            {
+//                btVector3 & n = (v + (i))->normal;
+//                btVector3 & t = (v + (i))->tangent;
+//                btVector3 & b = (v + (i))->bitangent;
+//                
+//                
+//                // Gram-Schmidt orthogonalize
+//                t = (t - n * n.dot(t));
+//                
+//                if(t.length() > 0.0f)
+//                    t.normalize();
+//                
+//                // Calculate handedness
+//                if (n.cross(t).dot(b) < 0.0f)
+//                {
+//                    t = t * -1.0f;
+//                }
+//            }
         }
         
         TexturedColoredVertex()
@@ -142,6 +150,30 @@ namespace jamesfolk
             return std::string(buffer);
         }
         
+        static TexturedColoredVertex average(TexturedColoredVertex a, TexturedColoredVertex b)
+        {
+            TexturedColoredVertex ret;
+            
+            ret.vertex = (a.vertex + b.vertex) / 2.0f;
+            ret.color = (a.color + b.color) / 2.0f;
+            ret.texture = (a.texture + b.texture) / 2.0f;
+            ret.normal = (a.normal + b.normal) / 2.0f;
+            ret.tangent = (a.tangent + b.tangent) / 2.0f;
+            ret.bitangent = (a.vertex + b.bitangent) / 2.0f;
+            
+//            ret.vertex.setW(1.0);
+            ret.color.setW(1.0);
+            
+            if(ret.normal.length2() > 0.0)
+                ret.normal.normalize();
+            if(ret.tangent.length2() > 0.0)
+                ret.tangent.normalize();
+            if(ret.bitangent.length2() > 0.0)
+                ret.bitangent.normalize();
+            
+            return ret;
+        }
+        
     };
     
     class Shader;
@@ -164,7 +196,7 @@ namespace jamesfolk
         const Geometry &operator=(const Geometry &rhs);
         virtual ~Geometry();
         
-        virtual void load(Shader *shader, const std::string &filecontent="", unsigned int numInstances = 1, MeshType type = MeshType_Obj);
+        virtual void load(Shader *shader, const std::string &filecontent="", unsigned int numInstances = 1, unsigned int numSubDivisions = 1);
         void unLoad();
         bool isLoaded()const;
         
@@ -174,7 +206,11 @@ namespace jamesfolk
         
         void render(Camera *camera);
         
+        virtual void subdivide() = 0;
+        
     protected:
+        void setupGL();
+        
         const void *getModelViewTransformArrayBufferPtr()const;
         GLsizeiptr getModelViewTransformArrayBufferSize()const;
         bool isModelViewBufferChanged()const;
@@ -195,6 +231,8 @@ namespace jamesfolk
         
         virtual const void *getElementArrayBufferPtr()const = 0;
         virtual GLsizeiptr getElementArrayBufferSize()const = 0;
+        bool isIndiceArrayBufferChanged()const;
+        void enableIndiceArrayBufferChanged(bool changed = true);
         
         virtual GLenum getElementIndexType()const = 0;
         
@@ -213,18 +251,19 @@ namespace jamesfolk
         
         virtual GLsizei numberOfVertices()const = 0;
         virtual GLsizei numberOfIndices()const = 0;
-        virtual GLsizei numberOfInstances()const;
+        virtual GLsizei maxNumberOfInstances()const;
+        virtual GLsizei maxNumberOfSubDivisions()const;
+        virtual GLsizei subdivisionBufferSize()const;
         
         unsigned long getGeometryIndex(Node *const node)const;
         
         GLfloat *m_MatrixBuffer;
         float *m_MatrixBufferFullSize;
         
-    private:
-        
         GLfloat *m_ModelViewTransformData;
         GLfloat *m_NormalMatrixTransformData;
         
+     private:
         GLuint m_VertexArray;
         GLuint m_ModelViewBuffer;
         GLuint m_NormalMatrixTransformBuffer;
@@ -232,11 +271,14 @@ namespace jamesfolk
         GLuint m_IndexBuffer;
         
         std::vector<bool> m_References;
-        unsigned int m_NumberInstances;
+        GLsizei m_NumberInstances;
+        GLsizei m_NumberSubDivisions;
+        GLsizei m_ExtraSubdivisionBuffer;
         
         Shader *m_Shader;
         
         bool m_OpacityModifyRGB;
+        bool m_ElementBufferChanged;
         bool m_VertexBufferChanged;
         bool m_NormalMatrixBufferChanged;
         bool m_ModelViewBufferChanged;

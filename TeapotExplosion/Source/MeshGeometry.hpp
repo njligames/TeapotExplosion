@@ -23,8 +23,16 @@ namespace jamesfolk
         const MeshGeometry &operator=(const MeshGeometry &rhs);
         ~MeshGeometry();
         
-        virtual void load(Shader *shader, const std::string &filecontent="", unsigned int numInstances = 1, MeshType type = MeshType_Obj);
+        virtual void load(Shader *shader, const std::string &filecontent, unsigned int numInstances, unsigned int numSubDivisions);
+        
+        void subdivide();
     protected:
+        void subdivideTriangle(TexturedColoredVertex p0,
+                               TexturedColoredVertex p1,
+                               TexturedColoredVertex p2,
+                               TexturedColoredVertex *triangleBuffer,
+                               GLsizei newIndiceStart,
+                               GLuint *indiceBuffer);
         
         virtual void loadData();
         virtual void unLoadData();
@@ -51,6 +59,7 @@ namespace jamesfolk
         std::string m_Filedata;
         GLsizei m_NumberOfVertices;
         GLsizei m_NumberOfIndices;
+        GLsizei m_TotalSubdivisions;
         
     };
 }

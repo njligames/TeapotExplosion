@@ -48,6 +48,8 @@ namespace jamesfolk
         
         void setShader(const std::string &shader);
         
+        void setNumberOfTeapots(const int num);
+        int numberOfTeapots()const;
         
     protected:
         
@@ -61,8 +63,8 @@ namespace jamesfolk
         const World &operator=(const World &rhs);
         
         std::vector<Node*> m_TeapotNodes;
+        std::vector<Shader*> m_Shaders;
         
-        Shader *m_Shader;
         Geometry *m_Geometry;
         Camera *m_Camera;
         Node *m_CameraNode;
@@ -72,6 +74,11 @@ namespace jamesfolk
         typedef std::pair<std::string, Shader*> ShaderMapPair;
         
         ShaderMap m_ShaderMap;
+        int m_NumberOfTeapots;
+        
+        float m_RotationX;
+        float m_RotationY;
+        float m_RotationZ;
         
     };
 }

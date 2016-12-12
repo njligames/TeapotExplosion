@@ -16,7 +16,15 @@
 #include "Node.hpp"
 #include "Scene.hpp"
 
-static unsigned long MAXIMUM_TEAPOTS = 10000;
+static unsigned int MAXIMUM_TEAPOTS = 1;
+static unsigned int MAXIMUM_SUBDIVISIONS = 3;
+
+static const char *SHADERNAMES[] =
+{
+    "StandardShader",
+    "PassThrough",
+    0
+};
 
 namespace jamesfolk
 {
@@ -78,10 +86,10 @@ namespace jamesfolk
     void World::create()
     {
         std::string objFileData = loadASCIIFile("Models/utah-teapot.obj");
-        std::string vertexShaderData = loadASCIIFile("Shaders/StandardShader.vert");
-        std::string fragmentShaderData = loadASCIIFile("Shaders/StandardShader.frag");
+//        std::string objFileData = loadASCIIFile("Models/triangle.obj");
+//        std::string objFileData = loadASCIIFile("Models/triangle_subdivide.obj");
         
-        glClearColor(0.7,0.7,0.7,1);
+        glClearColor(0.0, 0.0, 0.0, 1.0);
         
         glEnable(GL_DEPTH_TEST);
         glFrontFace(GL_CW);
@@ -95,12 +103,27 @@ namespace jamesfolk
         
         m_Scene->addActiveNode(m_CameraNode);
         m_Scene->addActiveCamera(m_Camera);
-        m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 10.0f));
         
-        assert(m_Shader->load(vertexShaderData, fragmentShaderData));
+        unsigned long i = 0;
+        for (std::vector<Shader*>::iterator iter = m_Shaders.begin();
+             iter != m_Shaders.end();
+             iter++)
+        {
+            Shader *shader = *iter;
+            std::string shaderName = SHADERNAMES[i++];
+            std::string vertexShader = loadASCIIFile(std::string("Shaders/") + shaderName + std::string(".vert"));
+            std::string fragmentShader = loadASCIIFile(std::string("Shaders/") + shaderName + std::string(".frag"));
+            
+            assert(shader->load(vertexShader, fragmentShader));
+            m_ShaderMap.insert(ShaderMapPair(shaderName, shader));
+            
+        }
         
-        m_Geometry->load(m_Shader, objFileData);
+        m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
         
+        m_Geometry->load(m_Shaders[0], objFileData, MAXIMUM_TEAPOTS, MAXIMUM_SUBDIVISIONS);
+        
+        float y = 0.0f;
         for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
              i != m_TeapotNodes.end();
              i++)
@@ -108,12 +131,16 @@ namespace jamesfolk
             Node *node = *i;
             
             m_Scene->addActiveNode(node);
+            
             m_Scene->getRootNode()->addChildNode(node);
             
             node->addGeometry(m_Geometry);
+            
+            node->setOrigin(btVector3(0.0f, y, 0.0f));
+            y += 0.1f;
         }
         
-        m_ShaderMap.insert(ShaderMapPair("Default", m_Shader));
+        
     }
     
     void World::destroy()
@@ -140,14 +167,30 @@ namespace jamesfolk
     
     void World::update(float step)
     {
-        for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
-             i != m_TeapotNodes.end();
-             i++)
-        {
-            Node *node = *i;
-            
-            node->setNormalMatrix(node->getWorldTransform().getBasis().inverse().transpose());
-        }
+//        int ii = 0;
+//        for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
+//             i != m_TeapotNodes.end();
+//             i++)
+//        {
+//            Node *node = *i;
+//            
+//            node->setNormalMatrix(node->getWorldTransform().getBasis().inverse().transpose());
+//            
+//            btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_RotationX);
+//            btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_RotationY);
+//            btQuaternion rotZ(btVector3(0.0, 0.0, 1.0), m_RotationZ);
+//            
+//            btQuaternion q(rotX * rotY * rotZ);
+//            q = rotX;
+//            node->setRotation(q);
+//            
+//            float s = step * (ii + 1);
+//            m_RotationX += s;
+//            m_RotationY += s;
+//            m_RotationZ += s;
+//            
+//            ii++;
+//        }
     }
     
     void World::render()
@@ -159,7 +202,11 @@ namespace jamesfolk
     
     void World::touch(World::TouchState state, float x, float y)
     {
-        
+        if(state == World::TouchState_Down)
+        {
+            m_Geometry->subdivide();
+            m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
+        }
     }
     
     void World::setShader(const std::string &shader)
@@ -173,23 +220,61 @@ namespace jamesfolk
         }
     }
     
+    void World::setNumberOfTeapots(const int num)
+    {
+        if(num < MAXIMUM_TEAPOTS)
+            m_NumberOfTeapots = num;
+    }
+    
+    int World::numberOfTeapots()const
+    {
+        return m_NumberOfTeapots;
+    }
+    
     World::World():
-    m_Shader(new Shader()),
     m_Geometry(new MeshGeometry()),
     m_Camera(new Camera()),
     m_CameraNode(new Node()),
-    m_Scene(new Scene())
+    m_Scene(new Scene()),
+    m_NumberOfTeapots(1),
+    m_RotationX(0.0f),
+    m_RotationY(0.0f),
+    m_RotationZ(0.0f)
     {
         for (unsigned long i = 0; i < MAXIMUM_TEAPOTS; i++)
             m_TeapotNodes.push_back(new Node());
+        
+        unsigned long i = 0;
+        const char *shaderName = SHADERNAMES[i];
+        do
+        {
+            m_Shaders.push_back(new Shader());
+            shaderName = SHADERNAMES[++i];
+        }
+        while (shaderName != NULL);
     }
     
     World::~World()
     {
+        while(!m_Shaders.empty())
+        {
+            Shader *shader = m_Shaders.back();
+            delete shader;
+            
+            m_Shaders.pop_back();
+        }
+        
+        while(!m_TeapotNodes.empty())
+        {
+            Node *node = m_TeapotNodes.back();
+            delete node;
+            
+            m_TeapotNodes.pop_back();
+        }
+        
         delete m_Scene;
         delete m_CameraNode;
         delete m_Camera;
         delete m_Geometry;
-        delete m_Shader;
     }
 }

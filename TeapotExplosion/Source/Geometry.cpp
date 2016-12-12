@@ -18,14 +18,6 @@
 namespace jamesfolk
 {
     
-    static const GLfloat TRANSFORM_IDENTITY_MATRIX[] =
-    {
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1,
-    };
-    
     Geometry::Geometry():
     m_MatrixBuffer(new GLfloat[16]),
     m_MatrixBufferFullSize(new float[16]),
@@ -37,8 +29,11 @@ namespace jamesfolk
     m_VerticesBuffer(0),
     m_IndexBuffer(0),
     m_NumberInstances(1),
+    m_NumberSubDivisions(1),
+    m_ExtraSubdivisionBuffer(1),
     m_Shader(NULL),
     m_OpacityModifyRGB(false),
+    m_ElementBufferChanged(true),
     m_VertexBufferChanged(true),
     m_NormalMatrixBufferChanged(true),
     m_ModelViewBufferChanged(true),
@@ -68,13 +63,17 @@ namespace jamesfolk
         m_MatrixBuffer = NULL;
     }
     
-    void Geometry::load(Shader *shader, const std::string &filecontent, unsigned int numInstances, MeshType type)
+    void Geometry::load(Shader *shader, const std::string &filecontent, unsigned int numInstances, unsigned int numSubDivisions)
     {
         assert(shader);
         
         setShader(shader);
         
         m_NumberInstances = numInstances;
+        m_NumberSubDivisions = numSubDivisions;
+        for (int i = 0; i < m_NumberSubDivisions; i++)
+            m_ExtraSubdivisionBuffer *= 4;
+        
         m_References.resize(m_NumberInstances);
         
         loadData();
@@ -87,7 +86,7 @@ namespace jamesfolk
                 assert(m_ModelViewBuffer == 0);
                 glGenBuffers(1, &m_ModelViewBuffer);
                 glBindBuffer(GL_ARRAY_BUFFER, m_ModelViewBuffer);
-                glBufferData(GL_ARRAY_BUFFER, getModelViewTransformArrayBufferSize(), getModelViewTransformArrayBufferPtr(), GL_STREAM_DRAW);
+                glBufferData(GL_ARRAY_BUFFER, getModelViewTransformArrayBufferSize() * subdivisionBufferSize(), getModelViewTransformArrayBufferPtr(), GL_STREAM_DRAW);
                 int inTransformAttrib = getShader()->getAttributeLocation("inTransform");
                 glEnableVertexAttribArray(inTransformAttrib + 0);
                 glEnableVertexAttribArray(inTransformAttrib + 1);
@@ -104,7 +103,7 @@ namespace jamesfolk
                 assert(m_NormalMatrixTransformBuffer == 0);
                 glGenBuffers(1, &m_NormalMatrixTransformBuffer);
                 glBindBuffer(GL_ARRAY_BUFFER, m_NormalMatrixTransformBuffer);
-                glBufferData(GL_ARRAY_BUFFER, getNormalMatrixTransformArrayBufferSize(), getNormalMatrixTransformArrayBufferPtr(), GL_STREAM_DRAW);
+                glBufferData(GL_ARRAY_BUFFER, getNormalMatrixTransformArrayBufferSize() * subdivisionBufferSize(), getNormalMatrixTransformArrayBufferPtr(), GL_STREAM_DRAW);
                 int inNormalMatrixAttrib = getShader()->getAttributeLocation("inNormalMatrix");
                 glEnableVertexAttribArray(inNormalMatrixAttrib + 0);
                 glEnableVertexAttribArray(inNormalMatrixAttrib + 1);
@@ -121,7 +120,7 @@ namespace jamesfolk
                 assert(m_VerticesBuffer == 0);
                 glGenBuffers(1, &m_VerticesBuffer);
                 glBindBuffer(GL_ARRAY_BUFFER, m_VerticesBuffer);
-                glBufferData(GL_ARRAY_BUFFER, getVertexArrayBufferSize(), getVertexArrayBufferPtr(), GL_STREAM_DRAW);
+                glBufferData(GL_ARRAY_BUFFER, getVertexArrayBufferSize() * subdivisionBufferSize(), getVertexArrayBufferPtr(), GL_STREAM_DRAW);
                 int inPositionAttrib = getShader()->getAttributeLocation("inPosition");
                 int inColorAttrib = getShader()->getAttributeLocation("inColor");
                 int inNormalAttrib = getShader()->getAttributeLocation("inNormal");
@@ -185,7 +184,7 @@ namespace jamesfolk
             {
                 glGenBuffers(1, &m_IndexBuffer);
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-                glBufferData(GL_ELEMENT_ARRAY_BUFFER, getElementArrayBufferSize(), getElementArrayBufferPtr(), GL_STATIC_DRAW);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, getElementArrayBufferSize() * subdivisionBufferSize(), getElementArrayBufferPtr(), GL_STREAM_DRAW);
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
             }
         }
@@ -302,6 +301,7 @@ namespace jamesfolk
             if(isModelViewBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_ModelViewBuffer);
+                printf("m_ModelViewBuffer %ld\n", getModelViewTransformArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getModelViewTransformArrayBufferSize(), getModelViewTransformArrayBufferPtr());
                 enableModelViewBufferChanged(false);
             }
@@ -309,6 +309,7 @@ namespace jamesfolk
             if(isNormalMatrixBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_NormalMatrixTransformBuffer);
+                printf("m_NormalMatrixTransformBuffer %ld\n", getNormalMatrixTransformArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getNormalMatrixTransformArrayBufferSize(), getNormalMatrixTransformArrayBufferPtr());
                 enableNormalMatrixBufferChanged(false);
             }
@@ -316,19 +317,40 @@ namespace jamesfolk
             if(isVertexArrayBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_VerticesBuffer);
+                printf("m_VerticesBuffer %ld\n", getVertexArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getVertexArrayBufferSize(), getVertexArrayBufferPtr());
                 enableVertexArrayBufferChanged(false);
             }
             
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+            if(isIndiceArrayBufferChanged())
+            {
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+                printf("m_IndexBuffer %ld\n", getElementArrayBufferSize());
+                glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, getElementArrayBufferSize(), getElementArrayBufferPtr());
+                enableIndiceArrayBufferChanged(false);
+            }
             
-            glDrawElements(GL_TRIANGLES, numberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
+            glDrawElements(GL_TRIANGLES, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
+//            glDrawElements(GL_LINES, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
+//            glDrawElements(GL_POINTS, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
+            
+            glBindVertexArrayOES(0);
         }
     }
     
-    GLsizei Geometry::numberOfInstances()const
+    GLsizei Geometry::maxNumberOfInstances()const
     {
         return m_NumberInstances;
+    }
+    
+    GLsizei Geometry::maxNumberOfSubDivisions()const
+    {
+        return m_NumberSubDivisions;
+    }
+    
+    GLsizei Geometry::subdivisionBufferSize()const
+    {
+        return m_ExtraSubdivisionBuffer;
     }
     
     unsigned long Geometry::getGeometryIndex(Node *const node)const
@@ -417,12 +439,12 @@ namespace jamesfolk
     {
         assert(m_ModelViewTransformData);
         
-        return m_ModelViewTransformData;
+        return (const void *)m_ModelViewTransformData;
     }
     
     GLsizeiptr Geometry::getModelViewTransformArrayBufferSize()const
     {
-        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
+        GLsizeiptr size = (sizeof(GLfloat)* 16) * maxNumberOfInstances() * numberOfVertices();
         return size;
     }
     
@@ -445,7 +467,7 @@ namespace jamesfolk
 //    
 //    GLsizeiptr Geometry::getColorTransformArrayBufferSize()const
 //    {
-//        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
+//        GLsizeiptr size = sizeof(GLfloat) * maxNumberOfInstances() * numberOfVertices() * 16;
 //        return size;
 //    }
     
@@ -453,12 +475,12 @@ namespace jamesfolk
     {
         assert(m_NormalMatrixTransformData);
         
-        return m_NormalMatrixTransformData;
+        return (const void *)m_NormalMatrixTransformData;
     }
     
     GLsizeiptr Geometry::getNormalMatrixTransformArrayBufferSize()const
     {
-        GLsizeiptr size = sizeof(GLfloat) * numberOfInstances() * numberOfVertices() * 16;
+        GLsizeiptr size = (sizeof(GLfloat) * 16) * maxNumberOfInstances() * numberOfVertices();
         return size;
     }
     
@@ -476,22 +498,23 @@ namespace jamesfolk
     {
         unLoadData();
         
-        m_ModelViewTransformData = new GLfloat[numberOfInstances() * numberOfVertices() * 16];
-        m_NormalMatrixTransformData = new GLfloat[numberOfInstances() * numberOfVertices() * 16];
-        enableNormalMatrixBufferChanged(true);
-        
+        m_ModelViewTransformData    = new GLfloat[16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize()];
         assert(m_ModelViewTransformData);
+        memset(m_ModelViewTransformData, std::numeric_limits<float>::max(), getModelViewTransformArrayBufferSize() * subdivisionBufferSize());
+        
+        m_NormalMatrixTransformData = new GLfloat[16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize()];
         assert(m_NormalMatrixTransformData);
+        memset(m_NormalMatrixTransformData, std::numeric_limits<float>::max(), getNormalMatrixTransformArrayBufferSize() * subdivisionBufferSize());
         
         unsigned long i;
         
         for (i = 0;
-             i < (numberOfInstances() * numberOfVertices() * 16);
+             i < (16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize());
              i += 16)
             memcpy(m_ModelViewTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
         
         for (i = 0;
-             i < (numberOfInstances() * numberOfVertices() * 16);
+             i < (16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize());
              i += 16)
             memcpy(m_NormalMatrixTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
         
@@ -518,6 +541,16 @@ namespace jamesfolk
     void Geometry::enableVertexArrayBufferChanged(bool changed)
     {
         m_VertexBufferChanged = changed;
+    }
+    
+    bool Geometry::isIndiceArrayBufferChanged()const
+    {
+        return m_ElementBufferChanged;
+    }
+    
+    void Geometry::enableIndiceArrayBufferChanged(bool changed)
+    {
+        m_ElementBufferChanged = changed;
     }
     
     void Geometry::addReference(Node *node)
@@ -547,7 +580,7 @@ namespace jamesfolk
     
     void Geometry::setTransform(const unsigned long index, const btTransform &transform)
     {
-        if (index < numberOfInstances())
+        if (index < maxNumberOfInstances())
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
@@ -572,7 +605,7 @@ namespace jamesfolk
     btTransform Geometry::getTransform(const unsigned long index)
     {
         btTransform transform(btTransform::getIdentity());
-        if (index < numberOfInstances())
+        if (index < maxNumberOfInstances())
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
@@ -591,7 +624,7 @@ namespace jamesfolk
     
 //    void Geometry::setColorTransform(const unsigned long index, const btTransform &transform)
 //    {
-//        if (index < numberOfInstances())
+//        if (index < maxNumberOfInstances())
 //        {
 //            const unsigned long STRIDE = 16 * numberOfVertices();
 //            
@@ -618,7 +651,7 @@ namespace jamesfolk
 //    btTransform Geometry::getColorTransform(const unsigned long index)
 //    {
 //        btTransform transform(btTransform::getIdentity());
-//        if (index < numberOfInstances())
+//        if (index < maxNumberOfInstances())
 //        {
 //            const unsigned long STRIDE = 16 * numberOfVertices();
 //            
@@ -637,7 +670,7 @@ namespace jamesfolk
     
     void Geometry::setNormalMatrixTransform(const unsigned long index, const btTransform &transform)
     {
-        if (index < numberOfInstances())
+        if (index < maxNumberOfInstances())
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
@@ -665,7 +698,7 @@ namespace jamesfolk
     btTransform Geometry::getNormalMatrixTransform(const unsigned long index)
     {
         btTransform transform(btTransform::getIdentity());
-        if (index < numberOfInstances())
+        if (index < maxNumberOfInstances())
         {
             const unsigned long STRIDE = 16 * numberOfVertices();
             
