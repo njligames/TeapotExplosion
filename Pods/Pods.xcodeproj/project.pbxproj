@@ -8,96 +8,145 @@
 
 /* Begin PBXBuildFile section */
 		060C58F7E8A0C8036199388138B4E6D2 /* Pods-TeapotExplosionTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA059898B99E21BF84C684F9FFFB734 /* Pods-TeapotExplosionTests-dummy.m */; };
-		1CFD904EF7F737EAB55000506FC10420 /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35093DD994A172D53932151A6DBAEBC3 /* SideMenu-dummy.m */; };
+		0AD9B44B48856843E8EBD3F71132913A /* SideMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534699F865ADFE8765187B05DD789057 /* SideMenuTransition.swift */; };
+		1F84ADD2422F41752099BAF3FA8A1A8B /* SideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FC9172027759730FBB5A6E31FC20DA93 /* SideMenu-dummy.m */; };
+		24E1C73355D2ACFA6FD46520708280FF /* Color-Picker-for-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 72EC1E4C322FCC9965F9E69AC48846F2 /* Color-Picker-for-iOS-dummy.m */; };
+		25A12FDD6CE71F758FB379CD293711C0 /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6345AC7FBE5B3E9CD6DA96B5FF6690AB /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		30BF6899047093747807B511E82FC09D /* HRBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6F882BD516E0763C34248BFBB1C0A3 /* HRBrightnessCursor.m */; };
 		3AF8C1EAFB19D2C7EC89CDF4EE97BC4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		42213290785BE43F2AA628BAFAE71A1F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		531BC4A7376E3F241E97D10DF7AF791E /* Pods-TeapotExplosion-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 254E904459AF8973612011CF841359FC /* Pods-TeapotExplosion-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		576EB81D35E1BBC7C5C8D2AD9DA5DC5B /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0049F4BA49D06E8F4C1A0DF192A1FB11 /* SideMenuManager.swift */; };
-		684B9B2783A2905F1E792F40A8D027BF /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FF13F0BB1AB42B2F1C6A72A59BD82F /* UITableViewVibrantCell.swift */; };
+		3B4FDC3B0C4A598CFC3AAFEB8107CFEA /* HRHSVColorUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 5E0EE4D161B93DD009CB0DCF5EBD7323 /* HRHSVColorUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B9509EB443CB5B10FEAC8931B7F219B /* HRBrightnessCursor.h in Headers */ = {isa = PBXBuildFile; fileRef = CFE45B229FDBEC69C241338CF72C0A77 /* HRBrightnessCursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		476EADE45A42DCCF8B31C52BDF213291 /* HRColorMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B0F63C3A1266EF1CDAFE489C8E6B8A6 /* HRColorMapView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5338CF92AD32C3D1D22BE4342B0E7B7B /* UIImage+CoreGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A4DBEF1D1B6AE1A16A6431C682DC7A3 /* UIImage+CoreGraphics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637EA848F0FC9AA404875AAD56817F22 /* Pods-TeapotExplosion-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 479C457D32589040A93ADD1C07446103 /* Pods-TeapotExplosion-dummy.m */; };
+		6616D90A7447BA08F8A2915D3CD9B04F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		66DBD435AB08CB81530FEFB1488DA692 /* HRColorCursor.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E147DFCE488387FF4058F5E05F028AF /* HRColorCursor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		712B9EAF08320B21ABF20C0420162504 /* Pods-TeapotExplosionUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 794CC6514DD743DEF60897448FDFE4CB /* Pods-TeapotExplosionUITests-dummy.m */; };
-		7F7BCF4B4B5629835E5B9F9D4C47CD83 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4F5E4E267C03BAC23C64C2DEC825B6 /* UISideMenuNavigationController.swift */; };
-		9A39E327F160A96EB239C7F4D9CA514B /* Pods-TeapotExplosion-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 479C457D32589040A93ADD1C07446103 /* Pods-TeapotExplosion-dummy.m */; };
+		76ED30C4F9604191784BDF644ABDB2E7 /* HRColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DFAB7E214B0504872886C9127CDA3CB /* HRColorCursor.m */; };
+		7850873FF21817C1B00197B16118EF58 /* HRColorInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3AA69032BD5DC858C0FD47E2C05B98 /* HRColorInfoView.m */; };
+		8CB83FBC2944331BD582F5F84DC01BD5 /* Color-Picker-for-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FE162CBE623BF12511AF6C80CABC3C6E /* Color-Picker-for-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		908EF531F07AF6CC03DBE92B575E10A0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		9C2A31151E1103D487EF411326F610FC /* HRColorInfoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4358801B10B17DEF2B60093FBA551775 /* HRColorInfoView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3CF66DF3F2D50C544A471341FD7AA92 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0CA6BB3567F9C08C35EE263ED9487F /* SideMenuManager.swift */; };
 		BD4F28E26443177C1EF153B493CF9621 /* Pods-TeapotExplosionUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A882832A4B05F56603AD020F9736E56 /* Pods-TeapotExplosionUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BD4FC4D9DDEF443A581AD56F0C59B2EA /* Pods-TeapotExplosionTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 026E54A3A9BA6DEF4F13AB5213E46358 /* Pods-TeapotExplosionTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C0C44CB5940ED79D8D20CC24A62268CE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		D3234BB982506C7DB297E8A7D93491F6 /* SideMenuTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DB323BB3B2B0A52D555C01DBCD0305 /* SideMenuTransition.swift */; };
+		C0DCF430637A79A6AF68D2C9ECF65A65 /* HRHSVColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9FA341EA7F9E36FFACA920254F94B9 /* HRHSVColorUtil.m */; };
+		C652302F0E428BED19A3FA1D45DF5EBE /* Pods-TeapotExplosion-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 254E904459AF8973612011CF841359FC /* Pods-TeapotExplosion-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C7599CBFC0BE63E48BF8F7F1D2463D9F /* UIImage+CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA5BB0F344E9DF941F4C4CBACCF6DD2 /* UIImage+CoreGraphics.m */; };
+		D85FB1D863BDA9138164F81B7ECA244A /* HRBrightnessSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = AD855FE2DDFE165BB95D95AE02DB7645 /* HRBrightnessSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AF561484AEF0E999BB5418698CC856 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
-		E6F2637297CB35F44FD63692CC7CDB7E /* SideMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E72E3ED37D9B76098CC2B9BB49D386DF /* SideMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D954EED7432F2C4DEF0977B347011624 /* HRBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF709630F96D8285DC294E07F268859 /* HRBrightnessSlider.m */; };
+		E0DAD373ABA7DE3F08F8A3758BA28F32 /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA2947DFCD7A7BEAABA78B3BFD4243E /* HRColorPickerView.m */; };
+		E37436B0D8A6B5007B210E9837EEF04E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		E47685EBC66F071B122727CEE65F2485 /* HRColorPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = EF26A36E66C15318570C8341BB483BFD /* HRColorPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EA251EB14DE286FC64934F8EC87FF256 /* UITableViewVibrantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92B55406C6C0B172FE5C436991078B /* UITableViewVibrantCell.swift */; };
+		EB7C0F8DABEDD222028E7CC126BEFCE8 /* HRColorMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0B199C6A22A0EE559A06C59F45A6 /* HRColorMapView.m */; };
+		EC3F5E4C51AAEF9ACD11AF2471F822B8 /* UISideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F781D623CFAFAA57C1CA5AA13978A /* UISideMenuNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7DF29B80394B3F9AD0DE082A9DBEDCB7 /* PBXContainerItemProxy */ = {
+		1795061705C2A2929B131FCC85BFB4B6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8D18ED45918B994D5DDE23CABDE3BCD2;
+			remoteGlobalIDString = A01DCF3DD7042226A8E0B3D83E06E9C1;
+			remoteInfo = "Color-Picker-for-iOS";
+		};
+		AD7FFCCC6CA99858B26E4D9DC6736B0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF48B9D31ABDF6C1F9D42FE61348541;
 			remoteInfo = SideMenu;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0049F4BA49D06E8F4C1A0DF192A1FB11 /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
+		014F0B199C6A22A0EE559A06C59F45A6 /* HRColorMapView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRColorMapView.m; path = ColorPicker/HRColorMapView.m; sourceTree = "<group>"; };
 		026E54A3A9BA6DEF4F13AB5213E46358 /* Pods-TeapotExplosionTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TeapotExplosionTests-umbrella.h"; sourceTree = "<group>"; };
-		0E0BB075F00697DFC50F84ADE578CF0C /* Pods_TeapotExplosionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		09E46E53CB431ED79F66BD5E99D70243 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D3AA69032BD5DC858C0FD47E2C05B98 /* HRColorInfoView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRColorInfoView.m; path = ColorPicker/HRColorInfoView.m; sourceTree = "<group>"; };
+		11392C1747FFB8BE4264DFA091923B2D /* Color-Picker-for-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Color-Picker-for-iOS-prefix.pch"; sourceTree = "<group>"; };
 		1559045409048C016A6FF39FBFFF80DE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15E7828AA9FB440834835442F482AF71 /* Pods_TeapotExplosionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17ECF99D9FB15D20CDEC480E7A32BCAE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BA059898B99E21BF84C684F9FFFB734 /* Pods-TeapotExplosionTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TeapotExplosionTests-dummy.m"; sourceTree = "<group>"; };
 		1E60DEF2969EFBD4DCA215F49CFB266E /* Pods-TeapotExplosionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosionTests.debug.xcconfig"; sourceTree = "<group>"; };
 		20C295A5AB44436219C1873482357FE0 /* Pods-TeapotExplosionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosionUITests.release.xcconfig"; sourceTree = "<group>"; };
-		22D7757421F9864E07F6B8B202C6BFBC /* Pods_TeapotExplosionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22E70146B50C8403EC61CB220F576CDC /* Pods-TeapotExplosion-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosion-frameworks.sh"; sourceTree = "<group>"; };
 		254E904459AF8973612011CF841359FC /* Pods-TeapotExplosion-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TeapotExplosion-umbrella.h"; sourceTree = "<group>"; };
 		2802A1A56DED65561C1AE07B4C6B2E0F /* Pods-TeapotExplosion-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosion-resources.sh"; sourceTree = "<group>"; };
+		2A624050B926822AFF8DF1639A5471FE /* Color-Picker-for-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Color-Picker-for-iOS.xcconfig"; sourceTree = "<group>"; };
 		3067F8A459609163978A77AAAB25419E /* Pods-TeapotExplosionUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TeapotExplosionUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		33CEF7A237FE48F8717E44BF211C3073 /* Pods-TeapotExplosion-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TeapotExplosion-acknowledgements.plist"; sourceTree = "<group>"; };
+		33DBD427ACE63AD55C62467D5C43BBD2 /* Color-Picker-for-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Color-Picker-for-iOS.modulemap"; sourceTree = "<group>"; };
 		347631647760B43B84923D6E039A5A88 /* Pods-TeapotExplosionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosionTests.release.xcconfig"; sourceTree = "<group>"; };
-		35093DD994A172D53932151A6DBAEBC3 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
-		38FF13F0BB1AB42B2F1C6A72A59BD82F /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
+		3A0CA6BB3567F9C08C35EE263ED9487F /* SideMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuManager.swift; path = Pod/Classes/SideMenuManager.swift; sourceTree = "<group>"; };
+		3AA2947DFCD7A7BEAABA78B3BFD4243E /* HRColorPickerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRColorPickerView.m; path = ColorPicker/HRColorPickerView.m; sourceTree = "<group>"; };
 		3BE604ED034B3E65ABBA504585C38408 /* Pods-TeapotExplosion-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TeapotExplosion-acknowledgements.markdown"; sourceTree = "<group>"; };
+		3BF709630F96D8285DC294E07F268859 /* HRBrightnessSlider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRBrightnessSlider.m; path = ColorPicker/HRBrightnessSlider.m; sourceTree = "<group>"; };
+		41E4D62AA982AB3DE119F8B08DEE4892 /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SideMenu.modulemap; sourceTree = "<group>"; };
+		4358801B10B17DEF2B60093FBA551775 /* HRColorInfoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRColorInfoView.h; path = ColorPicker/HRColorInfoView.h; sourceTree = "<group>"; };
 		479C457D32589040A93ADD1C07446103 /* Pods-TeapotExplosion-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TeapotExplosion-dummy.m"; sourceTree = "<group>"; };
+		4A4DBEF1D1B6AE1A16A6431C682DC7A3 /* UIImage+CoreGraphics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+CoreGraphics.h"; path = "ColorPicker/UIImage+CoreGraphics.h"; sourceTree = "<group>"; };
 		4A882832A4B05F56603AD020F9736E56 /* Pods-TeapotExplosionUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TeapotExplosionUITests-umbrella.h"; sourceTree = "<group>"; };
+		4BD1F33061FF0DA6B1C1F1BCB1D8946D /* Pods_TeapotExplosion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F3BDDAC5ACF335DA86431286EEBBC1F /* Pods-TeapotExplosion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosion.release.xcconfig"; sourceTree = "<group>"; };
+		534699F865ADFE8765187B05DD789057 /* SideMenuTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuTransition.swift; path = Pod/Classes/SideMenuTransition.swift; sourceTree = "<group>"; };
 		54B752E7D5308B589714024D2F5CC34A /* Pods-TeapotExplosionTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosionTests-frameworks.sh"; sourceTree = "<group>"; };
 		5516D0B5B3CBE9E1D8A84D7DF2065034 /* Pods-TeapotExplosionTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TeapotExplosionTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		57F180FDDBEBA6010F7A11EBAC6C7116 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AA5BB0F344E9DF941F4C4CBACCF6DD2 /* UIImage+CoreGraphics.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CoreGraphics.m"; path = "ColorPicker/UIImage+CoreGraphics.m"; sourceTree = "<group>"; };
+		5B0F63C3A1266EF1CDAFE489C8E6B8A6 /* HRColorMapView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRColorMapView.h; path = ColorPicker/HRColorMapView.h; sourceTree = "<group>"; };
+		5E0EE4D161B93DD009CB0DCF5EBD7323 /* HRHSVColorUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRHSVColorUtil.h; path = ColorPicker/HRHSVColorUtil.h; sourceTree = "<group>"; };
+		6345AC7FBE5B3E9CD6DA96B5FF6690AB /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
+		645D0A16FE5FA546D4B5581E5A760EB6 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		661A08FB41E415D3C04A56F214C687A9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		68FE6E247BEB87795AB4032B5EB48867 /* SideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.xcconfig; sourceTree = "<group>"; };
 		6C0B7F7D4829023EBAC2067052F0A2E0 /* Pods-TeapotExplosionTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TeapotExplosionTests.modulemap"; sourceTree = "<group>"; };
-		6CF81980B2B851D5ED4718BC47020609 /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		70C756CC2A5826534752D671C1E846D6 /* Pods-TeapotExplosionUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TeapotExplosionUITests.modulemap"; sourceTree = "<group>"; };
+		72EC1E4C322FCC9965F9E69AC48846F2 /* Color-Picker-for-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Color-Picker-for-iOS-dummy.m"; sourceTree = "<group>"; };
 		794CC6514DD743DEF60897448FDFE4CB /* Pods-TeapotExplosionUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TeapotExplosionUITests-dummy.m"; sourceTree = "<group>"; };
+		7A92B55406C6C0B172FE5C436991078B /* UITableViewVibrantCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UITableViewVibrantCell.swift; path = Pod/Classes/UITableViewVibrantCell.swift; sourceTree = "<group>"; };
+		7D9FA341EA7F9E36FFACA920254F94B9 /* HRHSVColorUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRHSVColorUtil.m; path = ColorPicker/HRHSVColorUtil.m; sourceTree = "<group>"; };
+		7DFAB7E214B0504872886C9127CDA3CB /* HRColorCursor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRColorCursor.m; path = ColorPicker/HRColorCursor.m; sourceTree = "<group>"; };
+		7E147DFCE488387FF4058F5E05F028AF /* HRColorCursor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRColorCursor.h; path = ColorPicker/HRColorCursor.h; sourceTree = "<group>"; };
+		7F6F882BD516E0763C34248BFBB1C0A3 /* HRBrightnessCursor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HRBrightnessCursor.m; path = ColorPicker/HRBrightnessCursor.m; sourceTree = "<group>"; };
 		85290596243A97D8B3EAB58C602903FD /* Pods-TeapotExplosionTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TeapotExplosionTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		8E3F99375DC816649B022F39E95EA4AA /* Pods-TeapotExplosion.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-TeapotExplosion.modulemap"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93F2681E24A1617907482DC0ADDCF062 /* Pods-TeapotExplosionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosionUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		995DC884942ED5E9B85C72A343F9AB5D /* SideMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SideMenu.modulemap; sourceTree = "<group>"; };
+		941EF49890EF6EF58059B9B75F7503EE /* Pods_TeapotExplosionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D4660474FFC77974C380571F394A90 /* Pods-TeapotExplosionTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosionTests-resources.sh"; sourceTree = "<group>"; };
-		9C08AF70CF408058E2F76793D4E73C28 /* SideMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SideMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A8B765B1BFCFF1487AF8FA1A1DB9DFB2 /* Pods_TeapotExplosion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9DB323BB3B2B0A52D555C01DBCD0305 /* SideMenuTransition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SideMenuTransition.swift; path = Pod/Classes/SideMenuTransition.swift; sourceTree = "<group>"; };
 		ABCEB296D72C5FF58DD57B8D50427C1C /* Pods-TeapotExplosionUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosionUITests-frameworks.sh"; sourceTree = "<group>"; };
+		AD855FE2DDFE165BB95D95AE02DB7645 /* HRBrightnessSlider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRBrightnessSlider.h; path = ColorPicker/HRBrightnessSlider.h; sourceTree = "<group>"; };
 		BDDCDEE2FE569B93AE8E5527E8FDE054 /* Pods-TeapotExplosion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TeapotExplosion.debug.xcconfig"; sourceTree = "<group>"; };
+		C92F781D623CFAFAA57C1CA5AA13978A /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
+		CC9511539112A357087A142A24CB9BAF /* Color_Picker_for_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Color_Picker_for_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CFE45B229FDBEC69C241338CF72C0A77 /* HRBrightnessCursor.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRBrightnessCursor.h; path = ColorPicker/HRBrightnessCursor.h; sourceTree = "<group>"; };
+		D7CA1C251C23D0B3C71879C93A9A6C6D /* SideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-prefix.pch"; sourceTree = "<group>"; };
 		E01C82CD7ACD611E23226C9B0E9C149B /* Pods-TeapotExplosionUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TeapotExplosionUITests-acknowledgements.plist"; sourceTree = "<group>"; };
-		E72E3ED37D9B76098CC2B9BB49D386DF /* SideMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SideMenu-umbrella.h"; sourceTree = "<group>"; };
-		EA4F5E4E267C03BAC23C64C2DEC825B6 /* UISideMenuNavigationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UISideMenuNavigationController.swift; path = Pod/Classes/UISideMenuNavigationController.swift; sourceTree = "<group>"; };
+		EF26A36E66C15318570C8341BB483BFD /* HRColorPickerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HRColorPickerView.h; path = ColorPicker/HRColorPickerView.h; sourceTree = "<group>"; };
 		F59DAE9577206135A48A88A772674F19 /* Pods-TeapotExplosionUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TeapotExplosionUITests-resources.sh"; sourceTree = "<group>"; };
-		FBB886EBE499ADAF32629979A36A3169 /* SideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SideMenu.xcconfig; sourceTree = "<group>"; };
-		FC0BD2A3E45C40B9C9716812311BF563 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC9172027759730FBB5A6E31FC20DA93 /* SideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SideMenu-dummy.m"; sourceTree = "<group>"; };
+		FE162CBE623BF12511AF6C80CABC3C6E /* Color-Picker-for-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Color-Picker-for-iOS-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		61944D9E1213857691CEE6F00375221E /* Frameworks */ = {
+		079E78728B35E54EB176E227BEDE1E80 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42213290785BE43F2AA628BAFAE71A1F /* Foundation.framework in Frameworks */,
+				6616D90A7447BA08F8A2915D3CD9B04F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7CB5EF18EF33AF76A249137C6E7FB144 /* Frameworks */ = {
+		60F6069E36BC30F0D07848CFCA9BB0DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0C44CB5940ED79D8D20CC24A62268CE /* Foundation.framework in Frameworks */,
+				E37436B0D8A6B5007B210E9837EEF04E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +155,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF8C1EAFB19D2C7EC89CDF4EE97BC4C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8317C08AB2FFF61A8486B6120CA0E644 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				908EF531F07AF6CC03DBE92B575E10A0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,15 +177,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1634036E3A477F43AECD11A4BDF3933E /* Products */ = {
+		03F06FF2A11C44016744BB8A835DF9D9 /* Color-Picker-for-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				A8B765B1BFCFF1487AF8FA1A1DB9DFB2 /* Pods_TeapotExplosion.framework */,
-				22D7757421F9864E07F6B8B202C6BFBC /* Pods_TeapotExplosionTests.framework */,
-				0E0BB075F00697DFC50F84ADE578CF0C /* Pods_TeapotExplosionUITests.framework */,
-				9C08AF70CF408058E2F76793D4E73C28 /* SideMenu.framework */,
+				CFE45B229FDBEC69C241338CF72C0A77 /* HRBrightnessCursor.h */,
+				7F6F882BD516E0763C34248BFBB1C0A3 /* HRBrightnessCursor.m */,
+				AD855FE2DDFE165BB95D95AE02DB7645 /* HRBrightnessSlider.h */,
+				3BF709630F96D8285DC294E07F268859 /* HRBrightnessSlider.m */,
+				7E147DFCE488387FF4058F5E05F028AF /* HRColorCursor.h */,
+				7DFAB7E214B0504872886C9127CDA3CB /* HRColorCursor.m */,
+				4358801B10B17DEF2B60093FBA551775 /* HRColorInfoView.h */,
+				0D3AA69032BD5DC858C0FD47E2C05B98 /* HRColorInfoView.m */,
+				5B0F63C3A1266EF1CDAFE489C8E6B8A6 /* HRColorMapView.h */,
+				014F0B199C6A22A0EE559A06C59F45A6 /* HRColorMapView.m */,
+				EF26A36E66C15318570C8341BB483BFD /* HRColorPickerView.h */,
+				3AA2947DFCD7A7BEAABA78B3BFD4243E /* HRColorPickerView.m */,
+				5E0EE4D161B93DD009CB0DCF5EBD7323 /* HRHSVColorUtil.h */,
+				7D9FA341EA7F9E36FFACA920254F94B9 /* HRHSVColorUtil.m */,
+				4A4DBEF1D1B6AE1A16A6431C682DC7A3 /* UIImage+CoreGraphics.h */,
+				5AA5BB0F344E9DF941F4C4CBACCF6DD2 /* UIImage+CoreGraphics.m */,
+				32AF36B1ED77163C8FCEC655497A3449 /* Support Files */,
 			);
-			name = Products;
+			path = "Color-Picker-for-iOS";
+			sourceTree = "<group>";
+		};
+		04883D80DD4236E7A83959EB97DFC365 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				3A0CA6BB3567F9C08C35EE263ED9487F /* SideMenuManager.swift */,
+				534699F865ADFE8765187B05DD789057 /* SideMenuTransition.swift */,
+				C92F781D623CFAFAA57C1CA5AA13978A /* UISideMenuNavigationController.swift */,
+				7A92B55406C6C0B172FE5C436991078B /* UITableViewVibrantCell.swift */,
+				5CCB2D8C298533E6CF7248C5ED50CFF0 /* Support Files */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		32AF36B1ED77163C8FCEC655497A3449 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				33DBD427ACE63AD55C62467D5C43BBD2 /* Color-Picker-for-iOS.modulemap */,
+				2A624050B926822AFF8DF1639A5471FE /* Color-Picker-for-iOS.xcconfig */,
+				72EC1E4C322FCC9965F9E69AC48846F2 /* Color-Picker-for-iOS-dummy.m */,
+				11392C1747FFB8BE4264DFA091923B2D /* Color-Picker-for-iOS-prefix.pch */,
+				FE162CBE623BF12511AF6C80CABC3C6E /* Color-Picker-for-iOS-umbrella.h */,
+				09E46E53CB431ED79F66BD5E99D70243 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Color-Picker-for-iOS";
 			sourceTree = "<group>";
 		};
 		3AA1095B0B3ED0C1D778C621A5F49C26 /* Targets Support Files */ = {
@@ -149,24 +245,30 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		4C7DECB9505A3661801AB8D77F9249EF /* Pods */ = {
+		423B04C0A46A45FBDAD74F0459763549 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6139AD2A3B1702A32298B3F55914EA43 /* SideMenu */,
+				CC9511539112A357087A142A24CB9BAF /* Color_Picker_for_iOS.framework */,
+				4BD1F33061FF0DA6B1C1F1BCB1D8946D /* Pods_TeapotExplosion.framework */,
+				15E7828AA9FB440834835442F482AF71 /* Pods_TeapotExplosionTests.framework */,
+				941EF49890EF6EF58059B9B75F7503EE /* Pods_TeapotExplosionUITests.framework */,
+				645D0A16FE5FA546D4B5581E5A760EB6 /* SideMenu.framework */,
 			);
-			name = Pods;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		6139AD2A3B1702A32298B3F55914EA43 /* SideMenu */ = {
+		5CCB2D8C298533E6CF7248C5ED50CFF0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0049F4BA49D06E8F4C1A0DF192A1FB11 /* SideMenuManager.swift */,
-				A9DB323BB3B2B0A52D555C01DBCD0305 /* SideMenuTransition.swift */,
-				EA4F5E4E267C03BAC23C64C2DEC825B6 /* UISideMenuNavigationController.swift */,
-				38FF13F0BB1AB42B2F1C6A72A59BD82F /* UITableViewVibrantCell.swift */,
-				F9853A6F97D22D33E240344F832559E2 /* Support Files */,
+				57F180FDDBEBA6010F7A11EBAC6C7116 /* Info.plist */,
+				41E4D62AA982AB3DE119F8B08DEE4892 /* SideMenu.modulemap */,
+				68FE6E247BEB87795AB4032B5EB48867 /* SideMenu.xcconfig */,
+				FC9172027759730FBB5A6E31FC20DA93 /* SideMenu-dummy.m */,
+				D7CA1C251C23D0B3C71879C93A9A6C6D /* SideMenu-prefix.pch */,
+				6345AC7FBE5B3E9CD6DA96B5FF6690AB /* SideMenu-umbrella.h */,
 			);
-			path = SideMenu;
+			name = "Support Files";
+			path = "../Target Support Files/SideMenu";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -174,10 +276,19 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				4C7DECB9505A3661801AB8D77F9249EF /* Pods */,
-				1634036E3A477F43AECD11A4BDF3933E /* Products */,
+				8FFE03D581F548C74DAA54466CF0649B /* Pods */,
+				423B04C0A46A45FBDAD74F0459763549 /* Products */,
 				3AA1095B0B3ED0C1D778C621A5F49C26 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		8FFE03D581F548C74DAA54466CF0649B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				03F06FF2A11C44016744BB8A835DF9D9 /* Color-Picker-for-iOS */,
+				04883D80DD4236E7A83959EB97DFC365 /* SideMenu */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		90D6102E3CB5BE3AF7ABA2C57A2F23E5 /* Pods-TeapotExplosionTests */ = {
@@ -242,28 +353,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F9853A6F97D22D33E240344F832559E2 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				FC0BD2A3E45C40B9C9716812311BF563 /* Info.plist */,
-				995DC884942ED5E9B85C72A343F9AB5D /* SideMenu.modulemap */,
-				FBB886EBE499ADAF32629979A36A3169 /* SideMenu.xcconfig */,
-				35093DD994A172D53932151A6DBAEBC3 /* SideMenu-dummy.m */,
-				6CF81980B2B851D5ED4718BC47020609 /* SideMenu-prefix.pch */,
-				E72E3ED37D9B76098CC2B9BB49D386DF /* SideMenu-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/SideMenu";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		42E71F75E366A416353FF6993830E92F /* Headers */ = {
+		5DA837C5840F839023533C7C7CA0B559 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6F2637297CB35F44FD63692CC7CDB7E /* SideMenu-umbrella.h in Headers */,
+				25A12FDD6CE71F758FB379CD293711C0 /* SideMenu-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BE50E9C4C1C4FE9E7761B6DB504FEEA2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C652302F0E428BED19A3FA1D45DF5EBE /* Pods-TeapotExplosion-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +380,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D37499FB9ED97E072A32D469A6378B9E /* Headers */ = {
+		BFEE5F05D5F2706BB90AFA9AA23356F3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				531BC4A7376E3F241E97D10DF7AF791E /* Pods-TeapotExplosion-umbrella.h in Headers */,
+				8CB83FBC2944331BD582F5F84DC01BD5 /* Color-Picker-for-iOS-umbrella.h in Headers */,
+				3B9509EB443CB5B10FEAC8931B7F219B /* HRBrightnessCursor.h in Headers */,
+				D85FB1D863BDA9138164F81B7ECA244A /* HRBrightnessSlider.h in Headers */,
+				66DBD435AB08CB81530FEFB1488DA692 /* HRColorCursor.h in Headers */,
+				9C2A31151E1103D487EF411326F610FC /* HRColorInfoView.h in Headers */,
+				476EADE45A42DCCF8B31C52BDF213291 /* HRColorMapView.h in Headers */,
+				E47685EBC66F071B122727CEE65F2485 /* HRColorPickerView.h in Headers */,
+				3B4FDC3B0C4A598CFC3AAFEB8107CFEA /* HRHSVColorUtil.h in Headers */,
+				5338CF92AD32C3D1D22BE4342B0E7B7B /* UIImage+CoreGraphics.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,13 +407,49 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D18ED45918B994D5DDE23CABDE3BCD2 /* SideMenu */ = {
+		26F36C18FE9B915DB92EC1E3A7EFBCF8 /* Pods-TeapotExplosion */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CDE5C20BFEC4896E4B510F9B4433510D /* Build configuration list for PBXNativeTarget "SideMenu" */;
+			buildConfigurationList = D8C099EBF2109463EB478CC0095EB760 /* Build configuration list for PBXNativeTarget "Pods-TeapotExplosion" */;
 			buildPhases = (
-				6F98559EC95DDFC60A92F8BBC8D30344 /* Sources */,
-				7CB5EF18EF33AF76A249137C6E7FB144 /* Frameworks */,
-				42E71F75E366A416353FF6993830E92F /* Headers */,
+				7108E0BDC8701877EC6C45847E66A35E /* Sources */,
+				8317C08AB2FFF61A8486B6120CA0E644 /* Frameworks */,
+				BE50E9C4C1C4FE9E7761B6DB504FEEA2 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6C0A6413718A9EF8B723DDF0119D7376 /* PBXTargetDependency */,
+				9A7FBAC4B2F4A19FDBF32B3E9127E309 /* PBXTargetDependency */,
+			);
+			name = "Pods-TeapotExplosion";
+			productName = "Pods-TeapotExplosion";
+			productReference = 4BD1F33061FF0DA6B1C1F1BCB1D8946D /* Pods_TeapotExplosion.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A01DCF3DD7042226A8E0B3D83E06E9C1 /* Color-Picker-for-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B1343DA9E2BD6D8D067A41512FA3B90 /* Build configuration list for PBXNativeTarget "Color-Picker-for-iOS" */;
+			buildPhases = (
+				29E5754989F142A9150C7E7FB929CBAD /* Sources */,
+				079E78728B35E54EB176E227BEDE1E80 /* Frameworks */,
+				BFEE5F05D5F2706BB90AFA9AA23356F3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Color-Picker-for-iOS";
+			productName = "Color-Picker-for-iOS";
+			productReference = CC9511539112A357087A142A24CB9BAF /* Color_Picker_for_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BEF48B9D31ABDF6C1F9D42FE61348541 /* SideMenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C37D9E4F5694417845FD86E14CF5994 /* Build configuration list for PBXNativeTarget "SideMenu" */;
+			buildPhases = (
+				163DC6FEED07BE4E0EA81525247B947B /* Sources */,
+				60F6069E36BC30F0D07848CFCA9BB0DF /* Frameworks */,
+				5DA837C5840F839023533C7C7CA0B559 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -308,25 +457,7 @@
 			);
 			name = SideMenu;
 			productName = SideMenu;
-			productReference = 9C08AF70CF408058E2F76793D4E73C28 /* SideMenu.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		9DE9E1FE60948851F265787B6D07FD6D /* Pods-TeapotExplosion */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E603CD228B887DF34E4DAE97D3207DF0 /* Build configuration list for PBXNativeTarget "Pods-TeapotExplosion" */;
-			buildPhases = (
-				BC97489BFDB5DE074654A76E08AFD40C /* Sources */,
-				61944D9E1213857691CEE6F00375221E /* Frameworks */,
-				D37499FB9ED97E072A32D469A6378B9E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FD2B1F0890B1E383CDC93B8F1AB070D3 /* PBXTargetDependency */,
-			);
-			name = "Pods-TeapotExplosion";
-			productName = "Pods-TeapotExplosion";
-			productReference = A8B765B1BFCFF1487AF8FA1A1DB9DFB2 /* Pods_TeapotExplosion.framework */;
+			productReference = 645D0A16FE5FA546D4B5581E5A760EB6 /* SideMenu.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		ED90B970975FD35026065C5403F59F85 /* Pods-TeapotExplosionTests */ = {
@@ -343,7 +474,7 @@
 			);
 			name = "Pods-TeapotExplosionTests";
 			productName = "Pods-TeapotExplosionTests";
-			productReference = 22D7757421F9864E07F6B8B202C6BFBC /* Pods_TeapotExplosionTests.framework */;
+			productReference = 15E7828AA9FB440834835442F482AF71 /* Pods_TeapotExplosionTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EEF8DD8648100D49862D9F02689FCEA2 /* Pods-TeapotExplosionUITests */ = {
@@ -360,7 +491,7 @@
 			);
 			name = "Pods-TeapotExplosionUITests";
 			productName = "Pods-TeapotExplosionUITests";
-			productReference = 0E0BB075F00697DFC50F84ADE578CF0C /* Pods_TeapotExplosionUITests.framework */;
+			productReference = 941EF49890EF6EF58059B9B75F7503EE /* Pods_TeapotExplosionUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -372,10 +503,10 @@
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
-					8D18ED45918B994D5DDE23CABDE3BCD2 = {
+					26F36C18FE9B915DB92EC1E3A7EFBCF8 = {
 						LastSwiftMigration = 0810;
 					};
-					9DE9E1FE60948851F265787B6D07FD6D = {
+					BEF48B9D31ABDF6C1F9D42FE61348541 = {
 						LastSwiftMigration = 0810;
 					};
 				};
@@ -388,14 +519,15 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 1634036E3A477F43AECD11A4BDF3933E /* Products */;
+			productRefGroup = 423B04C0A46A45FBDAD74F0459763549 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9DE9E1FE60948851F265787B6D07FD6D /* Pods-TeapotExplosion */,
+				A01DCF3DD7042226A8E0B3D83E06E9C1 /* Color-Picker-for-iOS */,
+				26F36C18FE9B915DB92EC1E3A7EFBCF8 /* Pods-TeapotExplosion */,
 				ED90B970975FD35026065C5403F59F85 /* Pods-TeapotExplosionTests */,
 				EEF8DD8648100D49862D9F02689FCEA2 /* Pods-TeapotExplosionUITests */,
-				8D18ED45918B994D5DDE23CABDE3BCD2 /* SideMenu */,
+				BEF48B9D31ABDF6C1F9D42FE61348541 /* SideMenu */,
 			);
 		};
 /* End PBXProject section */
@@ -409,15 +541,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6F98559EC95DDFC60A92F8BBC8D30344 /* Sources */ = {
+		163DC6FEED07BE4E0EA81525247B947B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CFD904EF7F737EAB55000506FC10420 /* SideMenu-dummy.m in Sources */,
-				576EB81D35E1BBC7C5C8D2AD9DA5DC5B /* SideMenuManager.swift in Sources */,
-				D3234BB982506C7DB297E8A7D93491F6 /* SideMenuTransition.swift in Sources */,
-				7F7BCF4B4B5629835E5B9F9D4C47CD83 /* UISideMenuNavigationController.swift in Sources */,
-				684B9B2783A2905F1E792F40A8D027BF /* UITableViewVibrantCell.swift in Sources */,
+				1F84ADD2422F41752099BAF3FA8A1A8B /* SideMenu-dummy.m in Sources */,
+				B3CF66DF3F2D50C544A471341FD7AA92 /* SideMenuManager.swift in Sources */,
+				0AD9B44B48856843E8EBD3F71132913A /* SideMenuTransition.swift in Sources */,
+				EC3F5E4C51AAEF9ACD11AF2471F822B8 /* UISideMenuNavigationController.swift in Sources */,
+				EA251EB14DE286FC64934F8EC87FF256 /* UITableViewVibrantCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29E5754989F142A9150C7E7FB929CBAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24E1C73355D2ACFA6FD46520708280FF /* Color-Picker-for-iOS-dummy.m in Sources */,
+				30BF6899047093747807B511E82FC09D /* HRBrightnessCursor.m in Sources */,
+				D954EED7432F2C4DEF0977B347011624 /* HRBrightnessSlider.m in Sources */,
+				76ED30C4F9604191784BDF644ABDB2E7 /* HRColorCursor.m in Sources */,
+				7850873FF21817C1B00197B16118EF58 /* HRColorInfoView.m in Sources */,
+				EB7C0F8DABEDD222028E7CC126BEFCE8 /* HRColorMapView.m in Sources */,
+				E0DAD373ABA7DE3F08F8A3758BA28F32 /* HRColorPickerView.m in Sources */,
+				C0DCF430637A79A6AF68D2C9ECF65A65 /* HRHSVColorUtil.m in Sources */,
+				C7599CBFC0BE63E48BF8F7F1D2463D9F /* UIImage+CoreGraphics.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7108E0BDC8701877EC6C45847E66A35E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				637EA848F0FC9AA404875AAD56817F22 /* Pods-TeapotExplosion-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,22 +585,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BC97489BFDB5DE074654A76E08AFD40C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9A39E327F160A96EB239C7F4D9CA514B /* Pods-TeapotExplosion-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		FD2B1F0890B1E383CDC93B8F1AB070D3 /* PBXTargetDependency */ = {
+		6C0A6413718A9EF8B723DDF0119D7376 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Color-Picker-for-iOS";
+			target = A01DCF3DD7042226A8E0B3D83E06E9C1 /* Color-Picker-for-iOS */;
+			targetProxy = 1795061705C2A2929B131FCC85BFB4B6 /* PBXContainerItemProxy */;
+		};
+		9A7FBAC4B2F4A19FDBF32B3E9127E309 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SideMenu;
-			target = 8D18ED45918B994D5DDE23CABDE3BCD2 /* SideMenu */;
-			targetProxy = 7DF29B80394B3F9AD0DE082A9DBEDCB7 /* PBXContainerItemProxy */;
+			target = BEF48B9D31ABDF6C1F9D42FE61348541 /* SideMenu */;
+			targetProxy = AD7FFCCC6CA99858B26E4D9DC6736B0C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -515,7 +669,7 @@
 			};
 			name = Release;
 		};
-		2483ABD10AAD7DB2C3D6CFCF7CED0BC4 /* Release */ = {
+		21F3F7A9D1381376448CE640B90C9C01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F3BDDAC5ACF335DA86431286EEBBC1F /* Pods-TeapotExplosion.release.xcconfig */;
 			buildSettings = {
@@ -549,7 +703,36 @@
 			};
 			name = Release;
 		};
-		3854673B3F550DDB59824EB41F434C96 /* Debug */ = {
+		23477B1175C0F5E444C921E26EF6F08F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A624050B926822AFF8DF1639A5471FE /* Color-Picker-for-iOS.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Color-Picker-for-iOS/Color-Picker-for-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Color-Picker-for-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Color-Picker-for-iOS/Color-Picker-for-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Color_Picker_for_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		319E30AF020F08F812E715BC8EEEAE2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BDDCDEE2FE569B93AE8E5527E8FDE054 /* Pods-TeapotExplosion.debug.xcconfig */;
 			buildSettings = {
@@ -584,9 +767,9 @@
 			};
 			name = Debug;
 		};
-		5CCF291DED27E15C4CAF2CE1C88C95E0 /* Debug */ = {
+		6D08AFFF838F361FCB149794E61BDA33 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBB886EBE499ADAF32629979A36A3169 /* SideMenu.xcconfig */;
+			baseConfigurationReference = 68FE6E247BEB87795AB4032B5EB48867 /* SideMenu.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -614,6 +797,36 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		8308BB72AC62BB643F84887A57A3D64D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68FE6E247BEB87795AB4032B5EB48867 /* SideMenu.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/SideMenu/SideMenu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SideMenu/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SideMenu/SideMenu.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = SideMenu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		9FCDAF5841364C35BDB1CCE85134A5DF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -648,35 +861,34 @@
 			};
 			name = Release;
 		};
-		C8E8A32B4E74D2C9F5BE9D5AB2105388 /* Release */ = {
+		D03CA785A55AB6F921F85789795605BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBB886EBE499ADAF32629979A36A3169 /* SideMenu.xcconfig */;
+			baseConfigurationReference = 2A624050B926822AFF8DF1639A5471FE /* Color-Picker-for-iOS.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SideMenu/SideMenu-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SideMenu/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/Color-Picker-for-iOS/Color-Picker-for-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Color-Picker-for-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SideMenu/SideMenu.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = SideMenu;
+				MODULEMAP_FILE = "Target Support Files/Color-Picker-for-iOS/Color-Picker-for-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Color_Picker_for_iOS;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		D560687C2EAA7604298B56AEE78343D9 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -794,6 +1006,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0C37D9E4F5694417845FD86E14CF5994 /* Build configuration list for PBXNativeTarget "SideMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D08AFFF838F361FCB149794E61BDA33 /* Debug */,
+				8308BB72AC62BB643F84887A57A3D64D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B1343DA9E2BD6D8D067A41512FA3B90 /* Build configuration list for PBXNativeTarget "Color-Picker-for-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D03CA785A55AB6F921F85789795605BA /* Debug */,
+				23477B1175C0F5E444C921E26EF6F08F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -821,20 +1051,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CDE5C20BFEC4896E4B510F9B4433510D /* Build configuration list for PBXNativeTarget "SideMenu" */ = {
+		D8C099EBF2109463EB478CC0095EB760 /* Build configuration list for PBXNativeTarget "Pods-TeapotExplosion" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5CCF291DED27E15C4CAF2CE1C88C95E0 /* Debug */,
-				C8E8A32B4E74D2C9F5BE9D5AB2105388 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E603CD228B887DF34E4DAE97D3207DF0 /* Build configuration list for PBXNativeTarget "Pods-TeapotExplosion" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3854673B3F550DDB59824EB41F434C96 /* Debug */,
-				2483ABD10AAD7DB2C3D6CFCF7CED0BC4 /* Release */,
+				319E30AF020F08F812E715BC8EEEAE2E /* Debug */,
+				21F3F7A9D1381376448CE640B90C9C01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

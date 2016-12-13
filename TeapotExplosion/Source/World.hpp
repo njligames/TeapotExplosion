@@ -66,6 +66,8 @@ namespace jamesfolk
         
         bool isExploding()const;
         
+        Geometry *const getGeometry()const;
+        
     protected:
         
     private:

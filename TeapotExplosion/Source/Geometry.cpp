@@ -37,7 +37,29 @@ namespace jamesfolk
     m_VertexBufferChanged(true),
     m_NormalMatrixBufferChanged(true),
     m_ModelViewBufferChanged(true),
-    m_ShaderChanged(true)
+    m_ShaderChanged(true),
+    
+    m_RimLightColor(0.0f, 1.0f, 0.0f),
+    m_RimLightStart(0.0f),
+    m_RimLightEnd(1.0f),
+    m_RimLightCoefficient(0.6f),
+    m_LightSourceAmbientColor(1.0f, 1.0f, 1.0f),
+    m_LightSourceDiffuseColor(1.0f, 0.0f, 0.0f),
+    m_LightSourceSpecularColor(0.0f, 0.0f, 1.0f),
+    m_LightSourcePosition_worldspace(0.0f, 0.0f, -1.0f, 1.0f),
+    m_LightSourceSpotDirection(0.0f, 0.0f, 1.0f),
+    m_LightSourceSpotExponent(100.0f),
+    m_LightSourceSpotCutoff(180.0f),
+    m_LightSourceSpotCosCutoff(30.0f),
+    m_LightSourceConstantAttenuation(1.0f),
+    m_LightSourceLinearAttenuation(0.045f),
+    m_LightSourceQuadraticAttenuation(0.0075f),
+    m_LightAmbientColor(1.0f, 1.0f, 1.0f),
+    m_MaterialShininess(1000.0f),
+    m_FogMaxDistance(11.0f),
+    m_FogMinDistance(5.0f),
+    m_FogColor(1.0f, 1.0f, 1.0f),
+    m_FogDensity(0.1f)
     {
         assert(m_MatrixBuffer);
         assert(m_MatrixBufferFullSize);
@@ -264,35 +286,35 @@ namespace jamesfolk
                 float shininess;
             };
             
-            shader->setUniformValue("RimLightColor", btVector3(0.0f, 1.0f, 0.0f));
-            shader->setUniformValue("RimLightStart", 0.0f);
-            shader->setUniformValue("RimLightEnd", 1.0f);
-            shader->setUniformValue("RimLightCoefficient", 0.6f);
+            shader->setUniformValue("RimLightColor", getRimLightColor());
+            shader->setUniformValue("RimLightStart", getRimLightStart());
+            shader->setUniformValue("RimLightEnd", getRimLightEnd());
+            shader->setUniformValue("RimLightCoefficient", getRimLightCoefficient());
             
-            shader->setUniformValue("LightSourceAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
-            shader->setUniformValue("LightSourceDiffuseColor", btVector3(1.0f, 0.0f, 0.0f));
-            shader->setUniformValue("LightSourceSpecularColor", btVector3(0.0f, 0.0f, 1.0f));
+            shader->setUniformValue("LightSourceAmbientColor", getLightSourceAmbientColor());
+            shader->setUniformValue("LightSourceDiffuseColor", getLightSourceDiffuseColor());
+            shader->setUniformValue("LightSourceSpecularColor", getLightSourceSpecularColor());
             
-            shader->setUniformValue("LightSourcePosition_worldspace", btVector4(0.0f, 0.0f, -1.0f, 1.0));
+            shader->setUniformValue("LightSourcePosition_worldspace", getLightSourcePosition());
             
-            shader->setUniformValue("LightSourceSpotDirection", btVector3(0.0f, 0.0f, 1.0f));
-            shader->setUniformValue("LightSourceSpotExponent", 100.0f);
+            shader->setUniformValue("LightSourceSpotDirection", getLightSourceSpotDirection());
+            shader->setUniformValue("LightSourceSpotExponent", getLightSourceSpotExponent());
             
-            shader->setUniformValue("LightSourceSpotCutoff", 180.0f);
-            shader->setUniformValue("LightSourceSpotCosCutoff", 30.0f);
+            shader->setUniformValue("LightSourceSpotCutoff", getLightSourceSpotCutoff());
+            shader->setUniformValue("LightSourceSpotCosCutoff", getLightSourceSpotCosCutoff());
             
-            shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
-            shader->setUniformValue("LightSourceLinearAttenuation", 0.045f);
-            shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0075f);
+            shader->setUniformValue("LightSourceConstantAttenuation", getLightSourceConstantAttenuation());
+            shader->setUniformValue("LightSourceLinearAttenuation", getLightSourceLinearAttenuation());
+            shader->setUniformValue("LightSourceQuadraticAttenuation", getLightSourceQuadraticAttenuation());
             
-            shader->setUniformValue("LightAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
+            shader->setUniformValue("LightAmbientColor", getLightAmbientColor());
             
-            shader->setUniformValue("MaterialShininess", 1000.0f);
+            shader->setUniformValue("MaterialShininess", getMaterialShininess());
             
-            shader->setUniformValue("FogMaxDistance", 11.0f);
-            shader->setUniformValue("FogMinDistance", 5.0f);
-            shader->setUniformValue("FogColor", btVector3(1.0f, 1.0f, 1.0f));
-            shader->setUniformValue("FogDensity", 0.1f);
+            shader->setUniformValue("FogMaxDistance", getFogMaxDistance());
+            shader->setUniformValue("FogMinDistance", getFogMinDistance());
+            shader->setUniformValue("FogColor", getFogColor());
+            shader->setUniformValue("FogDensity", getFogDensity());
             
             m_ShaderChanged = false;
             
@@ -427,8 +449,213 @@ namespace jamesfolk
             }
             
         }
-        
-        
+    }
+    
+    void Geometry::setRimLightColor(const btVector3 &color)
+    {
+        m_RimLightColor = color;
+    }
+    
+    const btVector3 &Geometry::getRimLightColor()const
+    {
+        return m_RimLightColor;
+    }
+    
+    
+    void Geometry::setRimLightStart(const float v)
+    {
+        m_RimLightStart = v;
+    }
+    
+    float Geometry::getRimLightStart()const
+    {
+        return m_RimLightStart;
+    }
+    
+    void Geometry::setRimLightEnd(const float v)
+    {
+        m_RimLightEnd = v;
+    }
+    
+    float Geometry::getRimLightEnd()const
+    {
+        return m_RimLightEnd;
+    }
+    
+    void Geometry::setRimLightCoefficient(const float v)
+    {
+        m_RimLightCoefficient = v;
+    }
+    
+    float Geometry::getRimLightCoefficient()const
+    {
+        return m_RimLightCoefficient;
+    }
+    
+    void Geometry::setLightSourceAmbientColor(const btVector3 &color)
+    {
+        m_LightSourceAmbientColor = color;
+    }
+    
+    const btVector3 &Geometry::getLightSourceAmbientColor()const
+    {
+        return m_LightSourceAmbientColor;
+    }
+    
+    void Geometry::setLightSourceDiffuseColor(const btVector3 &color)
+    {
+        m_LightSourceDiffuseColor = color;
+    }
+    
+    const btVector3 &Geometry::getLightSourceDiffuseColor()const
+    {
+        return m_LightSourceDiffuseColor;
+    }
+    
+    void Geometry::setLightSourceSpecularColor(const btVector3 &color)
+    {
+        m_LightSourceSpecularColor = color;
+    }
+    const btVector3 &Geometry::getLightSourceSpecularColor()const
+    {
+        return m_LightSourceSpecularColor;
+    }
+    
+    void Geometry::setLightSourcePosition(const btVector4 &pos)
+    {
+        m_LightSourcePosition_worldspace = pos;
+    }
+    
+    const btVector4 &Geometry::getLightSourcePosition()const
+    {
+        return m_LightSourcePosition_worldspace;
+    }
+    
+    void Geometry::setLightSourceSpotDirection(const btVector3 &dir)
+    {
+        m_LightSourceSpotDirection = dir;
+    }
+    
+    const btVector3 &Geometry::getLightSourceSpotDirection()const
+    {
+        return m_LightSourceSpotDirection;
+    }
+    
+    void Geometry::setLightSourceSpotExponent(const float v)
+    {
+        m_LightSourceSpotExponent = v;
+    }
+    
+    float Geometry::getLightSourceSpotExponent()const
+    {
+        return m_LightSourceSpotExponent;
+    }
+    
+    void Geometry::setLightSourceSpotCutoff(const float v)
+    {
+        m_LightSourceSpotCutoff = v;
+    }
+    
+    float Geometry::getLightSourceSpotCutoff()const
+    {
+        return m_LightSourceSpotCutoff;
+    }
+    
+    void Geometry::setLightSourceSpotCosCutoff(const float v)
+    {
+        m_LightSourceSpotCosCutoff = v;
+    }
+    float Geometry::getLightSourceSpotCosCutoff()const
+    {
+        return m_LightSourceSpotCosCutoff;
+    }
+    
+    void Geometry::setLightSourceConstantAttenuation(const float v)
+    {
+        m_LightSourceConstantAttenuation = v;
+    }
+    
+    float Geometry::getLightSourceConstantAttenuation()const
+    {
+        return m_LightSourceConstantAttenuation;
+    }
+    
+    void Geometry::setLightSourceLinearAttenuation(const float v)
+    {
+        m_LightSourceLinearAttenuation = v;
+    }
+    float Geometry::getLightSourceLinearAttenuation()const
+    {
+        return m_LightSourceLinearAttenuation;
+    }
+    
+    void Geometry::setLightSourceQuadraticAttenuation(const float v)
+    {
+        m_LightSourceQuadraticAttenuation = v;
+    }
+    float Geometry::getLightSourceQuadraticAttenuation()const
+    {
+        return m_LightSourceQuadraticAttenuation;
+    }
+    
+    void Geometry::setLightAmbientColor(const btVector3 &color)
+    {
+        m_LightAmbientColor = color;
+    }
+    
+    const btVector3 &Geometry::getLightAmbientColor()const
+    {
+        return m_LightAmbientColor;
+    }
+    
+    void Geometry::setMaterialShininess(const float v)
+    {
+        m_MaterialShininess = v;
+    }
+    
+    float Geometry::getMaterialShininess()const
+    {
+        return m_MaterialShininess;
+    }
+    
+    void Geometry::setFogMaxDistance(const float v)
+    {
+        m_FogMaxDistance = v;
+    }
+    
+    float Geometry::getFogMaxDistance()const
+    {
+        return m_FogMaxDistance;
+    }
+    
+    void Geometry::setFogMinDistance(const float v)
+    {
+        m_FogMinDistance = v;
+    }
+    
+    float Geometry::getFogMinDistance()const
+    {
+        return m_FogMinDistance;
+    }
+    
+    void Geometry::setFogColor(const btVector3 &color)
+    {
+        m_FogColor = color;
+    }
+    
+    const btVector3 &Geometry::getFogColor()const
+    {
+        return m_FogColor;
+    }
+    
+    void Geometry::setFogDensity(const float v)
+    {
+        m_FogDensity = v;
+    }
+    
+    float Geometry::getFogDensity()const
+    {
+        return m_FogDensity;
     }
     
     const void *Geometry::getModelViewTransformArrayBufferPtr()const

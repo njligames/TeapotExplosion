@@ -16,8 +16,8 @@
 #include "Node.hpp"
 #include "Scene.hpp"
 
-static unsigned int MAXIMUM_TEAPOTS = 6;
-static unsigned int MAXIMUM_SUBDIVISIONS = 3;
+static unsigned int MAXIMUM_TEAPOTS = 1;
+static unsigned int MAXIMUM_SUBDIVISIONS = 2;
 
 static float randomFloat(float min, float max)
 {
@@ -129,8 +129,8 @@ namespace jamesfolk
         
         m_Geometry->load(m_Shaders[0], objFileData, MAXIMUM_TEAPOTS, MAXIMUM_SUBDIVISIONS);
         
-        float y = 0.2f;
-        float z = 0.0f;
+        float y = 0.0f;
+        float z = -3.5f;
         for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
              i != m_TeapotNodes.end();
              i++)
@@ -190,36 +190,34 @@ namespace jamesfolk
         {
             Touch t = *i;
             
-            if(t.state == World::TouchState_Down)
-            {
-                if(t.taps == 3)
-                {
-                    subdivideTeapots();
-                }
-                else
-                {
-                    if(!isExploding())
-                    {
-                        explodeTeapots();
-                    }
-                    else
-                    {
-                        resetTeapots();
-                    }
-                }
-            }
-            if(t.state == World::TouchState_Up)
-            {
-                
-            }
+//            if(t.state == World::TouchState_Down)
+//            {
+//                if(t.taps == 3)
+//                {
+//                    subdivideTeapots();
+//                }
+//                else
+//                {
+//                    if(!isExploding())
+//                    {
+//                        explodeTeapots();
+//                    }
+//                    else
+//                    {
+//                        resetTeapots();
+//                    }
+//                }
+//            }
+//            if(t.state == World::TouchState_Up)
+//            {
+//                
+//            }
         }
         m_Touches.clear();
         
-//        btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_Rotation);
-//        btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_Rotation);
-//        btQuaternion rotZ(btVector3(0.0, 0.0, 1.0), m_Rotation);
+        btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_Rotation);
+        btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_Rotation);
         
-//        int ii = 0;
         for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
              i != m_TeapotNodes.end();
              i++)
@@ -229,23 +227,13 @@ namespace jamesfolk
             
             node->setNormalMatrix(node->getWorldTransform().getBasis().inverse().transpose());
             
-//            if(ii % 3 == 0)
-//            {
-//                node->setRotation(rotX);
-//            }
-//            else if(ii % 3 == 1)
-//            {
-//                node->setRotation(rotY);
-//            }
-//            else if(ii % 3 == 2)
-//            {
-//                node->setRotation(rotZ);
-//            }
-//            ii++;
+            if(!isExploding())
+            {
+                node->setRotation(rotX * rotY);
+                m_Rotation += step;
+            }
         }
         
-//        m_Rotation += step;
-//        
 //        m_Scene->update(step);
         
         GLsizei verticeIdx = 0;
@@ -328,7 +316,7 @@ namespace jamesfolk
         if(!m_IsExploding)
         {
             float min = 0.1;
-            float max = 3.0;
+            float max = 10.0;
             for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
             {
                 btVector3 force(m_Normals[i] * btVector3(randomFloat(min, max),
@@ -399,6 +387,11 @@ namespace jamesfolk
     bool World::isExploding()const
     {
         return m_IsExploding;
+    }
+    
+    Geometry *const World::getGeometry()const
+    {
+        return m_Geometry;
     }
     
     World::World():

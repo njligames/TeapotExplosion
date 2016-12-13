@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B2B3FBC0EC125B1B67554ED /* Pods_TeapotExplosionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */; };
 		93DDB5E6ADC4FE774A61AAE6 /* Pods_TeapotExplosionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */; };
+		C1372DAB1E00745A00501B98 /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C1372DAA1E00745A00501B98 /* SettingsViewController.mm */; };
 		C15564CA1DF7C3290081C110 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564C91DF7C3290081C110 /* main.m */; };
 		C15564CD1DF7C3290081C110 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564CC1DF7C3290081C110 /* AppDelegate.m */; };
 		C15564D41DF7C3290081C110 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C15564D31DF7C3290081C110 /* GameViewController.mm */; };
@@ -201,6 +202,8 @@
 		863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E834B192F83D09817F7624 /* Pods_TeapotExplosion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1372DA91E00745A00501B98 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		C1372DAA1E00745A00501B98 /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsViewController.mm; sourceTree = "<group>"; };
 		C15564C51DF7C3290081C110 /* TeapotExplosion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeapotExplosion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15564C91DF7C3290081C110 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C15564CB1DF7C3290081C110 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -689,6 +692,8 @@
 				C15564CC1DF7C3290081C110 /* AppDelegate.m */,
 				C15564D21DF7C3290081C110 /* GameViewController.h */,
 				C15564D31DF7C3290081C110 /* GameViewController.mm */,
+				C1372DA91E00745A00501B98 /* SettingsViewController.h */,
+				C1372DAA1E00745A00501B98 /* SettingsViewController.mm */,
 				C15564D51DF7C3290081C110 /* Main.storyboard */,
 				C15564D81DF7C3290081C110 /* Assets.xcassets */,
 				C15564DA1DF7C3290081C110 /* LaunchScreen.storyboard */,
@@ -1663,6 +1668,7 @@
 				C1557EC71DF937660081C110 /* btMultiBodyDynamicsWorld.cpp in Sources */,
 				C1557E1B1DF937650081C110 /* btSphereSphereCollisionAlgorithm.cpp in Sources */,
 				C1557DF51DF937650081C110 /* btBoxBoxCollisionAlgorithm.cpp in Sources */,
+				C1372DAB1E00745A00501B98 /* SettingsViewController.mm in Sources */,
 				C1557E631DF937650081C110 /* btTriangleIndexVertexMaterialArray.cpp in Sources */,
 				C1557EBA1DF937660081C110 /* btDiscreteDynamicsWorld.cpp in Sources */,
 				C1557F211DF937660081C110 /* btSoftBody.cpp in Sources */,

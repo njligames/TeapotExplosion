@@ -262,8 +262,124 @@ namespace jamesfolk
         virtual GLsizei numberOfVertices()const = 0;
         virtual GLsizei numberOfIndices()const = 0;
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        shader->setUniformValue("RimLightColor", btVector3(0.0f, 1.0f, 0.0f));
+        void setRimLightColor(const btVector3 &color);
+        const btVector3 &getRimLightColor()const;
+        
+//        shader->setUniformValue("RimLightStart", 0.0f);
+        void setRimLightStart(const float v);
+        float getRimLightStart()const;
+        
+//        shader->setUniformValue("RimLightEnd", 1.0f);
+        void setRimLightEnd(const float v);
+        float getRimLightEnd()const;
+        
+//        shader->setUniformValue("RimLightCoefficient", 0.6f);
+        void setRimLightCoefficient(const float v);
+        float getRimLightCoefficient()const;
+//        
+//        shader->setUniformValue("LightSourceAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
+        void setLightSourceAmbientColor(const btVector3 &color);
+        const btVector3 &getLightSourceAmbientColor()const;
+        
+//        shader->setUniformValue("LightSourceDiffuseColor", btVector3(1.0f, 0.0f, 0.0f));
+        void setLightSourceDiffuseColor(const btVector3 &color);
+        const btVector3 &getLightSourceDiffuseColor()const;
+        
+//        shader->setUniformValue("LightSourceSpecularColor", btVector3(0.0f, 0.0f, 1.0f));
+        void setLightSourceSpecularColor(const btVector3 &color);
+        const btVector3 &getLightSourceSpecularColor()const;
+        
+//        shader->setUniformValue("LightSourcePosition_worldspace", btVector4(0.0f, 0.0f, -1.0f, 1.0));
+        void setLightSourcePosition(const btVector4 &pos);
+        const btVector4 &getLightSourcePosition()const;
+        
+//        shader->setUniformValue("LightSourceSpotDirection", btVector3(0.0f, 0.0f, 1.0f));
+        void setLightSourceSpotDirection(const btVector3 &dir);
+        const btVector3 &getLightSourceSpotDirection()const;
+        
+//        shader->setUniformValue("LightSourceSpotExponent", 100.0f);
+        void setLightSourceSpotExponent(const float v);
+        float getLightSourceSpotExponent()const;
+        
+//        shader->setUniformValue("LightSourceSpotCutoff", 180.0f);
+        void setLightSourceSpotCutoff(const float v);
+        float getLightSourceSpotCutoff()const;
+        
+//        shader->setUniformValue("LightSourceSpotCosCutoff", 30.0f);
+        void setLightSourceSpotCosCutoff(const float v);
+        float getLightSourceSpotCosCutoff()const;
+        
+//        shader->setUniformValue("LightSourceConstantAttenuation", 1.0f);
+        void setLightSourceConstantAttenuation(const float v);
+        float getLightSourceConstantAttenuation()const;
+        
+//        shader->setUniformValue("LightSourceLinearAttenuation", 0.045f);
+        void setLightSourceLinearAttenuation(const float v);
+        float getLightSourceLinearAttenuation()const;
+        
+//        shader->setUniformValue("LightSourceQuadraticAttenuation", 0.0075f);
+        void setLightSourceQuadraticAttenuation(const float v);
+        float getLightSourceQuadraticAttenuation()const;
+//        
+//        shader->setUniformValue("LightAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
+        void setLightAmbientColor(const btVector3 &color);
+        const btVector3 &getLightAmbientColor()const;
+//        
+//        shader->setUniformValue("MaterialShininess", 1000.0f);
+        void setMaterialShininess(const float v);
+        float getMaterialShininess()const;
+//        
+//        shader->setUniformValue("FogMaxDistance", 11.0f);
+        void setFogMaxDistance(const float v);
+        float getFogMaxDistance()const;
+        
+//        shader->setUniformValue("FogMinDistance", 5.0f);
+        void setFogMinDistance(const float v);
+        float getFogMinDistance()const;
+        
+//        shader->setUniformValue("FogColor", btVector3(1.0f, 1.0f, 1.0f));
+        void setFogColor(const btVector3 &color);
+        const btVector3 &getFogColor()const;
+        
+//        shader->setUniformValue("FogDensity", 0.1f);
+        void setFogDensity(const float v);
+        float getFogDensity()const;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     protected:
-        void setupGL();
         
         const void *getModelViewTransformArrayBufferPtr()const;
         GLsizeiptr getModelViewTransformArrayBufferSize()const;
@@ -336,6 +452,28 @@ namespace jamesfolk
         bool m_NormalMatrixBufferChanged;
         bool m_ModelViewBufferChanged;
         bool m_ShaderChanged;
+        
+        btVector3 m_RimLightColor;
+        float m_RimLightStart;
+        float m_RimLightEnd;
+        float m_RimLightCoefficient;
+        btVector3 m_LightSourceAmbientColor;
+        btVector3 m_LightSourceDiffuseColor;
+        btVector3 m_LightSourceSpecularColor;
+        btVector4 m_LightSourcePosition_worldspace;
+        btVector3 m_LightSourceSpotDirection;
+        float m_LightSourceSpotExponent;
+        float m_LightSourceSpotCutoff;
+        float m_LightSourceSpotCosCutoff;
+        float m_LightSourceConstantAttenuation;
+        float m_LightSourceLinearAttenuation;
+        float m_LightSourceQuadraticAttenuation;
+        btVector3 m_LightAmbientColor;
+        float m_MaterialShininess;
+        float m_FogMaxDistance;
+        float m_FogMinDistance;
+        btVector3 m_FogColor;
+        float m_FogDensity;
     };
 }
 
