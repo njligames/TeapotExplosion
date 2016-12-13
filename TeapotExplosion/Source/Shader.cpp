@@ -189,6 +189,13 @@ namespace jamesfolk
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
+            int oldValue;
+            if(getUniformValue(uniformName, oldValue))
+            {
+                if(oldValue == value)
+                    return true;
+            }
+            
             glUniform1i(location, value);
             return true;
         }
@@ -211,6 +218,13 @@ namespace jamesfolk
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
+            btVector3 oldValue;
+            if(getUniformValue(uniformName, oldValue))
+            {
+                if(oldValue == value)
+                    return true;
+            }
+            
             glUniform3f(location, value.x(), value.y(), value.z());
             
             return true;
@@ -228,6 +242,7 @@ namespace jamesfolk
             value.setX(m_vec3Buffer[0]);
             value.setY(m_vec3Buffer[1]);
             value.setZ(m_vec3Buffer[2]);
+            value.setW(0.0);
             
             return true;
         }
@@ -239,6 +254,13 @@ namespace jamesfolk
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
+            float oldValue;
+            if(getUniformValue(uniformName, oldValue))
+            {
+                if(oldValue == value)
+                    return true;
+            }
+            
             glUniform1f(location, value);
             return true;
         }
@@ -261,6 +283,13 @@ namespace jamesfolk
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
+            btVector4 oldValue;
+            if(getUniformValue(uniformName, oldValue))
+            {
+                if(oldValue == value)
+                    return true;
+            }
+            
             glUniform4f(location, value.x(), value.y(), value.z(), value.w());
             
             return true;

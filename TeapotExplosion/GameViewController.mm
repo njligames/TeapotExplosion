@@ -11,12 +11,23 @@
 
 #include "World.hpp"
 
+#include <pthread.h>
+
+struct thread_data{
+    float timeSinceLastUpdate;
+    float aspect;
+};
+
 @interface GameViewController ()
+{
+    struct thread_data threadData;
+}
 
 @property (strong, nonatomic) EAGLContext *context;
 
 - (void)setupGL;
 - (void)tearDownGL;
+- (uint64_t)freeDiskspace;
 
 @end
 
@@ -93,6 +104,28 @@
     [EAGLContext setCurrentContext:self.context];
 }
 
+- (uint64_t)freeDiskspace
+{
+    uint64_t totalSpace = 0;
+    uint64_t totalFreeSpace = 0;
+    
+    __autoreleasing NSError *error = nil;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSDictionary *dictionary = [[NSFileManager defaultManager] attributesOfFileSystemForPath:[paths lastObject] error: &error];
+    
+    if (dictionary) {
+        NSNumber *fileSystemSizeInBytes = [dictionary objectForKey: NSFileSystemSize];
+        NSNumber *freeFileSystemSizeInBytes = [dictionary objectForKey:NSFileSystemFreeSize];
+        totalSpace = [fileSystemSizeInBytes unsignedLongLongValue];
+        totalFreeSpace = [freeFileSystemSizeInBytes unsignedLongLongValue];
+        NSLog(@"Memory Capacity of %llu MiB with %llu MiB Free memory available.", ((totalSpace/1024ll)/1024ll), ((totalFreeSpace/1024ll)/1024ll));
+    } else {
+        NSLog(@"Error Obtaining System Memory Info: Domain = %@, Code = %ld", [error domain], (long)[error code]);
+    }
+    
+    return totalFreeSpace;
+}
+
 -(void)viewDidLayoutSubviews
 {
     GLKView *view = (GLKView *)self.view;
@@ -107,9 +140,9 @@
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
-        jamesfolk::World::getInstance()->touch(jamesfolk::World::TouchState_Down,
-                                               point.x * touch.view.contentScaleFactor,
-                                               point.y * touch.view.contentScaleFactor);
+        jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Down,
+                                                  btVector2(point.x * touch.view.contentScaleFactor,
+                                                            point.y * touch.view.contentScaleFactor));
     }
 }
 
@@ -119,9 +152,9 @@
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
-        jamesfolk::World::getInstance()->touch(jamesfolk::World::TouchState_Move,
-                                               point.x * touch.view.contentScaleFactor,
-                                               point.y * touch.view.contentScaleFactor);
+        jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Move,
+                                                  btVector2(point.x * touch.view.contentScaleFactor,
+                                                            point.y * touch.view.contentScaleFactor));
     }
 }
 
@@ -131,9 +164,9 @@
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
-        jamesfolk::World::getInstance()->touch(jamesfolk::World::TouchState_Up,
-                                               point.x * touch.view.contentScaleFactor,
-                                               point.y * touch.view.contentScaleFactor);
+        jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Up,
+                                                  btVector2(point.x * touch.view.contentScaleFactor,
+                                                            point.y * touch.view.contentScaleFactor));
     }
 }
 
@@ -142,17 +175,44 @@
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
-        jamesfolk::World::getInstance()->touch(jamesfolk::World::TouchState_Cancelled,
-                                               point.x * touch.view.contentScaleFactor,
-                                               point.y * touch.view.contentScaleFactor);
+        jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Cancelled,
+                                                  btVector2(point.x * touch.view.contentScaleFactor,
+                                                            point.y * touch.view.contentScaleFactor));
     }
 }
 
 #pragma mark - GLKView and GLKViewController delegate methods
 
+void *_update(void *threadarg)
+{
+    struct thread_data *my_data;
+    my_data = (struct thread_data *) threadarg;
+    
+    jamesfolk::World::getInstance()->update(my_data->timeSinceLastUpdate);
+    
+    pthread_exit(NULL);
+}
+
 - (void)update
 {
-    jamesfolk::World::getInstance()->update(self.timeSinceLastUpdate);
+//    jamesfolk::World::getInstance()->update(self.timeSinceLastUpdate);
+    
+    threadData.timeSinceLastUpdate = self.timeSinceLastUpdate;
+    
+    pthread_t threads;
+    int rc;
+    rc = pthread_create(&threads, NULL, _update, (void *)&threadData);
+    if (rc){
+        printf("ERROR; return code from pthread_create() is %d\n", rc);
+        exit(-1);
+    }
+    
+    if(pthread_join(threads, NULL))
+    {
+        fprintf(stderr, "Error joining thread\n");
+        exit(-1);
+    }
+
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

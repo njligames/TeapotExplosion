@@ -14,30 +14,47 @@
 #include <sstream>
 #include <map>
 
-//static bool isFloat( std::string myString )
-//{
-//    std::istringstream iss(myString);
-//    float f;
-//    iss >> std::noskipws >> f; // noskipws considers leading whitespace invalid
-//    // Check the entire string was consumed and if either failbit or badbit is set
-//    return iss.eof() && !iss.fail();
-//}
 namespace jamesfolk
 {
     MeshGeometry::MeshGeometry():
     Geometry(),
     m_VertexData(NULL),
     m_IndiceData(NULL),
+    m_VertexDataBuffer(NULL),
+    m_IndiceDataBuffer(NULL),
     m_Filedata(""),
     m_NumberOfVertices(0),
     m_NumberOfIndices(0),
-    m_TotalSubdivisions(0)
+    m_TotalSubdivisions(0),
+    m_triangleBuffer(new TexturedColoredVertex[12]),
+    m_indiceBuffer(new GLuint[12])
     {
     }
     
     
     MeshGeometry::~MeshGeometry()
     {
+        delete [] m_indiceBuffer;
+        m_indiceBuffer = NULL;
+        
+        delete [] m_triangleBuffer;
+        m_triangleBuffer = NULL;
+        
+        if(m_IndiceDataBuffer)
+            delete [] m_IndiceDataBuffer;
+        m_IndiceDataBuffer = NULL;
+        
+        if(m_VertexDataBuffer)
+            delete [] m_VertexDataBuffer;
+        m_VertexDataBuffer = NULL;
+        
+        if(m_IndiceData)
+            delete [] m_IndiceData;
+        m_IndiceData = NULL;
+        
+        if(m_VertexData)
+            delete [] m_VertexData;
+        m_VertexData = NULL;
     }
     
     void MeshGeometry::load(Shader *shader, const std::string &filedata, unsigned int numInstances, unsigned int numSubDivisions)
@@ -51,25 +68,11 @@ namespace jamesfolk
     {
         if(m_TotalSubdivisions < maxNumberOfSubDivisions())
         {
-            GLsizei previousNumberOfVertices = m_NumberOfVertices;
             GLsizei previousNumberOfIndices = m_NumberOfIndices;
             
             m_NumberOfVertices *= 4;
             m_NumberOfIndices *= 4;
             
-            btTransform *transforms = new btTransform[maxNumberOfInstances()];
-            btTransform *normalMatrices = new btTransform[maxNumberOfInstances()];
-            for(GLsizei i = 0; i < maxNumberOfInstances(); i++)
-            {
-                transforms[i] = getTransform(i);
-                normalMatrices[i] = getNormalMatrixTransform(i);
-            }
-            
-            TexturedColoredVertex *vertexData = new TexturedColoredVertex[numberOfVertices() * maxNumberOfInstances()];
-            GLuint *indiceData = new GLuint[numberOfIndices() * maxNumberOfInstances()];
-            
-            TexturedColoredVertex *triangleBuffer = new TexturedColoredVertex[12];
-            GLuint *indiceBuffer = new GLuint[12];
             for (GLsizei currentIndice = 0, newIndice = 0;
                  currentIndice < previousNumberOfIndices;
                  currentIndice += 3, newIndice += 12)
@@ -77,18 +80,17 @@ namespace jamesfolk
                 subdivideTriangle(m_VertexData[currentIndice + 0],
                                   m_VertexData[currentIndice + 1],
                                   m_VertexData[currentIndice + 2],
-                                  triangleBuffer,
+                                  m_triangleBuffer,
                                   newIndice,
-                                  indiceBuffer);
+                                  m_indiceBuffer);
                 
-                for (GLsizei ii = 0; ii < 12; ii++)
-                {
-                    vertexData[newIndice + ii]  = triangleBuffer[ii];
-                    indiceData[newIndice + ii]  = indiceBuffer[ii];
-                }
+                memcpy(m_VertexDataBuffer + newIndice,
+                       m_triangleBuffer,
+                       sizeof(TexturedColoredVertex) * 12);
+                memcpy(m_IndiceDataBuffer + newIndice,
+                       m_indiceBuffer,
+                       sizeof(GLuint) * 12);
             }
-            delete [] indiceBuffer;
-            delete [] triangleBuffer;
             
             enableVertexArrayBufferChanged(true);
             enableIndiceArrayBufferChanged(true);
@@ -101,53 +103,153 @@ namespace jamesfolk
                  meshIndex < maxNumberOfInstances();
                  meshIndex++)
             {
-                for (unsigned long verticeIndex = 0;
-                     verticeIndex < numberOfVertices();
-                     verticeIndex++)
-                {
-                    m_VertexData[vertexInstanceIndex] = vertexData[verticeIndex];
-                    vertexInstanceIndex++;
-                }
+                memcpy(m_VertexData + vertexInstanceIndex,
+                       m_VertexDataBuffer,
+                       sizeof(TexturedColoredVertex) * numberOfVertices());
+                vertexInstanceIndex += numberOfVertices();
                 
                 for (unsigned long indiceIndex = 0;
                      indiceIndex < numberOfIndices();
                      indiceIndex++)
                 {
-                    m_IndiceData[indiceInstanceIndex] = (GLuint)((meshIndex * numberOfVertices()) + indiceData[indiceIndex]);
+                    m_IndiceData[indiceInstanceIndex] = m_IndiceDataBuffer[indiceIndex] + (GLuint)((meshIndex * numberOfVertices()));
                     indiceInstanceIndex++;
                 }
+//                memcpy(m_IndiceData + indiceInstanceIndex,
+//                       m_IndiceDataBuffer + (GLuint)((meshIndex * numberOfVertices())),
+//                       sizeof(GLuint) * numberOfIndices());
+//                indiceInstanceIndex += numberOfIndices();
             }
-            
-            delete [] indiceData;
-            delete [] vertexData;
-            
-//            unsigned long i;
-//            for (i = 0;
-//                 i < (maxNumberOfInstances() * numberOfVertices() * 16);
-//                 i += 16)
-//            {
-//                memcpy(m_ModelViewTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
-//            }
-//            
-//            for (i = 0;
-//                 i < (maxNumberOfInstances() * numberOfVertices() * 16);
-//                 i += 16)
-//            {
-//                memcpy(m_NormalMatrixTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
-//            }
-
-            for(GLsizei i = 0; i < maxNumberOfInstances(); i++)
-            {
-                setTransform(i, transforms[i]);
-                setNormalMatrixTransform(i, normalMatrices[i]);
-            }
-            delete [] normalMatrices;
-            delete [] transforms;
             
             enableModelViewBufferChanged(true);
             enableNormalMatrixBufferChanged(true);
         }
     }
+    
+    btVector3 MeshGeometry::getVertexPosition(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector3 ret(0,0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].vertex;
+        }
+        
+        return ret;
+    }
+    
+    btVector4 MeshGeometry::getVertexColor(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector4 ret(0,0,0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].color;
+        }
+        
+        return ret;
+    }
+    
+    btVector2 MeshGeometry::getVertexTexture(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector2 ret(0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].texture;
+        }
+        
+        return ret;
+    }
+    
+    btVector3 MeshGeometry::getVertexNormal(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector3 ret(0,0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].normal;
+        }
+        
+        return ret;
+    }
+    
+    btVector3 MeshGeometry::getVertexTangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector3 ret(0,0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].tangent;
+        }
+        
+        return ret;
+    }
+    
+    btVector3 MeshGeometry::getVertexBitangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+    {
+        btVector3 ret(0,0,0);
+        
+        if(instanceIdx < maxNumberOfInstances() &&
+           verticeIdx < numberOfVertices())
+        {
+            GLsizei idx = (instanceIdx * numberOfVertices());
+            idx += (verticeIdx * 1);
+            
+            memcpy(m_triangleBuffer,
+                   m_VertexData + idx,
+                   sizeof(TexturedColoredVertex) * 12);
+            
+            ret = m_triangleBuffer[0].bitangent;
+        }
+        
+        return ret;
+    }
+    
+    
+//    btVector3 MeshGeometry::getVertexNormal(const GLsizei instanceIdx, const GLsizei verticeIdx)const
+//    {
+//    }
     
     void MeshGeometry::subdivideTriangle(TexturedColoredVertex p0,
                                          TexturedColoredVertex p1,
@@ -348,12 +450,20 @@ namespace jamesfolk
         
         assert(m_VertexData == NULL);
         m_VertexData = new TexturedColoredVertex[numberOfVertices() * maxNumberOfInstances() * subdivisionBufferSize()];
-        memset(m_VertexData, std::numeric_limits<float>::max(), getVertexArrayBufferSize() * subdivisionBufferSize());
+        memset(m_VertexData, 0, getVertexArrayBufferSize() * subdivisionBufferSize());
+        
+        assert(m_VertexDataBuffer == NULL);
+        m_VertexDataBuffer = new TexturedColoredVertex[numberOfVertices() * maxNumberOfInstances() * subdivisionBufferSize()];
+        memset(m_VertexDataBuffer, 0, getVertexArrayBufferSize() * subdivisionBufferSize());
         enableVertexArrayBufferChanged(true);
         
         assert(m_IndiceData == NULL);
         m_IndiceData = new GLuint[numberOfIndices() * maxNumberOfInstances() * subdivisionBufferSize()];
-        memset(m_IndiceData, std::numeric_limits<float>::max(), getElementArrayBufferSize() * subdivisionBufferSize());
+        memset(m_IndiceData, 0, getElementArrayBufferSize() * subdivisionBufferSize());
+        
+        assert(m_IndiceDataBuffer == NULL);
+        m_IndiceDataBuffer = new GLuint[numberOfIndices() * maxNumberOfInstances() * subdivisionBufferSize()];
+        memset(m_IndiceDataBuffer, 0, getElementArrayBufferSize() * subdivisionBufferSize());
         enableIndiceArrayBufferChanged(true);
         
         unsigned long vertexInstanceIndex = 0;

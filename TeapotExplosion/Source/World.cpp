@@ -16,8 +16,14 @@
 #include "Node.hpp"
 #include "Scene.hpp"
 
-static unsigned int MAXIMUM_TEAPOTS = 1;
+static unsigned int MAXIMUM_TEAPOTS = 6;
 static unsigned int MAXIMUM_SUBDIVISIONS = 3;
+
+static float randomFloat(float min, float max)
+{
+    float r = (float)rand() / (float)RAND_MAX;
+    return min + r * (max - min);
+}
 
 static const char *SHADERNAMES[] =
 {
@@ -85,7 +91,7 @@ namespace jamesfolk
 
     void World::create()
     {
-        std::string objFileData = loadASCIIFile("Models/utah-teapot.obj");
+        std::string objFileData = loadASCIIFile("Models/utah-teapot-lowpoly.obj");
 //        std::string objFileData = loadASCIIFile("Models/triangle.obj");
 //        std::string objFileData = loadASCIIFile("Models/triangle_subdivide.obj");
         
@@ -123,7 +129,8 @@ namespace jamesfolk
         
         m_Geometry->load(m_Shaders[0], objFileData, MAXIMUM_TEAPOTS, MAXIMUM_SUBDIVISIONS);
         
-        float y = 0.0f;
+        float y = 0.2f;
+        float z = 0.0f;
         for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
              i != m_TeapotNodes.end();
              i++)
@@ -136,11 +143,15 @@ namespace jamesfolk
             
             node->addGeometry(m_Geometry);
             
-            node->setOrigin(btVector3(0.0f, y, 0.0f));
-            y += 0.1f;
+            node->setOrigin(btVector3(0.0f, y, z));
+            y += 1.1f;
+            z += 3.0;
+            
+            node->setColorBase(btVector4(randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), 1.0f));
         }
         
-        
+        resetTeapots();
+        m_Touches.clear();
     }
     
     void World::destroy()
@@ -160,37 +171,91 @@ namespace jamesfolk
 
     void World::resize(float x, float y, float width, float height)
     {
-        glViewport(x, y, width, height);
+        GLint params[4];
+        glGetIntegerv(GL_VIEWPORT, params);
         
-        m_Camera->setAspectRatio(fabs(width / height));
+        if(params[2] != width && params[3] != height)
+        {
+            glViewport(x, y, width, height);
+            
+            m_Camera->setAspectRatio(fabs(width / height));
+        }
     }
     
     void World::update(float step)
     {
+        for (std::vector<Touch>::iterator i = m_Touches.begin();
+             i != m_Touches.end();
+             i++)
+        {
+            Touch t = *i;
+            
+            if(t.state == World::TouchState_Down)
+            {
+                //            subdivideTeapots();
+                explodeTeapots();
+            }
+            if(t.state == World::TouchState_Up)
+            {
+                //            explodeTeapots();
+            }
+        }
+        m_Touches.clear();
+//        btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_Rotation);
+//        btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_Rotation);
+//        btQuaternion rotZ(btVector3(0.0, 0.0, 1.0), m_Rotation);
+        
 //        int ii = 0;
-//        for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
-//             i != m_TeapotNodes.end();
-//             i++)
-//        {
-//            Node *node = *i;
-//            
-//            node->setNormalMatrix(node->getWorldTransform().getBasis().inverse().transpose());
-//            
-//            btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_RotationX);
-//            btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_RotationY);
-//            btQuaternion rotZ(btVector3(0.0, 0.0, 1.0), m_RotationZ);
-//            
-//            btQuaternion q(rotX * rotY * rotZ);
-//            q = rotX;
-//            node->setRotation(q);
-//            
-//            float s = step * (ii + 1);
-//            m_RotationX += s;
-//            m_RotationY += s;
-//            m_RotationZ += s;
-//            
+        for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
+             i != m_TeapotNodes.end();
+             i++)
+        {
+            Node *node = *i;
+            
+            
+            node->setNormalMatrix(node->getWorldTransform().getBasis().inverse().transpose());
+            
+//            if(ii % 3 == 0)
+//            {
+//                node->setRotation(rotX);
+//            }
+//            else if(ii % 3 == 1)
+//            {
+//                node->setRotation(rotY);
+//            }
+//            else if(ii % 3 == 2)
+//            {
+//                node->setRotation(rotZ);
+//            }
 //            ii++;
-//        }
+        }
+        
+//        m_Rotation += step;
+//        
+//        m_Scene->update(step);
+        
+        GLsizei verticeIdx = 0;
+        GLsizei instanceIdx = 0;
+        float mass = 1.0f;
+        float maxSpeed = 1.0f;
+        for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
+        {
+            btVector3 acceleration(m_ImpulseForce[i] / mass);
+            
+            m_CurrentVelocity[i] = ((m_CurrentVelocity[i] + acceleration) * step);
+            if(m_CurrentVelocity[i].length() > maxSpeed)
+                m_CurrentVelocity[i] = m_CurrentVelocity[i].normalized() * maxSpeed;
+            
+            m_TriangleShrapnelTransforms[i].setOrigin(m_TriangleShrapnelTransforms[i].getOrigin() + m_CurrentVelocity[i] * step);
+            
+            m_Geometry->transformVertice(instanceIdx, (verticeIdx + 0), m_TriangleShrapnelTransforms[i]);
+            m_Geometry->transformVertice(instanceIdx, (verticeIdx + 1), m_TriangleShrapnelTransforms[i]);
+            m_Geometry->transformVertice(instanceIdx, (verticeIdx + 2), m_TriangleShrapnelTransforms[i]);
+            
+            verticeIdx += 3;
+            
+            m_ImpulseForce[i] = btVector3(0,0,0);
+        }
     }
     
     void World::render()
@@ -200,13 +265,25 @@ namespace jamesfolk
         m_Scene->render();
     }
     
-    void World::touch(World::TouchState state, float x, float y)
+//    void World::touch(World::TouchState state, float x, float y)
+//    {
+//        if(state == World::TouchState_Down)
+//        {
+////            subdivideTeapots();
+//            explodeTeapots();
+//        }
+//        if(state == World::TouchState_Up)
+//        {
+////            explodeTeapots();
+//        }
+//    }
+    
+    void World::addTouch(World::TouchState state, const btVector2 &touch)
     {
-        if(state == World::TouchState_Down)
-        {
-            m_Geometry->subdivide();
-            m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
-        }
+        World::Touch t;
+        t.state = state;
+        t.touch = touch;
+        m_Touches.push_back(t);
     }
     
     void World::setShader(const std::string &shader)
@@ -231,15 +308,79 @@ namespace jamesfolk
         return m_NumberOfTeapots;
     }
     
+    void World::explodeTeapots()
+    {
+        float min = 0.1;
+        float max = 3.0;
+        for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
+        {
+            btVector3 force(m_Normals[i] * btVector3(randomFloat(min, max),
+                                                     randomFloat(min, max),
+                                                     randomFloat(min, max)));
+            
+            m_ImpulseForce[i] = force;
+        }
+    }
+    
+    void World::subdivideTeapots()
+    {
+        m_Geometry->subdivide();
+        m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
+        resetTeapots();
+    }
+    
+    void World::resetTeapots()
+    {
+        if(m_Normals)
+            delete [] m_Normals;
+        m_Normals = NULL;
+        
+        if(m_CurrentVelocity)
+            delete [] m_CurrentVelocity;
+        if(m_ImpulseForce)
+            delete [] m_ImpulseForce;
+        if(m_TriangleShrapnelTransforms)
+            delete [] m_TriangleShrapnelTransforms;
+        
+        m_NumberOfTriangles = m_Geometry->numberOfVertices() / 3;
+        
+        m_TriangleShrapnelTransforms = new btTransform[m_NumberOfTriangles];
+        m_ImpulseForce = new btVector3[m_NumberOfTriangles];
+        m_CurrentVelocity = new btVector3[m_NumberOfTriangles];
+        m_Normals = new btVector3[m_NumberOfTriangles];
+        
+        GLsizei instanceIdx = 0;
+        GLsizei verticeIdx = 0;
+        for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
+        {
+            m_TriangleShrapnelTransforms[i] = btTransform::getIdentity();
+            m_ImpulseForce[i] = btVector3(0.0, 0.0, 0.0);
+            m_CurrentVelocity[i] = btVector3(0.0, 0.0, 0.0);
+            
+            btVector3 n0(m_Geometry->getVertexNormal(instanceIdx, (verticeIdx + 0)));
+            btVector3 n1(m_Geometry->getVertexNormal(instanceIdx, (verticeIdx + 1)));
+            btVector3 n2(m_Geometry->getVertexNormal(instanceIdx, (verticeIdx + 2)));
+            
+            m_Normals[i] = (n0 + n1 + n2) / 3;
+            if(m_Normals[i].length2() > 0)
+                m_Normals[i].normalize();
+            
+            verticeIdx += 3;
+        }
+    }
+    
     World::World():
     m_Geometry(new MeshGeometry()),
     m_Camera(new Camera()),
     m_CameraNode(new Node()),
     m_Scene(new Scene()),
     m_NumberOfTeapots(1),
-    m_RotationX(0.0f),
-    m_RotationY(0.0f),
-    m_RotationZ(0.0f)
+    m_Rotation(0.0f),
+    m_TriangleShrapnelTransforms(NULL),
+    m_ImpulseForce(NULL),
+    m_CurrentVelocity(NULL),
+    m_Normals(NULL),
+    m_NumberOfTriangles(0)
     {
         for (unsigned long i = 0; i < MAXIMUM_TEAPOTS; i++)
             m_TeapotNodes.push_back(new Node());
@@ -256,6 +397,18 @@ namespace jamesfolk
     
     World::~World()
     {
+        if(m_CurrentVelocity)
+            delete [] m_CurrentVelocity;
+        m_CurrentVelocity = NULL;
+        
+        if(m_ImpulseForce)
+            delete [] m_ImpulseForce;
+        m_ImpulseForce = NULL;
+        
+        if(m_TriangleShrapnelTransforms)
+            delete [] m_TriangleShrapnelTransforms;
+        m_TriangleShrapnelTransforms = NULL;
+        
         while(!m_Shaders.empty())
         {
             Shader *shader = m_Shaders.back();

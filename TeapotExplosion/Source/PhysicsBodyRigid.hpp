@@ -73,7 +73,7 @@ namespace jamesfolk
         
         virtual void applyFinalForce();
         virtual void applyFinalAngularForce();
-        
+    public:
         virtual bool addPhysicsBody(const btTransform &transform = btTransform::getIdentity());
         virtual bool removePhysicsBody();
     private:

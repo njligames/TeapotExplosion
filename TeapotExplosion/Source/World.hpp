@@ -13,6 +13,14 @@
 #include <vector>
 #include <map>
 
+#import <OpenGLES/ES2/glext.h>
+#import <OpenGLES/ES2/gl.h>
+
+#include "btVector2.h"
+
+class btTransform;
+class btVector3;
+
 namespace jamesfolk
 {
     class Shader;
@@ -44,12 +52,17 @@ namespace jamesfolk
             TouchState_Move,
             TouchState_Cancelled
         };
-        void touch(TouchState state, float x, float y);
+//        void touch(TouchState state, float x, float y);
+        void addTouch(TouchState state, const btVector2 &touch);
         
         void setShader(const std::string &shader);
         
         void setNumberOfTeapots(const int num);
         int numberOfTeapots()const;
+        
+        void explodeTeapots();
+        void subdivideTeapots();
+        void resetTeapots();
         
     protected:
         
@@ -76,9 +89,20 @@ namespace jamesfolk
         ShaderMap m_ShaderMap;
         int m_NumberOfTeapots;
         
-        float m_RotationX;
-        float m_RotationY;
-        float m_RotationZ;
+        float m_Rotation;
+        
+        btTransform *m_TriangleShrapnelTransforms;
+        btVector3 *m_ImpulseForce;
+        btVector3 *m_CurrentVelocity;
+        btVector3 *m_Normals;
+        GLsizei m_NumberOfTriangles;
+        
+        struct Touch
+        {
+            TouchState state;
+            btVector2 touch;
+        };
+        std::vector<Touch> m_Touches;
         
     };
 }

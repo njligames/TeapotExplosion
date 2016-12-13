@@ -266,17 +266,17 @@ namespace jamesfolk
             
             if(physicsWorld)
             {
-                Node *parent = PhysicsBody::getNodeOwner();
-                
-                if(!parent)
-                    std::cout << "The PhysicsBodyRigid is not attached to a Node.";
+//                Node *parent = PhysicsBody::getNodeOwner();
+//                
+//                if(!parent)
+//                    std::cout << "The PhysicsBodyRigid is not attached to a Node.";
                 
                 PhysicsShape *physicsShape = getPhysicsShape();
                 
                 if(!physicsShape)
                     std::cout <<  "The PhysicsBodyRigid does not have a shape.";
                 
-                if(physicsShape && parent)
+                if(physicsShape)// && parent)
                 {
                     //                m_btDefaultMotionState->setWorldTransform(transform);
                     setWorldTransform(transform);

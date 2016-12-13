@@ -26,6 +26,16 @@ namespace jamesfolk
         virtual void load(Shader *shader, const std::string &filecontent, unsigned int numInstances, unsigned int numSubDivisions);
         
         void subdivide();
+        
+        btVector3 getVertexPosition(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        btVector4 getVertexColor(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        btVector2 getVertexTexture(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        btVector3 getVertexNormal(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        btVector3 getVertexTangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        btVector3 getVertexBitangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
+        
+        virtual GLsizei numberOfVertices()const;
+        virtual GLsizei numberOfIndices()const;
     protected:
         void subdivideTriangle(TexturedColoredVertex p0,
                                TexturedColoredVertex p1,
@@ -49,17 +59,22 @@ namespace jamesfolk
         virtual void setHidden(Node *node);
         virtual void setColorBase(Node *node);
         
-        virtual GLsizei numberOfVertices()const;
-        virtual GLsizei numberOfIndices()const;
+        
         
     private:
         TexturedColoredVertex *m_VertexData;
         GLuint *m_IndiceData;
         
+        TexturedColoredVertex *m_VertexDataBuffer;
+        GLuint *m_IndiceDataBuffer;
+        
         std::string m_Filedata;
         GLsizei m_NumberOfVertices;
         GLsizei m_NumberOfIndices;
         GLsizei m_TotalSubdivisions;
+        
+        TexturedColoredVertex *m_triangleBuffer;
+        GLuint *m_indiceBuffer;
         
     };
 }

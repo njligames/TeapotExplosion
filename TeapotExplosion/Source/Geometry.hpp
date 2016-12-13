@@ -208,6 +208,60 @@ namespace jamesfolk
         
         virtual void subdivide() = 0;
         
+        inline void setVerticeTransform(const GLsizei instanceIdx, const GLsizei verticeIdx, const btTransform &t)
+        {
+            if(instanceIdx < maxNumberOfInstances() &&
+               verticeIdx < numberOfVertices())
+            {
+                GLsizei idx = (instanceIdx * numberOfVertices());
+                idx += (verticeIdx * 16);
+                
+                t.getOpenGLMatrix(m_MatrixBufferFullSize);
+                memcpy(m_ModelViewTransformData + idx,
+                       m_MatrixBufferFullSize,
+                       sizeof(TRANSFORM_IDENTITY_MATRIX));
+                enableModelViewBufferChanged();
+            }
+        }
+        
+        inline bool getVerticeTransform(const GLsizei instanceIdx, const GLsizei verticeIdx, btTransform &t)const
+        {
+            if(instanceIdx < maxNumberOfInstances() &&
+               verticeIdx < numberOfVertices())
+            {
+                GLsizei idx = (instanceIdx * numberOfVertices());
+                idx += (verticeIdx * 16);
+                
+                memcpy(m_MatrixBufferFullSize,
+                       m_ModelViewTransformData + idx,
+                       sizeof(TRANSFORM_IDENTITY_MATRIX));
+                t.setFromOpenGLMatrix(m_MatrixBufferFullSize);
+                return true;
+            }
+            
+            return false;
+        }
+        
+        inline void transformVertice(const GLsizei instanceIdx, const GLsizei verticeIdx, const btTransform &t)
+        {
+            btTransform ret(btTransform::getIdentity());
+            
+            if(getVerticeTransform(instanceIdx, verticeIdx, ret))
+            {
+                setVerticeTransform(instanceIdx, verticeIdx, ret * t);
+            }
+        }
+        
+        virtual btVector3 getVertexPosition(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        virtual btVector4 getVertexColor(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        virtual btVector2 getVertexTexture(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        virtual btVector3 getVertexNormal(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        virtual btVector3 getVertexTangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        virtual btVector3 getVertexBitangent(const GLsizei instanceIdx, const GLsizei verticeIdx)const = 0;
+        
+        virtual GLsizei numberOfVertices()const = 0;
+        virtual GLsizei numberOfIndices()const = 0;
+        
     protected:
         void setupGL();
         
@@ -249,8 +303,7 @@ namespace jamesfolk
         virtual void setHidden(Node *node) = 0;
         virtual void setColorBase(Node *node) = 0;
         
-        virtual GLsizei numberOfVertices()const = 0;
-        virtual GLsizei numberOfIndices()const = 0;
+        
         virtual GLsizei maxNumberOfInstances()const;
         virtual GLsizei maxNumberOfSubDivisions()const;
         virtual GLsizei subdivisionBufferSize()const;

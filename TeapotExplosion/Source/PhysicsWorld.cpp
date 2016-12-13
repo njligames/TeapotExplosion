@@ -418,13 +418,13 @@ namespace jamesfolk
             {
                 
                 assert(body->getBody());
-                assert(body->getNodeOwner());
+//                assert(body->getNodeOwner());
                 
                 m_dynamicsWorld->addRigidBody(body->getBody(),
                                               body->getCollisionGroup(),
                                               body->getCollisionMask());
                 
-                body->getCollisionObject()->setUserPointer(body->getNodeOwner());
+//                body->getCollisionObject()->setUserPointer(body->getNodeOwner());
             }
             return true;
         }

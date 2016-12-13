@@ -264,14 +264,14 @@ namespace jamesfolk
                 float shininess;
             };
             
-            shader->setUniformValue("RimLightColor", btVector3(1.0f, 1.0f, 1.0f));
+            shader->setUniformValue("RimLightColor", btVector3(0.0f, 1.0f, 0.0f));
             shader->setUniformValue("RimLightStart", 0.0f);
             shader->setUniformValue("RimLightEnd", 1.0f);
             shader->setUniformValue("RimLightCoefficient", 0.6f);
             
             shader->setUniformValue("LightSourceAmbientColor", btVector3(1.0f, 1.0f, 1.0f));
-            shader->setUniformValue("LightSourceDiffuseColor", btVector3(1.0f, 1.0f, 1.0f));
-            shader->setUniformValue("LightSourceSpecularColor", btVector3(1.0f, 1.0f, 1.0f));
+            shader->setUniformValue("LightSourceDiffuseColor", btVector3(1.0f, 0.0f, 0.0f));
+            shader->setUniformValue("LightSourceSpecularColor", btVector3(0.0f, 0.0f, 1.0f));
             
             shader->setUniformValue("LightSourcePosition_worldspace", btVector4(0.0f, 0.0f, -1.0f, 1.0));
             
@@ -289,10 +289,10 @@ namespace jamesfolk
             
             shader->setUniformValue("MaterialShininess", 1000.0f);
             
-            shader->setUniformValue("FogMaxDistance", 10.0f);
-            shader->setUniformValue("FogMinDistance", 0.1f);
-            shader->setUniformValue("FogColor", btVector3(0.7f, 0.7f, 0.7f));
-            shader->setUniformValue("FogDensity", 0.000000001f);
+            shader->setUniformValue("FogMaxDistance", 11.0f);
+            shader->setUniformValue("FogMinDistance", 5.0f);
+            shader->setUniformValue("FogColor", btVector3(1.0f, 1.0f, 1.0f));
+            shader->setUniformValue("FogDensity", 0.1f);
             
             m_ShaderChanged = false;
             
@@ -301,7 +301,6 @@ namespace jamesfolk
             if(isModelViewBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_ModelViewBuffer);
-                printf("m_ModelViewBuffer %ld\n", getModelViewTransformArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getModelViewTransformArrayBufferSize(), getModelViewTransformArrayBufferPtr());
                 enableModelViewBufferChanged(false);
             }
@@ -309,7 +308,6 @@ namespace jamesfolk
             if(isNormalMatrixBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_NormalMatrixTransformBuffer);
-                printf("m_NormalMatrixTransformBuffer %ld\n", getNormalMatrixTransformArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getNormalMatrixTransformArrayBufferSize(), getNormalMatrixTransformArrayBufferPtr());
                 enableNormalMatrixBufferChanged(false);
             }
@@ -317,7 +315,6 @@ namespace jamesfolk
             if(isVertexArrayBufferChanged())
             {
                 glBindBuffer(GL_ARRAY_BUFFER, m_VerticesBuffer);
-                printf("m_VerticesBuffer %ld\n", getVertexArrayBufferSize());
                 glBufferSubData(GL_ARRAY_BUFFER, 0, getVertexArrayBufferSize(), getVertexArrayBufferPtr());
                 enableVertexArrayBufferChanged(false);
             }
@@ -325,13 +322,12 @@ namespace jamesfolk
             if(isIndiceArrayBufferChanged())
             {
                 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-                printf("m_IndexBuffer %ld\n", getElementArrayBufferSize());
                 glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, getElementArrayBufferSize(), getElementArrayBufferPtr());
                 enableIndiceArrayBufferChanged(false);
             }
             
             glDrawElements(GL_TRIANGLES, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
-//            glDrawElements(GL_LINES, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
+//            glDrawElements(GL_LINE_LOOP, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
 //            glDrawElements(GL_POINTS, maxNumberOfInstances() * numberOfIndices(), getElementIndexType(), (const GLvoid*)0);
             
             glBindVertexArrayOES(0);
@@ -506,14 +502,17 @@ namespace jamesfolk
         assert(m_NormalMatrixTransformData);
         memset(m_NormalMatrixTransformData, std::numeric_limits<float>::max(), getNormalMatrixTransformArrayBufferSize() * subdivisionBufferSize());
         
-        unsigned long i;
+//        unsigned long i;
         
-        for (i = 0;
-             i < (16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize());
-             i += 16)
-            memcpy(m_ModelViewTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
+//        for (i = 0;
+//             i < (16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize());
+//             i += 16)
+//            memcpy(m_ModelViewTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));
+        for(GLsizei i = 0; i < maxNumberOfInstances(); i++)
+            for(GLsizei j = 0; j < numberOfVertices(); j++)
+                setVerticeTransform(i, j, btTransform::getIdentity());
         
-        for (i = 0;
+        for (GLsizei i = 0;
              i < (16 * maxNumberOfInstances() * numberOfVertices() * subdivisionBufferSize());
              i += 16)
             memcpy(m_NormalMatrixTransformData + i, TRANSFORM_IDENTITY_MATRIX, sizeof(TRANSFORM_IDENTITY_MATRIX));

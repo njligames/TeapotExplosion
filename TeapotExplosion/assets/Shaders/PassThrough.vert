@@ -30,7 +30,7 @@ uniform mat4 projection;
 
 void main ()
 {
-    gl_PointSize = 1.0;
+    gl_PointSize = 50.0;
     
     mat4 normalMatrix = inNormalMatrix;
     mat4 meshTransform = inTransform;
