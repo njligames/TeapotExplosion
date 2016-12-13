@@ -53,7 +53,7 @@ namespace jamesfolk
             TouchState_Cancelled
         };
 //        void touch(TouchState state, float x, float y);
-        void addTouch(TouchState state, const btVector2 &touch);
+        void addTouch(TouchState state, const btVector2 &touch, unsigned long taps);
         
         void setShader(const std::string &shader);
         
@@ -63,6 +63,8 @@ namespace jamesfolk
         void explodeTeapots();
         void subdivideTeapots();
         void resetTeapots();
+        
+        bool isExploding()const;
         
     protected:
         
@@ -101,8 +103,11 @@ namespace jamesfolk
         {
             TouchState state;
             btVector2 touch;
+            unsigned long taps;
         };
         std::vector<Touch> m_Touches;
+        
+        bool m_IsExploding;
         
     };
 }

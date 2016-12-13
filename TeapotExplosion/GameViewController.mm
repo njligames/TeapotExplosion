@@ -140,9 +140,11 @@ struct thread_data{
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
+        NSUInteger taps = [touch tapCount];
         jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Down,
                                                   btVector2(point.x * touch.view.contentScaleFactor,
-                                                            point.y * touch.view.contentScaleFactor));
+                                                            point.y * touch.view.contentScaleFactor),
+                                                  taps);
     }
 }
 
@@ -152,9 +154,11 @@ struct thread_data{
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
+        NSUInteger taps = [touch tapCount];
         jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Move,
                                                   btVector2(point.x * touch.view.contentScaleFactor,
-                                                            point.y * touch.view.contentScaleFactor));
+                                                            point.y * touch.view.contentScaleFactor),
+                                                  taps);
     }
 }
 
@@ -164,9 +168,11 @@ struct thread_data{
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
+        NSUInteger taps = [touch tapCount];
         jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Up,
                                                   btVector2(point.x * touch.view.contentScaleFactor,
-                                                            point.y * touch.view.contentScaleFactor));
+                                                            point.y * touch.view.contentScaleFactor),
+                                                  taps);
     }
 }
 
@@ -175,9 +181,11 @@ struct thread_data{
     for(UITouch *touch in touches)
     {
         CGPoint point = [touch locationInView:touch.view];
+        NSUInteger taps = [touch tapCount];
         jamesfolk::World::getInstance()->addTouch(jamesfolk::World::TouchState_Cancelled,
                                                   btVector2(point.x * touch.view.contentScaleFactor,
-                                                            point.y * touch.view.contentScaleFactor));
+                                                            point.y * touch.view.contentScaleFactor),
+                                                  taps);
     }
 }
 

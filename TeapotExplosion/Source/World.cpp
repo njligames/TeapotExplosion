@@ -192,15 +192,29 @@ namespace jamesfolk
             
             if(t.state == World::TouchState_Down)
             {
-                //            subdivideTeapots();
-                explodeTeapots();
+                if(t.taps == 3)
+                {
+                    subdivideTeapots();
+                }
+                else
+                {
+                    if(!isExploding())
+                    {
+                        explodeTeapots();
+                    }
+                    else
+                    {
+                        resetTeapots();
+                    }
+                }
             }
             if(t.state == World::TouchState_Up)
             {
-                //            explodeTeapots();
+                
             }
         }
         m_Touches.clear();
+        
 //        btQuaternion rotX(btVector3(1.0, 0.0, 0.0), m_Rotation);
 //        btQuaternion rotY(btVector3(0.0, 1.0, 0.0), m_Rotation);
 //        btQuaternion rotZ(btVector3(0.0, 0.0, 1.0), m_Rotation);
@@ -278,11 +292,12 @@ namespace jamesfolk
 //        }
 //    }
     
-    void World::addTouch(World::TouchState state, const btVector2 &touch)
+    void World::addTouch(World::TouchState state, const btVector2 &touch, unsigned long taps)
     {
         World::Touch t;
         t.state = state;
         t.touch = touch;
+        t.taps = taps;
         m_Touches.push_back(t);
     }
     
@@ -310,27 +325,33 @@ namespace jamesfolk
     
     void World::explodeTeapots()
     {
-        float min = 0.1;
-        float max = 3.0;
-        for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
+        if(!m_IsExploding)
         {
-            btVector3 force(m_Normals[i] * btVector3(randomFloat(min, max),
-                                                     randomFloat(min, max),
-                                                     randomFloat(min, max)));
-            
-            m_ImpulseForce[i] = force;
+            float min = 0.1;
+            float max = 3.0;
+            for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
+            {
+                btVector3 force(m_Normals[i] * btVector3(randomFloat(min, max),
+                                                         randomFloat(min, max),
+                                                         randomFloat(min, max)));
+                
+                m_ImpulseForce[i] = force;
+            }
+            m_IsExploding = true;
         }
     }
     
     void World::subdivideTeapots()
     {
         m_Geometry->subdivide();
-        m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
+        
         resetTeapots();
     }
     
     void World::resetTeapots()
     {
+        m_IsExploding = false;
+        
         if(m_Normals)
             delete [] m_Normals;
         m_Normals = NULL;
@@ -354,6 +375,7 @@ namespace jamesfolk
         for (GLsizei i = 0; i < m_NumberOfTriangles; i++)
         {
             m_TriangleShrapnelTransforms[i] = btTransform::getIdentity();
+            
             m_ImpulseForce[i] = btVector3(0.0, 0.0, 0.0);
             m_CurrentVelocity[i] = btVector3(0.0, 0.0, 0.0);
             
@@ -365,8 +387,18 @@ namespace jamesfolk
             if(m_Normals[i].length2() > 0)
                 m_Normals[i].normalize();
             
+            m_Geometry->setVerticeTransform(instanceIdx, (verticeIdx + 0), btTransform::getIdentity());
+            m_Geometry->setVerticeTransform(instanceIdx, (verticeIdx + 1), btTransform::getIdentity());
+            m_Geometry->setVerticeTransform(instanceIdx, (verticeIdx + 2), btTransform::getIdentity());
+            
             verticeIdx += 3;
         }
+        m_Scene->getRootNode()->setOrigin(btVector3(0.0f, 0.0f, 5.0f));
+    }
+    
+    bool World::isExploding()const
+    {
+        return m_IsExploding;
     }
     
     World::World():
@@ -380,7 +412,8 @@ namespace jamesfolk
     m_ImpulseForce(NULL),
     m_CurrentVelocity(NULL),
     m_Normals(NULL),
-    m_NumberOfTriangles(0)
+    m_NumberOfTriangles(0),
+    m_IsExploding(false)
     {
         for (unsigned long i = 0; i < MAXIMUM_TEAPOTS; i++)
             m_TeapotNodes.push_back(new Node());
