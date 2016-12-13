@@ -1,0 +1,6 @@
+framework module Pods_TeapotExplosionTests {
+  umbrella header "Pods-TeapotExplosionTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2B3FBC0EC125B1B67554ED /* Pods_TeapotExplosionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */; };
+		93DDB5E6ADC4FE774A61AAE6 /* Pods_TeapotExplosionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */; };
 		C15564CA1DF7C3290081C110 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564C91DF7C3290081C110 /* main.m */; };
 		C15564CD1DF7C3290081C110 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564CC1DF7C3290081C110 /* AppDelegate.m */; };
 		C15564D41DF7C3290081C110 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C15564D31DF7C3290081C110 /* GameViewController.mm */; };
@@ -172,6 +174,7 @@
 		C1557F581DF93B860081C110 /* PhysicsShapeCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1557F4F1DF93B860081C110 /* PhysicsShapeCube.cpp */; };
 		C1557F591DF93B860081C110 /* PhysicsShapeSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1557F511DF93B860081C110 /* PhysicsShapeSphere.cpp */; };
 		C1557F5A1DF93B860081C110 /* PhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1557F531DF93B860081C110 /* PhysicsWorld.cpp */; };
+		C3C855A437665B2B6896DC90 /* Pods_TeapotExplosion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92E834B192F83D09817F7624 /* Pods_TeapotExplosion.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +195,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2154F7E699F3017AFB8D252A /* Pods-TeapotExplosionUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosionUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosionUITests/Pods-TeapotExplosionUITests.release.xcconfig"; sourceTree = "<group>"; };
+		2A5B6854FBCA3C212106D70A /* Pods-TeapotExplosionUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosionUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosionUITests/Pods-TeapotExplosionUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		38CAE216DA6F036CAA8B1E28 /* Pods-TeapotExplosionTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosionTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosionTests/Pods-TeapotExplosionTests.release.xcconfig"; sourceTree = "<group>"; };
+		863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92E834B192F83D09817F7624 /* Pods_TeapotExplosion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15564C51DF7C3290081C110 /* TeapotExplosion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeapotExplosion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15564C91DF7C3290081C110 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C15564CB1DF7C3290081C110 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -613,6 +622,9 @@
 		C1557F521DF93B860081C110 /* PhysicsShapeSphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysicsShapeSphere.hpp; path = Source/PhysicsShapeSphere.hpp; sourceTree = "<group>"; };
 		C1557F531DF93B860081C110 /* PhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysicsWorld.cpp; path = Source/PhysicsWorld.cpp; sourceTree = "<group>"; };
 		C1557F541DF93B860081C110 /* PhysicsWorld.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysicsWorld.hpp; path = Source/PhysicsWorld.hpp; sourceTree = "<group>"; };
+		CD0C680232B28C1689D1241C /* Pods-TeapotExplosion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosion/Pods-TeapotExplosion.debug.xcconfig"; sourceTree = "<group>"; };
+		E737D257C87D3800498BFE5D /* Pods-TeapotExplosion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosion.release.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosion/Pods-TeapotExplosion.release.xcconfig"; sourceTree = "<group>"; };
+		F2D2F4BA8C66C7176ECB346E /* Pods-TeapotExplosionTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TeapotExplosionTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TeapotExplosionTests/Pods-TeapotExplosionTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -622,6 +634,7 @@
 			files = (
 				C15565061DF928DC0081C110 /* GLKit.framework in Frameworks */,
 				C15565071DF928DC0081C110 /* OpenGLES.framework in Frameworks */,
+				C3C855A437665B2B6896DC90 /* Pods_TeapotExplosion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +642,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2B3FBC0EC125B1B67554ED /* Pods_TeapotExplosionTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +650,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93DDB5E6ADC4FE774A61AAE6 /* Pods_TeapotExplosionUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +665,7 @@
 				C15564F01DF7C3290081C110 /* TeapotExplosionUITests */,
 				C15564C61DF7C3290081C110 /* Products */,
 				C15565031DF928DC0081C110 /* Frameworks */,
+				FC51A7DC35612DF239AC6A0F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -748,6 +764,9 @@
 			children = (
 				C15565041DF928DC0081C110 /* GLKit.framework */,
 				C15565051DF928DC0081C110 /* OpenGLES.framework */,
+				92E834B192F83D09817F7624 /* Pods_TeapotExplosion.framework */,
+				863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */,
+				94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1286,6 +1305,19 @@
 			path = sse;
 			sourceTree = "<group>";
 		};
+		FC51A7DC35612DF239AC6A0F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD0C680232B28C1689D1241C /* Pods-TeapotExplosion.debug.xcconfig */,
+				E737D257C87D3800498BFE5D /* Pods-TeapotExplosion.release.xcconfig */,
+				F2D2F4BA8C66C7176ECB346E /* Pods-TeapotExplosionTests.debug.xcconfig */,
+				38CAE216DA6F036CAA8B1E28 /* Pods-TeapotExplosionTests.release.xcconfig */,
+				2A5B6854FBCA3C212106D70A /* Pods-TeapotExplosionUITests.debug.xcconfig */,
+				2154F7E699F3017AFB8D252A /* Pods-TeapotExplosionUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1293,9 +1325,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C15564F61DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosion" */;
 			buildPhases = (
+				B0A9DD8777FE208C41146CD8 /* [CP] Check Pods Manifest.lock */,
 				C15564C11DF7C3290081C110 /* Sources */,
 				C15564C21DF7C3290081C110 /* Frameworks */,
 				C15564C31DF7C3290081C110 /* Resources */,
+				7FDD6C07C76DD833FD0552AB /* [CP] Embed Pods Frameworks */,
+				4976F0B84BA570E9DA87D1F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1310,9 +1345,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C15564F91DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionTests" */;
 			buildPhases = (
+				C3DDC16AC438FBCC700E155C /* [CP] Check Pods Manifest.lock */,
 				C15564DE1DF7C3290081C110 /* Sources */,
 				C15564DF1DF7C3290081C110 /* Frameworks */,
 				C15564E01DF7C3290081C110 /* Resources */,
+				8281CE0FD3531BD1F885C744 /* [CP] Embed Pods Frameworks */,
+				666D8C96EB346DC5F029FEE1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1328,9 +1366,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C15564FC1DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionUITests" */;
 			buildPhases = (
+				CDD259D65DA0634A77027EEE /* [CP] Check Pods Manifest.lock */,
 				C15564E91DF7C3290081C110 /* Sources */,
 				C15564EA1DF7C3290081C110 /* Frameworks */,
 				C15564EB1DF7C3290081C110 /* Resources */,
+				BF843159EABA8ADB7F13952A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1354,6 +1394,7 @@
 					C15564C41DF7C3290081C110 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = SRBQ5SCF5X;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					C15564E11DF7C3290081C110 = {
@@ -1418,6 +1459,129 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4976F0B84BA570E9DA87D1F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeapotExplosion/Pods-TeapotExplosion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		666D8C96EB346DC5F029FEE1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeapotExplosionTests/Pods-TeapotExplosionTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7FDD6C07C76DD833FD0552AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeapotExplosion/Pods-TeapotExplosion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8281CE0FD3531BD1F885C744 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeapotExplosionTests/Pods-TeapotExplosionTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0A9DD8777FE208C41146CD8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BF843159EABA8ADB7F13952A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TeapotExplosionUITests/Pods-TeapotExplosionUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3DDC16AC438FBCC700E155C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CDD259D65DA0634A77027EEE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C15564C11DF7C3290081C110 /* Sources */ = {
@@ -1729,6 +1893,7 @@
 		};
 		C15564F71DF7C3290081C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD0C680232B28C1689D1241C /* Pods-TeapotExplosion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1742,11 +1907,13 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		C15564F81DF7C3290081C110 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E737D257C87D3800498BFE5D /* Pods-TeapotExplosion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1760,11 +1927,13 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		C15564FA1DF7C3290081C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2D2F4BA8C66C7176ECB346E /* Pods-TeapotExplosionTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
@@ -1778,6 +1947,7 @@
 		};
 		C15564FB1DF7C3290081C110 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38CAE216DA6F036CAA8B1E28 /* Pods-TeapotExplosionTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
@@ -1791,6 +1961,7 @@
 		};
 		C15564FD1DF7C3290081C110 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A5B6854FBCA3C212106D70A /* Pods-TeapotExplosionUITests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
 				INFOPLIST_FILE = TeapotExplosionUITests/Info.plist;
@@ -1803,6 +1974,7 @@
 		};
 		C15564FE1DF7C3290081C110 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2154F7E699F3017AFB8D252A /* Pods-TeapotExplosionUITests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
 				INFOPLIST_FILE = TeapotExplosionUITests/Info.plist;
@@ -1832,6 +2004,7 @@
 				C15564F81DF7C3290081C110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C15564F91DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionTests" */ = {
 			isa = XCConfigurationList;
@@ -1840,6 +2013,7 @@
 				C15564FB1DF7C3290081C110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C15564FC1DF7C3290081C110 /* Build configuration list for PBXNativeTarget "TeapotExplosionUITests" */ = {
 			isa = XCConfigurationList;
@@ -1848,6 +2022,7 @@
 				C15564FE1DF7C3290081C110 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
