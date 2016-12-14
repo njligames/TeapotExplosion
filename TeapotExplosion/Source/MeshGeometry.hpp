@@ -26,6 +26,7 @@ namespace jamesfolk
         virtual void load(Shader *shader, const std::string &filecontent, unsigned int numInstances, unsigned int numSubDivisions);
         
         void subdivide();
+        bool isMaxSubdivisions();
         
         btVector3 getVertexPosition(const GLsizei instanceIdx, const GLsizei verticeIdx)const;
         btVector4 getVertexColor(const GLsizei instanceIdx, const GLsizei verticeIdx)const;

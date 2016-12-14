@@ -8,6 +8,9 @@
 
 #include "World.hpp"
 #include <stdlib.h>
+//#import "png.h"
+//#include <png.h>
+#import <libpng/png.h>
 
 #include "Shader.hpp"
 #include "Geometry.hpp"
@@ -15,6 +18,7 @@
 #include "Camera.hpp"
 #include "Node.hpp"
 #include "Scene.hpp"
+
 
 static unsigned int MAXIMUM_TEAPOTS = 1;
 static unsigned int MAXIMUM_SUBDIVISIONS = 2;
@@ -84,6 +88,199 @@ namespace jamesfolk
         return filedata;
     }
     
+    bool World::loadPngImage(const std::string &filepath, int &outWidth, int &outHeight, bool &outHasAlpha, GLubyte **outData)
+    {
+        png_structp png_ptr;
+        png_infop info_ptr;
+        unsigned int sig_read = 0;
+        int color_type, interlace_type;
+        FILE *fp;
+        
+        std::string fullPath = s_BundlePath + filepath;
+        
+        if ((fp = fopen(fullPath.c_str(), "rb")) == NULL)
+            return false;
+        
+        /* Create and initialize the png_struct
+         * with the desired error handler
+         * functions.  If you want to use the
+         * default stderr and longjump method,
+         * you can supply NULL for the last
+         * three parameters.  We also supply the
+         * the compiler header file version, so
+         * that we know if the application
+         * was compiled with a compatible version
+         * of the library.  REQUIRED
+         */
+        png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
+                                         NULL, NULL, NULL);
+        
+        if (png_ptr == NULL) {
+            fclose(fp);
+            return false;
+        }
+        
+        /* Allocate/initialize the memory
+         * for image information.  REQUIRED. */
+        info_ptr = png_create_info_struct(png_ptr);
+        if (info_ptr == NULL) {
+            fclose(fp);
+            png_destroy_read_struct(&png_ptr, NULL, NULL);
+            return false;
+        }
+        
+        /* Set error handling if you are
+         * using the setjmp/longjmp method
+         * (this is the normal method of
+         * doing things with libpng).
+         * REQUIRED unless you  set up
+         * your own error handlers in
+         * the png_create_read_struct()
+         * earlier.
+         */
+        if (setjmp(png_jmpbuf(png_ptr))) {
+            /* Free all of the memory associated
+             * with the png_ptr and info_ptr */
+            png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+            fclose(fp);
+            /* If we get here, we had a
+             * problem reading the file */
+            return false;
+        }
+        
+        /* Set up the output control if
+         * you are using standard C streams */
+        png_init_io(png_ptr, fp);
+        
+        /* If we have already
+         * read some of the signature */
+        png_set_sig_bytes(png_ptr, sig_read);
+        
+        /*
+         * If you have enough memory to read
+         * in the entire image at once, and
+         * you need to specify only
+         * transforms that can be controlled
+         * with one of the PNG_TRANSFORM_*
+         * bits (this presently excludes
+         * dithering, filling, setting
+         * background, and doing gamma
+         * adjustment), then you can read the
+         * entire image (including pixels)
+         * into the info structure with this
+         * call
+         *
+         * PNG_TRANSFORM_STRIP_16 |
+         * PNG_TRANSFORM_PACKING  forces 8 bit
+         * PNG_TRANSFORM_EXPAND forces to
+         *  expand a palette into RGB
+         */
+        png_read_png(png_ptr, info_ptr, PNG_TRANSFORM_STRIP_16 | PNG_TRANSFORM_PACKING | PNG_TRANSFORM_EXPAND, NULL);
+        
+        png_uint_32 width, height;
+        int bit_depth;
+        png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
+                     &interlace_type, NULL, NULL);
+        outWidth = width;
+        outHeight = height;
+        
+        unsigned int row_bytes = png_get_rowbytes(png_ptr, info_ptr);
+        *outData = (unsigned char*) malloc(row_bytes * outHeight);
+        
+        png_bytepp row_pointers = png_get_rows(png_ptr, info_ptr);
+        
+        for (int i = 0; i < outHeight; i++) {
+            // note that png is ordered top to
+            // bottom, but OpenGL expect it bottom to top
+            // so the order or swapped
+            memcpy(*outData+(row_bytes * (outHeight-1-i)), row_pointers[i], row_bytes);
+        }
+        
+        /* Clean up after the read,
+         * and free any memory allocated */
+        png_destroy_read_struct(&png_ptr, &info_ptr, NULL);
+        
+        /* Close the file */
+        fclose(fp);
+        
+        /* That's it */
+        return true;
+    }
+    
+    bool World::readPngFile(const std::string &filepath, int &width, int &height, bool &outHasAlpha, GLubyte **row_pointers)
+//    void read_png_file(char *filename)
+    {
+        png_byte color_type;
+        png_byte bit_depth;
+        
+//        png_bytep *row_pointers;
+
+        std::string fullPath = s_BundlePath + filepath;
+        
+        FILE *fp = fopen(fullPath.c_str(), "rb");
+        
+        png_structp png = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+        if(!png) abort();
+        
+        png_infop info = png_create_info_struct(png);
+        if(!info) abort();
+        
+        if(setjmp(png_jmpbuf(png))) abort();
+        
+        png_init_io(png, fp);
+        
+        png_read_info(png, info);
+        
+        width      = png_get_image_width(png, info);
+        height     = png_get_image_height(png, info);
+        color_type = png_get_color_type(png, info);
+        bit_depth  = png_get_bit_depth(png, info);
+        
+        // Read any color_type into 8bit depth, RGBA format.
+        // See http://www.libpng.org/pub/png/libpng-manual.txt
+        
+        if(bit_depth == 16)
+            png_set_strip_16(png);
+        
+        if(color_type == PNG_COLOR_TYPE_PALETTE)
+            png_set_palette_to_rgb(png);
+        
+        // PNG_COLOR_TYPE_GRAY_ALPHA is always 8 or 16bit depth.
+        if(color_type == PNG_COLOR_TYPE_GRAY && bit_depth < 8)
+            png_set_expand_gray_1_2_4_to_8(png);
+        
+        if(png_get_valid(png, info, PNG_INFO_tRNS))
+            png_set_tRNS_to_alpha(png);
+        
+        // These color_type don't have an alpha channel then fill it with 0xff.
+        if(color_type == PNG_COLOR_TYPE_RGB ||
+           color_type == PNG_COLOR_TYPE_GRAY ||
+           color_type == PNG_COLOR_TYPE_PALETTE)
+            png_set_filler(png, 0xFF, PNG_FILLER_AFTER);
+        
+        if(color_type == PNG_COLOR_TYPE_GRAY ||
+           color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
+            png_set_gray_to_rgb(png);
+        
+        png_read_update_info(png, info);
+        
+        row_pointers = (png_bytep*)malloc(sizeof(png_bytep) * height);
+        for(int y = 0; y < height; y++) {
+            row_pointers[y] = (png_byte*)malloc(png_get_rowbytes(png,info));
+        }
+        
+        png_read_image(png, row_pointers);
+        
+        fclose(fp);
+        
+        outHasAlpha = false;
+        if(color_type == PNG_COLOR_TYPE_RGBA ||
+           color_type == PNG_COLOR_TYPE_GA)
+            outHasAlpha = true;
+        
+        return true;
+    }
+    
     void World::setBundlePath(const std::string &path)
     {
         s_BundlePath = path;
@@ -91,6 +288,9 @@ namespace jamesfolk
 
     void World::create()
     {
+        m_EarthTexture = loadTexture("Images/4096_earth.png", 0, &m_EarthTextureImage);
+        m_NormalTexture = loadTexture("Images/4096_normal.png", 0, &m_NormalTextureImage);
+        
         std::string objFileData = loadASCIIFile("Models/utah-teapot-lowpoly.obj");
 //        std::string objFileData = loadASCIIFile("Models/triangle.obj");
 //        std::string objFileData = loadASCIIFile("Models/triangle_subdivide.obj");
@@ -101,6 +301,10 @@ namespace jamesfolk
         glFrontFace(GL_CW);
         glCullFace(GL_BACK);
         glEnable(GL_CULL_FACE);
+        
+//        glEnable(GL_TEXTURE_2D);
+//        glEnable(GL_BLEND);
+//        glBlendFunc(GL_ONE, GL_SRC_COLOR);
         
         srand((unsigned int)time(0));
         
@@ -130,7 +334,7 @@ namespace jamesfolk
         m_Geometry->load(m_Shaders[0], objFileData, MAXIMUM_TEAPOTS, MAXIMUM_SUBDIVISIONS);
         
         float y = 0.0f;
-        float z = -3.5f;
+        float z = -3.0f;
         for (std::vector<Node*>::iterator i = m_TeapotNodes.begin();
              i != m_TeapotNodes.end();
              i++)
@@ -147,8 +351,12 @@ namespace jamesfolk
             y += 1.1f;
             z += 3.0;
             
-            node->setColorBase(btVector4(randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), 1.0f));
+//            node->setColorBase(btVector4(randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), randomFloat(0.9f, 1.0f), 1.0f));
         }
+        
+        m_Geometry->setAmbientTexture(m_EarthTexture);
+        m_Geometry->setDiffuseTexture(m_EarthTexture);
+        m_Geometry->setNormalTexture(m_NormalTexture);
         
         resetTeapots();
         m_Touches.clear();
@@ -189,29 +397,6 @@ namespace jamesfolk
              i++)
         {
             Touch t = *i;
-            
-//            if(t.state == World::TouchState_Down)
-//            {
-//                if(t.taps == 3)
-//                {
-//                    subdivideTeapots();
-//                }
-//                else
-//                {
-//                    if(!isExploding())
-//                    {
-//                        explodeTeapots();
-//                    }
-//                    else
-//                    {
-//                        resetTeapots();
-//                    }
-//                }
-//            }
-//            if(t.state == World::TouchState_Up)
-//            {
-//                
-//            }
         }
         m_Touches.clear();
         
@@ -266,19 +451,6 @@ namespace jamesfolk
         
         m_Scene->render();
     }
-    
-//    void World::touch(World::TouchState state, float x, float y)
-//    {
-//        if(state == World::TouchState_Down)
-//        {
-////            subdivideTeapots();
-//            explodeTeapots();
-//        }
-//        if(state == World::TouchState_Up)
-//        {
-////            explodeTeapots();
-//        }
-//    }
     
     void World::addTouch(World::TouchState state, const btVector2 &touch, unsigned long taps)
     {
@@ -389,9 +561,45 @@ namespace jamesfolk
         return m_IsExploding;
     }
     
+    bool World::isMaxTesselations()const
+    {
+        return m_Geometry->isMaxSubdivisions();
+    }
+    
     Geometry *const World::getGeometry()const
     {
         return m_Geometry;
+    }
+    
+    GLuint World::loadTexture(const std::string &filepath, GLuint idx, GLubyte **outData)const
+    {
+        GLuint      texture[1];
+        glGenTextures(1, &texture[0]);
+        
+        glActiveTexture(GL_TEXTURE0 + idx);
+        
+        glBindTexture ( GL_TEXTURE_2D, texture[0] );
+        
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        
+        int width, height;
+        bool hasAlpha;
+        
+        assert( readPngFile(filepath, width, height, hasAlpha, outData) );
+        
+//        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+//        glTexImage2D(GL_TEXTURE_2D, 0, hasAlpha ? GL_RGBA : GL_RGB, width, height, 0, hasAlpha ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, outData);
+        
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, *outData);
+        
+        
+        
+//        glEnable(GL_TEXTURE_2D);
+        
+        return texture[0];
     }
     
     World::World():
@@ -406,7 +614,11 @@ namespace jamesfolk
     m_CurrentVelocity(NULL),
     m_Normals(NULL),
     m_NumberOfTriangles(0),
-    m_IsExploding(false)
+    m_IsExploding(false),
+    m_EarthTextureImage(NULL),
+    m_NormalTextureImage(NULL),
+    m_EarthTexture(0),
+    m_NormalTexture(0)
     {
         for (unsigned long i = 0; i < MAXIMUM_TEAPOTS; i++)
             m_TeapotNodes.push_back(new Node());
@@ -423,6 +635,15 @@ namespace jamesfolk
     
     World::~World()
     {
+        if(m_EarthTexture)
+            glDeleteTextures(1, &m_EarthTexture);
+        if(m_NormalTexture)
+            glDeleteTextures(1, &m_NormalTexture);
+        
+        if(m_EarthTextureImage)
+            free(m_EarthTextureImage);
+        m_EarthTextureImage = NULL;
+        
         if(m_CurrentVelocity)
             delete [] m_CurrentVelocity;
         m_CurrentVelocity = NULL;

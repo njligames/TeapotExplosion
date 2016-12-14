@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Color-Picker-for-iOS.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-TeapotExplosion.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,17 +27,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>26F36C18FE9B915DB92EC1E3A7EFBCF8</key>
+		<key>8D18ED45918B994D5DDE23CABDE3BCD2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A01DCF3DD7042226A8E0B3D83E06E9C1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BEF48B9D31ABDF6C1F9D42FE61348541</key>
+		<key>9DE9E1FE60948851F265787B6D07FD6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

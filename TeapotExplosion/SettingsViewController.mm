@@ -11,8 +11,9 @@
 #include "World.hpp"
 #include "Geometry.hpp"
 
+#import "FCColorPickerViewController.h"
 
-@interface SettingsViewController ()
+@interface SettingsViewController () <FCColorPickerViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *explodeResetTeapotButton;
 @property (weak, nonatomic) IBOutlet UIButton *tesselateTeapotButton;
 @property (weak, nonatomic) IBOutlet UIStepper *teapotCountStepper;
@@ -41,30 +42,26 @@
 
 - (IBAction)TesselateTeapot:(id)sender
 {
-    jamesfolk::World::getInstance()->subdivideTeapots();
-}
-
-- (IBAction)teapotCountValueChanged:(id)sender
-{
-}
-
-- (IBAction)rimLightColor:(id)sender
-{
-}
-
-- (IBAction)lightSourceAmbientColor:(id)sender {
-}
-- (IBAction)lightSourceDiffuseColor:(id)sender {
-}
-- (IBAction)lightSourceSpecularColor:(id)sender {
-}
-- (IBAction)lightAmbientColor:(id)sender {
-}
-- (IBAction)fogColor:(id)sender {
+    if(jamesfolk::World::getInstance()->isMaxTesselations())
+    {
+        
+    }
+    else
+    {
+        jamesfolk::World::getInstance()->subdivideTeapots();
+        if(jamesfolk::World::getInstance()->isMaxTesselations())
+        {
+            [[self tesselateTeapotButton] setTitle:@"Max Tesselation" forState:UIControlStateNormal];
+        }
+    }
+    [[self explodeResetTeapotButton] setTitle:@"Explode Teapot" forState:UIControlStateNormal];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"Teapot Settings";
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -144,16 +141,67 @@
 }
 */
 
+#pragma mark - FCColorPickerViewControllerDelegate Methods
+
+-(void)colorPickerViewController:(FCColorPickerViewController *)colorPicker didSelectColor:(UIColor *)color {
+    self.color = color;
+    
+    CGFloat red, green, blue, alpha;
+    
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    btVector3 c(red, green, blue);
+    
+    switch(colorSetting)
+    {
+        case ColorSetting_RimColor:
+            jamesfolk::World::getInstance()->getGeometry()->setRimLightColor(c);
+            break;
+        case ColorSetting_LightSourceAmbientColor:
+            jamesfolk::World::getInstance()->getGeometry()->setLightSourceAmbientColor(c);
+            break;
+        case ColorSetting_LightSourceDiffuseColor:
+            jamesfolk::World::getInstance()->getGeometry()->setLightSourceDiffuseColor(c);
+            break;
+        case ColorSetting_LightSourceSpecularColor:
+            jamesfolk::World::getInstance()->getGeometry()->setLightSourceSpecularColor(c);
+            break;
+        case ColorSetting_LightAmbientColor:
+            jamesfolk::World::getInstance()->getGeometry()->setLightAmbientColor(c);
+            break;
+        case ColorSetting_FogColor:
+            jamesfolk::World::getInstance()->getGeometry()->setFogColor(c);
+            break;
+        default:
+            break;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)colorPickerViewControllerDidCancel:(FCColorPickerViewController *)colorPicker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)handleRimSettings:(NSInteger)row
 {
     switch (row)
     {
         case 0:
         {
+            colorSetting = ColorSetting_RimColor;
+            
             //color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getRimLightColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
         case 1:
@@ -182,30 +230,64 @@
 
 - (void)handleLightSourceSettings:(NSInteger)row
 {
+    
     switch (row)
     {
         case 0:
         {
+            colorSetting = ColorSetting_LightAmbientColor;
+            
             //ambient color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getLightSourceAmbientColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
         case 1:
         {
+            colorSetting = ColorSetting_LightSourceDiffuseColor;
+            
             //Diffuse color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getLightSourceDiffuseColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
         case 2:
         {
+            colorSetting = ColorSetting_LightSourceSpecularColor;
+            
             //Specular Color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getLightSourceSpecularColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
         case 3:
@@ -268,10 +350,21 @@
     {
         case 0:
         {
+            colorSetting = ColorSetting_LightAmbientColor;
+            
             //ambient color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getLightAmbientColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
             
@@ -314,10 +407,22 @@
             break;
         case 2:
         {
+            colorSetting = ColorSetting_FogColor;
+            
             //color
             btVector3 c(jamesfolk::World::getInstance()->getGeometry()->getFogColor());
             
             UIColor *color = [[UIColor alloc] initWithRed:c.x() green:c.y() blue:c.z() alpha:1.0f];
+            
+            FCColorPickerViewController *colorPicker = [FCColorPickerViewController colorPickerWithColor:self.color
+                                                                                                delegate:self];
+            colorPicker.tintColor = [UIColor whiteColor];
+            colorPicker.color = color;
+            
+            [colorPicker setModalPresentationStyle:UIModalPresentationFormSheet];
+            [self presentViewController:colorPicker
+                               animated:YES
+                             completion:nil];
         }
             break;
         case 3:

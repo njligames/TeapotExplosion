@@ -84,10 +84,8 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Color-Picker-for-iOS/Color_Picker_for_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/Color-Picker-for-iOS/Color_Picker_for_iOS.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SideMenu/SideMenu.framework"
 fi

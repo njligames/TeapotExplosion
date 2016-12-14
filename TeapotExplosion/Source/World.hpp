@@ -36,6 +36,8 @@ namespace jamesfolk
         static void createInstance();
         static void destroyInstance();
         static std::string loadASCIIFile(const std::string &filepath);
+        static bool loadPngImage(const std::string &filepath, int &outWidth, int &outHeight, bool &outHasAlpha, GLubyte **outData);
+        static bool readPngFile(const std::string &filepath, int &width, int &height, bool &outHasAlpha, GLubyte **row_pointers);
         static void setBundlePath(const std::string &path);
         
         void create();
@@ -52,7 +54,7 @@ namespace jamesfolk
             TouchState_Move,
             TouchState_Cancelled
         };
-//        void touch(TouchState state, float x, float y);
+        
         void addTouch(TouchState state, const btVector2 &touch, unsigned long taps);
         
         void setShader(const std::string &shader);
@@ -65,11 +67,13 @@ namespace jamesfolk
         void resetTeapots();
         
         bool isExploding()const;
+        bool isMaxTesselations()const;
         
         Geometry *const getGeometry()const;
         
     protected:
         
+        GLuint loadTexture(const std::string &filepath, GLuint idx, GLubyte **outData)const;
     private:
         static World *s_Instance;
         static std::string s_BundlePath;
@@ -110,6 +114,12 @@ namespace jamesfolk
         std::vector<Touch> m_Touches;
         
         bool m_IsExploding;
+        
+        GLubyte *m_EarthTextureImage;
+        GLubyte *m_NormalTextureImage;
+        
+        GLuint m_EarthTexture;
+        GLuint m_NormalTexture;
         
     };
 }

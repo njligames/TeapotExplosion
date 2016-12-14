@@ -286,6 +286,18 @@ namespace jamesfolk
                 float shininess;
             };
             
+//            glActiveTexture(GL_TEXTURE0 + 0);
+//            glBindTexture(GL_TEXTURE_2D, m_AmbientTexture);
+//            shader->setUniformValue("tAmbientColor", m_AmbientTexture);
+//            
+//            glActiveTexture(GL_TEXTURE0 + 1);
+//            glBindTexture(GL_TEXTURE_2D, m_DiffuseTexture);
+//            shader->setUniformValue("tDiffuseColor", m_DiffuseTexture);
+//            
+//            glActiveTexture(GL_TEXTURE0 + 2);
+//            glBindTexture(GL_TEXTURE_2D, m_NormalTexture);
+//            shader->setUniformValue("tNormal", m_NormalTexture);
+            
             shader->setUniformValue("RimLightColor", getRimLightColor());
             shader->setUniformValue("RimLightStart", getRimLightStart());
             shader->setUniformValue("RimLightEnd", getRimLightEnd());
@@ -656,6 +668,21 @@ namespace jamesfolk
     float Geometry::getFogDensity()const
     {
         return m_FogDensity;
+    }
+    
+    void Geometry::setAmbientTexture(const GLuint t)
+    {
+        m_AmbientTexture = t;
+    }
+    
+    void Geometry::setDiffuseTexture(const GLuint t)
+    {
+        m_DiffuseTexture = t;
+    }
+    
+    void Geometry::setNormalTexture(const GLuint t)
+    {
+        m_NormalTexture = t;
     }
     
     const void *Geometry::getModelViewTransformArrayBufferPtr()const

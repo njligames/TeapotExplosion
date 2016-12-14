@@ -59,6 +59,7 @@ namespace jamesfolk
     
     void MeshGeometry::load(Shader *shader, const std::string &filedata, unsigned int numInstances, unsigned int numSubDivisions)
     {
+        m_TotalSubdivisions = 0;
         m_Filedata = filedata;
         
         Geometry::load(shader, filedata, numInstances, numSubDivisions);
@@ -124,6 +125,12 @@ namespace jamesfolk
             enableModelViewBufferChanged(true);
             enableNormalMatrixBufferChanged(true);
         }
+    }
+    
+    
+    bool MeshGeometry::isMaxSubdivisions()
+    {
+        return m_TotalSubdivisions >= maxNumberOfSubDivisions();
     }
     
     btVector3 MeshGeometry::getVertexPosition(const GLsizei instanceIdx, const GLsizei verticeIdx)const
@@ -245,11 +252,6 @@ namespace jamesfolk
         
         return ret;
     }
-    
-    
-//    btVector3 MeshGeometry::getVertexNormal(const GLsizei instanceIdx, const GLsizei verticeIdx)const
-//    {
-//    }
     
     void MeshGeometry::subdivideTriangle(TexturedColoredVertex p0,
                                          TexturedColoredVertex p1,

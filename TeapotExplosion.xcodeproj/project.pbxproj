@@ -10,6 +10,13 @@
 		0B2B3FBC0EC125B1B67554ED /* Pods_TeapotExplosionTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 863F2D01ADC1D67CF9F1EE8B /* Pods_TeapotExplosionTests.framework */; };
 		93DDB5E6ADC4FE774A61AAE6 /* Pods_TeapotExplosionUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */; };
 		C1372DAB1E00745A00501B98 /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C1372DAA1E00745A00501B98 /* SettingsViewController.mm */; };
+		C1372DBE1E009CD300501B98 /* colormap.png in Resources */ = {isa = PBXBuildFile; fileRef = C1372DB51E009CD300501B98 /* colormap.png */; };
+		C1372DBF1E009CD300501B98 /* FCColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1372DB71E009CD300501B98 /* FCColorPickerViewController.m */; };
+		C1372DC01E009CD300501B98 /* FCColorPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1372DB81E009CD300501B98 /* FCColorPickerViewController.xib */; };
+		C1372DC11E009CD300501B98 /* FCBrightDarkGradView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1372DBB1E009CD300501B98 /* FCBrightDarkGradView.m */; };
+		C1372DC21E009CD300501B98 /* FCColorSwatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1372DBD1E009CD300501B98 /* FCColorSwatchView.m */; };
+		C1372DC91E00C59A00501B98 /* libpng.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1372DC81E00C59A00501B98 /* libpng.framework */; };
+		C1372DCB1E00C64E00501B98 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C1372DCA1E00C64E00501B98 /* libz.tbd */; };
 		C15564CA1DF7C3290081C110 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564C91DF7C3290081C110 /* main.m */; };
 		C15564CD1DF7C3290081C110 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C15564CC1DF7C3290081C110 /* AppDelegate.m */; };
 		C15564D41DF7C3290081C110 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C15564D31DF7C3290081C110 /* GameViewController.mm */; };
@@ -204,6 +211,16 @@
 		94A54E51C6AA5E945E7CB937 /* Pods_TeapotExplosionUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TeapotExplosionUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1372DA91E00745A00501B98 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		C1372DAA1E00745A00501B98 /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsViewController.mm; sourceTree = "<group>"; };
+		C1372DB51E009CD300501B98 /* colormap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colormap.png; sourceTree = "<group>"; };
+		C1372DB61E009CD300501B98 /* FCColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCColorPickerViewController.h; sourceTree = "<group>"; };
+		C1372DB71E009CD300501B98 /* FCColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCColorPickerViewController.m; sourceTree = "<group>"; };
+		C1372DB81E009CD300501B98 /* FCColorPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FCColorPickerViewController.xib; sourceTree = "<group>"; };
+		C1372DBA1E009CD300501B98 /* FCBrightDarkGradView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCBrightDarkGradView.h; sourceTree = "<group>"; };
+		C1372DBB1E009CD300501B98 /* FCBrightDarkGradView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCBrightDarkGradView.m; sourceTree = "<group>"; };
+		C1372DBC1E009CD300501B98 /* FCColorSwatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCColorSwatchView.h; sourceTree = "<group>"; };
+		C1372DBD1E009CD300501B98 /* FCColorSwatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCColorSwatchView.m; sourceTree = "<group>"; };
+		C1372DC81E00C59A00501B98 /* libpng.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpng.framework; sourceTree = "<group>"; };
+		C1372DCA1E00C64E00501B98 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C15564C51DF7C3290081C110 /* TeapotExplosion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeapotExplosion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C15564C91DF7C3290081C110 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C15564CB1DF7C3290081C110 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -635,6 +652,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1372DCB1E00C64E00501B98 /* libz.tbd in Frameworks */,
+				C1372DC91E00C59A00501B98 /* libpng.framework in Frameworks */,
 				C15565061DF928DC0081C110 /* GLKit.framework in Frameworks */,
 				C15565071DF928DC0081C110 /* OpenGLES.framework in Frameworks */,
 				C3C855A437665B2B6896DC90 /* Pods_TeapotExplosion.framework in Frameworks */,
@@ -660,6 +679,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C1372DB41E009CD300501B98 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				C1372DB51E009CD300501B98 /* colormap.png */,
+				C1372DB61E009CD300501B98 /* FCColorPickerViewController.h */,
+				C1372DB71E009CD300501B98 /* FCColorPickerViewController.m */,
+				C1372DB81E009CD300501B98 /* FCColorPickerViewController.xib */,
+				C1372DB91E009CD300501B98 /* Private */,
+			);
+			path = ColorPicker;
+			sourceTree = "<group>";
+		};
+		C1372DB91E009CD300501B98 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				C1372DBA1E009CD300501B98 /* FCBrightDarkGradView.h */,
+				C1372DBB1E009CD300501B98 /* FCBrightDarkGradView.m */,
+				C1372DBC1E009CD300501B98 /* FCColorSwatchView.h */,
+				C1372DBD1E009CD300501B98 /* FCColorSwatchView.m */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
 		C15564BC1DF7C3290081C110 = {
 			isa = PBXGroup;
 			children = (
@@ -685,6 +727,7 @@
 		C15564C71DF7C3290081C110 /* TeapotExplosion */ = {
 			isa = PBXGroup;
 			children = (
+				C1372DB41E009CD300501B98 /* ColorPicker */,
 				C15565081DF92E270081C110 /* assets */,
 				C1557B241DF937640081C110 /* BulletPhysics */,
 				C15564FF1DF921FD0081C110 /* Source */,
@@ -767,6 +810,8 @@
 		C15565031DF928DC0081C110 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1372DCA1E00C64E00501B98 /* libz.tbd */,
+				C1372DC81E00C59A00501B98 /* libpng.framework */,
 				C15565041DF928DC0081C110 /* GLKit.framework */,
 				C15565051DF928DC0081C110 /* OpenGLES.framework */,
 				92E834B192F83D09817F7624 /* Pods_TeapotExplosion.framework */,
@@ -1442,8 +1487,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1372DBE1E009CD300501B98 /* colormap.png in Resources */,
 				C15564D71DF7C3290081C110 /* Main.storyboard in Resources */,
 				C15565091DF92E270081C110 /* assets in Resources */,
+				C1372DC01E009CD300501B98 /* FCColorPickerViewController.xib in Resources */,
 				C15564D91DF7C3290081C110 /* Assets.xcassets in Resources */,
 				C15564DC1DF7C3290081C110 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -1646,6 +1693,7 @@
 				C1557EAA1DF937660081C110 /* btHinge2Constraint.cpp in Sources */,
 				C1557EA81DF937660081C110 /* btGeneric6DofSpringConstraint.cpp in Sources */,
 				C1557E7C1DF937650081C110 /* gim_contact.cpp in Sources */,
+				C1372DC11E009CD300501B98 /* FCBrightDarkGradView.m in Sources */,
 				C1557E5D1DF937650081C110 /* btTriangleBuffer.cpp in Sources */,
 				C1557EBC1DF937660081C110 /* btRigidBody.cpp in Sources */,
 				C1557E961DF937660081C110 /* btSubSimplexConvexCast.cpp in Sources */,
@@ -1704,6 +1752,7 @@
 				C1557F5A1DF93B860081C110 /* PhysicsWorld.cpp in Sources */,
 				C1557E051DF937650081C110 /* btConvexConcaveCollisionAlgorithm.cpp in Sources */,
 				C1557EC31DF937660081C110 /* btMultiBodyConstraint.cpp in Sources */,
+				C1372DBF1E009CD300501B98 /* FCColorPickerViewController.m in Sources */,
 				C1557E191DF937650081C110 /* btSphereBoxCollisionAlgorithm.cpp in Sources */,
 				C1557EBE1DF937660081C110 /* btSimpleDynamicsWorld.cpp in Sources */,
 				C1557E431DF937650081C110 /* btEmptyShape.cpp in Sources */,
@@ -1751,6 +1800,7 @@
 				C1557DE61DF937650081C110 /* btDispatcher.cpp in Sources */,
 				C1557DF31DF937650081C110 /* btBox2dBox2dCollisionAlgorithm.cpp in Sources */,
 				C1557E171DF937650081C110 /* btSimulationIslandManager.cpp in Sources */,
+				C1372DC21E009CD300501B98 /* FCColorSwatchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1831,6 +1881,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1845,8 +1896,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1880,6 +1932,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1888,8 +1941,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1905,12 +1959,21 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TeapotExplosion",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/TeapotExplosion/bullet-2.82-r2704/src/\"/**";
 				INFOPLIST_FILE = TeapotExplosion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1925,12 +1988,21 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_CXX_LIBRARY = "libc++";
 				DEVELOPMENT_TEAM = SRBQ5SCF5X;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TeapotExplosion",
+					"$(PROJECT_DIR)",
+				);
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = YES;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/TeapotExplosion/bullet-2.82-r2704/src/\"/**";
 				INFOPLIST_FILE = TeapotExplosion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.njligames.TeapotExplosion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

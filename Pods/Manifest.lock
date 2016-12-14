@@ -1,15 +1,12 @@
 PODS:
-  - Color-Picker-for-iOS (2.0.2)
   - SideMenu (2.0.2)
 
 DEPENDENCIES:
-  - Color-Picker-for-iOS (~> 2.0)
   - SideMenu
 
 SPEC CHECKSUMS:
-  Color-Picker-for-iOS: 4980589b3e3cfe7198f227dd50be9adb02d8bc0b
   SideMenu: f22ea9330f09810cc6c3ebd6e3be27bacb91ab11
 
-PODFILE CHECKSUM: 08c74f47bd584159c3f9ef0cb014393e607e0180
+PODFILE CHECKSUM: 870994fbb7f4ed49882bd29c9ba7cf0a9e47b54f
 
 COCOAPODS: 1.0.1

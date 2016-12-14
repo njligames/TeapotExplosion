@@ -45,8 +45,8 @@ namespace jamesfolk
         bool setUniformValue(const std::string &uniformName, GLfloat *matrix4x4, bool transpose = false);
         bool getUniformValue(const std::string &uniformName, btTransform &value);
         
-        bool setUniformValue(const char *uniformName, int value);
-        bool getUniformValue(const char *uniformName, int &value);
+        bool setUniformValue(const char *uniformName, GLuint value);
+        bool getUniformValue(const char *uniformName, GLuint &value);
         
         bool setUniformValue(const char *uniformName, const btVector3 &value);
         bool getUniformValue(const char *uniformName, btVector3 &value);

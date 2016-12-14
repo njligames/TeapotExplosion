@@ -7,7 +7,6 @@ target 'TeapotExplosion' do
 
   # Pods for TeapotExplosion
   pod 'SideMenu'
-  pod "Color-Picker-for-iOS", "~> 2.0"
 
   target 'TeapotExplosionTests' do
     inherit! :search_paths

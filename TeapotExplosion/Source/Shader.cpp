@@ -184,12 +184,12 @@ namespace jamesfolk
         return false;
     }
     
-    bool Shader::setUniformValue(const char *uniformName, int value)
+    bool Shader::setUniformValue(const char *uniformName, GLuint value)
     {
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
-            int oldValue;
+            GLuint oldValue;
             if(getUniformValue(uniformName, oldValue))
             {
                 if(oldValue == value)
@@ -202,12 +202,14 @@ namespace jamesfolk
         return false;
     }
     
-    bool Shader::getUniformValue(const char *uniformName, int &value)
+    bool Shader::getUniformValue(const char *uniformName, GLuint &value)
     {
         int location = getUniformLocation(uniformName);
         if(location != -1)
         {
-            glGetUniformiv(m_Program, location, &value);
+            GLint t;
+            glGetUniformiv(m_Program, location, &t);
+            value = t;
             return true;
         }
         return false;

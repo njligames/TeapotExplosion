@@ -158,11 +158,11 @@ struct MaterialParameters
 //https://gist.github.com/patriciogonzalezvivo/3a81453a24a542aabc63
 
 //#define EMISSION_TEXTURE 1
-//#define AMBIENT_TEXTURE 1
-//#define DIFFUSE_TEXTURE 1
+//#define AMBIENT_TEXTURE 1 //yes
+//#define DIFFUSE_TEXTURE 1 //yes
 //#define SPECULAR_TEXTURE 1
 //#define ALPHA_TEXTURE 1
-//#define NORMAL_TEXTURE 1
+//#define NORMAL_TEXTURE 1 //yes
 
 
 #ifdef EMISSION_TEXTURE
@@ -206,7 +206,7 @@ void processNormalTexture(in vec3 lightPosition,
     mat4 ViewTransform = modelView;
     
 #ifdef NORMAL_TEXTURE
-    textureNormal_tangentspace = texture( tNormal, vec2(VertexUV_modelspace.x,-VertexUV_modelspace.y) );
+    textureNormal_tangentspace = texture2D( tNormal, vec2(VertexUV_modelspace.x,-VertexUV_modelspace.y) ).rgb;
 #else
     textureNormal_tangentspace = vec3(0.0, 0.0, -1.0);
 #endif
