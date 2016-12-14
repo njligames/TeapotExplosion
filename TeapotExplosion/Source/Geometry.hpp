@@ -330,6 +330,7 @@ namespace jamesfolk
         void setAmbientTexture(const GLuint t);
         void setDiffuseTexture(const GLuint t);
         void setNormalTexture(const GLuint t);
+        void setSpecularTexture(const GLuint t);
         
     protected:
         
@@ -430,6 +431,7 @@ namespace jamesfolk
         GLuint m_AmbientTexture;
         GLuint m_DiffuseTexture;
         GLuint m_NormalTexture;
+        GLuint m_SpecularTexture;
     };
 }
 

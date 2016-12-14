@@ -39,12 +39,12 @@ namespace jamesfolk
     m_ModelViewBufferChanged(true),
     m_ShaderChanged(true),
     
-    m_RimLightColor(0.0f, 1.0f, 0.0f),
+    m_RimLightColor(0.1f, 0.1f, 0.1f),
     m_RimLightStart(0.0f),
     m_RimLightEnd(1.0f),
     m_RimLightCoefficient(0.6f),
     m_LightSourceAmbientColor(1.0f, 1.0f, 1.0f),
-    m_LightSourceDiffuseColor(1.0f, 0.0f, 0.0f),
+    m_LightSourceDiffuseColor(1.0f, 1.0f, 1.0f),
     m_LightSourceSpecularColor(0.0f, 0.0f, 1.0f),
     m_LightSourcePosition_worldspace(0.0f, 0.0f, -1.0f, 1.0f),
     m_LightSourceSpotDirection(0.0f, 0.0f, 1.0f),
@@ -297,6 +297,10 @@ namespace jamesfolk
 //            glActiveTexture(GL_TEXTURE0 + 2);
 //            glBindTexture(GL_TEXTURE_2D, m_NormalTexture);
 //            shader->setUniformValue("tNormal", m_NormalTexture);
+//            
+//            glActiveTexture(GL_TEXTURE0 + 3);
+//            glBindTexture(GL_TEXTURE_2D, m_SpecularTexture);
+//            shader->setUniformValue("tSpecularColor", m_SpecularTexture);
             
             shader->setUniformValue("RimLightColor", getRimLightColor());
             shader->setUniformValue("RimLightStart", getRimLightStart());
@@ -684,6 +688,13 @@ namespace jamesfolk
     {
         m_NormalTexture = t;
     }
+    
+    void Geometry::setSpecularTexture(const GLuint t)
+    {
+        m_SpecularTexture = t;
+    }
+    
+    
     
     const void *Geometry::getModelViewTransformArrayBufferPtr()const
     {

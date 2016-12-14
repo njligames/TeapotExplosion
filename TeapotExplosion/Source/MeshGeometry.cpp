@@ -426,6 +426,7 @@ namespace jamesfolk
                         break;
                     case 1:
                         assert(idx < texture.size());
+                        t.texture = texture.at(idx);
                         //texture idx
 //                            vertexData[vertexIndex].texture = texture.at(idx);
                         break;
